@@ -12,6 +12,7 @@ phases:
       - npm i -g yarn
   build:
     commands:
+      - printenv
       # install
       - yarn install
       # valid

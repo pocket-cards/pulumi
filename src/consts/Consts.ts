@@ -15,3 +15,9 @@ export const REPO_PULUMI = 'pulumi-ts';
 export const REPO_BACKEND = 'backend';
 /** Repository Frontend */
 export const REPO_FRONTEND = 'frontend';
+
+export const SSM_KEY_PULUMI_ACCESS_TOKEN = `/${PROJECT_NAME}/${PULUMI_ACCESS_TOKEN.toLowerCase().replace(/_/g, '-')}`;
+export const SSM_KEY_GITHUB_WEBHOOK_SECRET = `/${PROJECT_NAME}/${GITHUB_WEBHOOK_SECRET.toLowerCase().replace(
+  /_/g,
+  '-'
+)}`;

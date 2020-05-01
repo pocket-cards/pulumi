@@ -10,11 +10,7 @@
     "pretty": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "@Consts": ["src/consts/index"]
-    }
+    "forceConsistentCasingInFileNames": true
   },
   "files": ["index.ts"],
   "include": ["src/**/*.ts"],

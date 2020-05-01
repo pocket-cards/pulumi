@@ -1,7 +1,8 @@
-import { Output } from '@pulumi/pulumi';
+import { Output, Config } from '@pulumi/pulumi';
 import { codepipeline, iam, codebuild, s3 } from '@pulumi/aws';
 import { Envs, Principals, Policy, Consts } from '../consts';
-import { Config } from '../Resources';
+// import { Config } from '../Resources';
+const config = new Config();
 
 export default (project: codebuild.Project, artifact: s3.Bucket) => {
   // create pipeline
@@ -33,7 +34,7 @@ const createPipeline = (codebuildName: Output<string>, artifact: s3.Bucket) => {
               Branch: Envs.REPO_BRANCH(),
               Owner: Consts.REPO_OWNER,
               Repo: Consts.REPO_PULUMI,
-              OAuthToken: Config.require(Consts.GITHUB_WEBHOOK_SECRET),
+              OAuthToken: config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET),
             },
             name: 'Source',
             outputArtifacts: ['source_output'],
@@ -66,7 +67,7 @@ const createPipeline = (codebuildName: Output<string>, artifact: s3.Bucket) => {
 
 /** CodePipeline Webhook */
 const createWebhook = (pipeline: Output<string>) => {
-  const webhookSecret = Config.require(Consts.GITHUB_WEBHOOK_SECRET);
+  const webhookSecret = config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET);
 
   new codepipeline.Webhook('pulumi', {
     authentication: 'GITHUB_HMAC',

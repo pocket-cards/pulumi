@@ -1,7 +1,9 @@
 import * as pulumi from '@pulumi/pulumi';
 import { codebuild, iam } from '@pulumi/aws';
 import { Principals, Policy, Consts } from '../consts';
-import { Config } from '../Resources';
+// import { Config } from '../Resources';
+
+const config = new pulumi.Config();
 
 /** CodePipeline Role */
 const getRole = () => {
@@ -40,7 +42,8 @@ export default () => {
         },
         {
           name: Consts.PULUMI_ACCESS_TOKEN,
-          value: Config.require(Consts.PULUMI_ACCESS_TOKEN),
+          value: Consts.SSM_KEY_PULUMI_ACCESS_TOKEN,
+          type: 'PARAMETER_STORE',
         },
       ],
     },
