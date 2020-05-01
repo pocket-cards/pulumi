@@ -1,5 +1,7 @@
 /** Github Webhook Secret */
-export const GITHUB_WEBHOOK_SECRET = 'github_webhook_secret';
+export const GITHUB_WEBHOOK_SECRET = 'GITHUB_WEBHOOK_SECRET';
+/** Pulumi Access Token */
+export const PULUMI_ACCESS_TOKEN = 'PULUMI_ACCESS_TOKEN';
 
 /** Project Name */
 export const PROJECT_NAME_UC = 'PocketCards';

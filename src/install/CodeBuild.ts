@@ -1,6 +1,7 @@
 import * as pulumi from '@pulumi/pulumi';
 import { codebuild, iam } from '@pulumi/aws';
 import { Principals, Policy, Consts } from '../consts';
+import { Config } from '../Resources';
 
 /** CodePipeline Role */
 const getRole = () => {
@@ -36,6 +37,10 @@ export default () => {
         {
           name: 'ENVIRONMENT',
           value: pulumi.getStack(),
+        },
+        {
+          name: Consts.PULUMI_ACCESS_TOKEN,
+          value: Config.require(Consts.PULUMI_ACCESS_TOKEN),
         },
       ],
     },
