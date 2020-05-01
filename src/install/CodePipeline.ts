@@ -1,23 +1,21 @@
-import { Config, Output, interpolate } from '@pulumi/pulumi';
-import { codepipeline, iam, s3, codebuild } from '@pulumi/aws';
+import { Config, Output } from '@pulumi/pulumi';
+import { codepipeline, iam, codebuild, s3 } from '@pulumi/aws';
 import { Envs, Principals, Policy, Consts } from '../consts';
-import Artifact from './Bucket';
 
 const config = new Config();
-const artifact = Artifact();
 
-export default (codebuild: codebuild.Project) => {
+export default (project: codebuild.Project, artifact: s3.Bucket) => {
   // create pipeline
-  const pipeline = createPipeline(codebuild.name);
+  const pipeline = createPipeline(project.name, artifact);
 
   // create webhook
   createWebhook(pipeline.name);
 };
 
 /** Create CodePipeline */
-const createPipeline = (codebuildName: Output<string>) => {
+const createPipeline = (codebuildName: Output<string>, artifact: s3.Bucket) => {
   // codepipeline role
-  const role = getRole();
+  const role = getRole(artifact.arn);
 
   // backend pipeline
   return new codepipeline.Pipeline(`${Consts.PROJECT_NAME_UC}-Pulumi`, {
@@ -88,14 +86,14 @@ const createWebhook = (pipeline: Output<string>) => {
 };
 
 /** CodePipeline Role */
-const getRole = () => {
+const getRole = (bucketArn: Output<string>) => {
   const role = new iam.Role(`${Consts.PROJECT_NAME_UC}_CodePipeline_PulumiRole`, {
     assumeRolePolicy: Principals.CODEPIPELINE,
   });
 
   new iam.RolePolicy('CodepipelinePolicy', {
     role: role.id,
-    policy: Policy.CodePipeline_Pulumi(artifact.arn),
+    policy: Policy.CodePipeline_Pulumi(bucketArn),
   });
 
   return role;

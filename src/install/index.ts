@@ -1,9 +1,7 @@
-import CodeBuild from './CodeBuild';
+import { ArtifactBucket, CodeBuildPulumi } from '../Resources';
 import CodePipeline from './CodePipeline';
 
 export default () => {
-  // create codebuild
-  const project = CodeBuild();
   // create codepipeline
-  CodePipeline(project);
+  CodePipeline(CodeBuildPulumi, ArtifactBucket);
 };
