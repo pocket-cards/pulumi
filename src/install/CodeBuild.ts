@@ -1,3 +1,4 @@
+import * as pulumi from '@pulumi/pulumi';
 import { codebuild, iam } from '@pulumi/aws';
 import { Principals, Policy, Consts } from '../consts';
 
@@ -17,17 +18,12 @@ export default () => {
       computeType: 'BUILD_GENERAL1_SMALL',
       image: 'aws/codebuild/standard:4.0',
       imagePullCredentialsType: 'CODEBUILD',
-      // environmentVariables: [
-      //   {
-      //     name: 'SOME_KEY1',
-      //     value: 'SOME_VALUE1',
-      //   },
-      //   {
-      //     name: 'SOME_KEY2',
-      //     type: 'PARAMETER_STORE',
-      //     value: 'SOME_VALUE2',
-      //   },
-      // ],
+      environmentVariables: [
+        {
+          name: 'ENVIRONMENT',
+          value: pulumi.getStack(),
+        },
+      ],
     },
     serviceRole: serviceRole.arn,
     source: {
