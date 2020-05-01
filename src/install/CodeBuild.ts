@@ -2,6 +2,20 @@ import * as pulumi from '@pulumi/pulumi';
 import { codebuild, iam } from '@pulumi/aws';
 import { Principals, Policy, Consts } from '../consts';
 
+/** CodePipeline Role */
+const getRole = () => {
+  const role = new iam.Role(`${Consts.PROJECT_NAME_UC}_CodeBuild_PulumiRole`, {
+    assumeRolePolicy: Principals.CODEBUILD,
+  });
+
+  new iam.RolePolicy('codebuild', {
+    policy: Policy.CodeBuild_Pulumi,
+    role: role.id,
+  });
+
+  return role;
+};
+
 export default () => {
   const resourceName = `${Consts.PROJECT_NAME_UC}-Pulumi`;
   // service role
@@ -33,18 +47,4 @@ export default () => {
   });
 
   return project;
-};
-
-/** CodePipeline Role */
-const getRole = () => {
-  const role = new iam.Role(`${Consts.PROJECT_NAME_UC}_CodeBuild_PulumiRole`, {
-    assumeRolePolicy: Principals.CODEBUILD,
-  });
-
-  new iam.RolePolicy('codebuild', {
-    policy: Policy.CodeBuild_Backend,
-    role: role.id,
-  });
-
-  return role;
 };

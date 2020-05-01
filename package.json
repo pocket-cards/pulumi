@@ -4,7 +4,6 @@
     "@types/node": "^13.13.4"
   },
   "scripts": {
-    "installs": "cross-env ENVIRONMENT=local yarn start",
     "start": "pulumi up -e -y -p 100 --skip-preview",
     "valid": "tsc --noemit"
   },
