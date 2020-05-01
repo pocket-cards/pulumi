@@ -1,0 +1,14 @@
+{
+  "name": "pocket-cards",
+  "devDependencies": {
+    "@types/node": "^13.13.4"
+  },
+  "scripts": {
+    "start": "pulumi up -e -y -p 100 --skip-preview"
+  },
+  "dependencies": {
+    "@pulumi/aws": "^2.2.0",
+    "@pulumi/awsx": "^0.20.0",
+    "@pulumi/pulumi": "^2.1.0"
+  }
+}
