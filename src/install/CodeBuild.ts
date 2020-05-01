@@ -3,9 +3,9 @@ import { codebuild, iam } from '@pulumi/aws';
 import { Principals, Policy, Consts } from '../consts';
 
 export default () => {
-  const resourceName = `${Consts.PROJECT_NAME_UC}_CodeBuild_Pulumi`;
+  const resourceName = `${Consts.PROJECT_NAME_UC}-Pulumi`;
   // service role
-  const serviceRole = getRole(resourceName);
+  const serviceRole = getRole();
 
   const project = new codebuild.Project(resourceName, {
     artifacts: {
@@ -36,8 +36,8 @@ export default () => {
 };
 
 /** CodePipeline Role */
-const getRole = (resourceName: string) => {
-  const role = new iam.Role(`${resourceName}Role`, {
+const getRole = () => {
+  const role = new iam.Role(`${Consts.PROJECT_NAME_UC}_CodeBuild_PulumiRole`, {
     assumeRolePolicy: Principals.CODEBUILD,
   });
 

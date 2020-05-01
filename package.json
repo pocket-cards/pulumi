@@ -4,11 +4,14 @@
     "@types/node": "^13.13.4"
   },
   "scripts": {
-    "start": "pulumi up -e -y -p 100 --skip-preview"
+    "installs": "cross-env ENVIRONMENT=local yarn start",
+    "start": "pulumi up -e -y -p 100 --skip-preview",
+    "valid": "tsc --noemit"
   },
   "dependencies": {
     "@pulumi/aws": "^2.2.0",
     "@pulumi/awsx": "^0.20.0",
-    "@pulumi/pulumi": "^2.1.0"
+    "@pulumi/pulumi": "^2.1.0",
+    "cross-env": "^7.0.2"
   }
 }

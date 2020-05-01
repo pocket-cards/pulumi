@@ -3,7 +3,6 @@ import { codepipeline, iam, s3, codebuild } from '@pulumi/aws';
 import { Envs, Principals, Policy, Consts } from '../consts';
 
 const config = new Config();
-const resourceName = `${Consts.PROJECT_NAME_UC}_CodePipeline_Pulumi`;
 
 export default (codebuild: codebuild.Project) => {
   // artifact bucket
@@ -24,7 +23,7 @@ const createPipeline = (bucketName: Output<string>, codebuildName: Output<string
   const role = getRole();
 
   // backend pipeline
-  return new codepipeline.Pipeline(resourceName, {
+  return new codepipeline.Pipeline(`${Consts.PROJECT_NAME_UC}-Pulumi`, {
     artifactStore: {
       location: bucketName,
       type: 'S3',
@@ -93,7 +92,7 @@ const createWebhook = (pipeline: Output<string>) => {
 
 /** CodePipeline Role */
 const getRole = () => {
-  const role = new iam.Role(`${resourceName}Role`, {
+  const role = new iam.Role(`${Consts.PROJECT_NAME_UC}_CodePipeline_PulumiRole`, {
     assumeRolePolicy: Principals.CODEPIPELINE,
   });
 
