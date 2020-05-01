@@ -21,3 +21,10 @@ export const SSM_KEY_GITHUB_WEBHOOK_SECRET = `/${PROJECT_NAME}/${GITHUB_WEBHOOK_
   /_/g,
   '-'
 )}`;
+
+/** Tables */
+export const TABLE_HISTORY = `${PROJECT_NAME_UC}_History`;
+export const TABLE_GROUPS = `${PROJECT_NAME_UC}_Groups`;
+export const TABLE_USERS = `${PROJECT_NAME_UC}_Users`;
+export const TABLE_WORDS = `${PROJECT_NAME_UC}_Words`;
+export const TABLE_WORD_MASTER = `${PROJECT_NAME_UC}_WordMaster`;

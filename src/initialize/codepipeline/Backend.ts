@@ -1,6 +1,6 @@
 import { Output, Config } from '@pulumi/pulumi';
 import { codepipeline, iam, codebuild, s3 } from '@pulumi/aws';
-import { Envs, Principals, Policy, Consts } from '../consts';
+import { Envs, Principals, Policy, Consts } from '../../consts';
 
 const config = new Config();
 
@@ -13,12 +13,12 @@ export default (project: codebuild.Project, artifact: s3.Bucket) => {
 };
 
 /** Create CodePipeline */
-const createPipeline = (codebuildName: Output<string>, artifact: s3.Bucket) => {
+const createPipeline = (projectName: Output<string>, artifact: s3.Bucket) => {
   // codepipeline role
   const role = getRole(artifact.arn);
 
   // backend pipeline
-  return new codepipeline.Pipeline(`${Consts.PROJECT_NAME_UC}-Pulumi`, {
+  return new codepipeline.Pipeline(`${Consts.PROJECT_NAME_UC}-Backend`, {
     artifactStore: {
       location: artifact.bucket,
       type: 'S3',
@@ -33,7 +33,7 @@ const createPipeline = (codebuildName: Output<string>, artifact: s3.Bucket) => {
             configuration: {
               Branch: Envs.REPO_BRANCH(),
               Owner: Consts.REPO_OWNER,
-              Repo: Consts.REPO_PULUMI,
+              Repo: Consts.REPO_BACKEND,
               OAuthToken: config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET),
             },
             name: 'Source',
@@ -49,7 +49,7 @@ const createPipeline = (codebuildName: Output<string>, artifact: s3.Bucket) => {
           {
             category: 'Build',
             configuration: {
-              ProjectName: codebuildName,
+              ProjectName: projectName,
             },
             inputArtifacts: ['source_output'],
             name: 'Build',
@@ -69,7 +69,7 @@ const createPipeline = (codebuildName: Output<string>, artifact: s3.Bucket) => {
 const createWebhook = (pipeline: Output<string>) => {
   const webhookSecret = config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET);
 
-  new codepipeline.Webhook('pulumi', {
+  new codepipeline.Webhook('webhook_backend', {
     authentication: 'GITHUB_HMAC',
     authenticationConfiguration: {
       secretToken: webhookSecret,
@@ -87,11 +87,11 @@ const createWebhook = (pipeline: Output<string>) => {
 
 /** CodePipeline Role */
 const getRole = (bucketArn: Output<string>) => {
-  const role = new iam.Role(`${Consts.PROJECT_NAME_UC}_CodePipeline_PulumiRole`, {
+  const role = new iam.Role(`${Consts.PROJECT_NAME_UC}_CodePipeline_BackendRole`, {
     assumeRolePolicy: Principals.CODEPIPELINE,
   });
 
-  new iam.RolePolicy('CodepipelinePolicy', {
+  new iam.RolePolicy('codepipeline_policy_backend', {
     role: role.id,
     policy: Policy.CodePipeline(bucketArn),
   });

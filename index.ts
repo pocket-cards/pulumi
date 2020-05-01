@@ -1,4 +1,7 @@
 import Install from './src/install';
+import Initialize from './src/initialize';
 
 // インストール
-Install();
+const install = Install();
+
+Initialize(install.ArtifactBucket);

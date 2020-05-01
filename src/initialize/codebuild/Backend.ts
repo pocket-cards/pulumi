@@ -1,14 +1,14 @@
 import * as pulumi from '@pulumi/pulumi';
 import { codebuild, iam } from '@pulumi/aws';
-import { Principals, Policy, Consts } from '../consts';
+import { Principals, Policy, Consts } from '../../consts';
 
 /** CodePipeline Role */
 const getRole = () => {
-  const role = new iam.Role(`${Consts.PROJECT_NAME_UC}_CodeBuild_PulumiRole`, {
+  const role = new iam.Role(`${Consts.PROJECT_NAME_UC}_CodeBuild_BackendRole`, {
     assumeRolePolicy: Principals.CODEBUILD,
   });
 
-  new iam.RolePolicy('codebuild', {
+  new iam.RolePolicy('codebuild_backend', {
     policy: Policy.CodeBuild_Pulumi,
     role: role.id,
   });
@@ -17,7 +17,7 @@ const getRole = () => {
 };
 
 export default () => {
-  const resourceName = `${Consts.PROJECT_NAME_UC}-Pulumi`;
+  const resourceName = `${Consts.PROJECT_NAME_UC}-Backend`;
   // service role
   const serviceRole = getRole();
 
@@ -26,7 +26,7 @@ export default () => {
       type: 'CODEPIPELINE',
     },
     buildTimeout: 30,
-    description: 'pulumi build',
+    description: 'Backend build',
     environment: {
       type: 'LINUX_CONTAINER',
       computeType: 'BUILD_GENERAL1_SMALL',
