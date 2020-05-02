@@ -33,62 +33,34 @@ export const CodeBuild_Pulumi = `{
   "Statement": [
     {
       "Action": [
-        "codepipeline:*",
-        "cloudformation:*",
-        "cloudtrail:*",
-        "cloudwatch:*",
         "codebuild:*",
-        "codecommit:*",
-        "codedeploy:*",
-        "dynamodb:*",
-        "ecr:*",
-        "ecs:*",
-        "iam:*Role",
-        "iam:*RolePolicy",
-        "iam:DeleteServiceLinkedRole",
-        "iam:GetServiceLinkedRoleDeletionStatus",
-        "ec2:Describe*",
-        "lambda:GetFunctionConfiguration",
-        "lambda:ListFunctions",
+        "codepipeline:*",
         "logs:*",
-        "events:*",
-        "sns:*",
         "s3:*",
-        "ssm:*",
-        "ssmmessages:*"
+        "iam:*Role",
+        "iam:*RolePolicy"
       ],
       "Effect": "Allow",
       "Resource": "*"
-    },
+    }
+  ]
+}
+`;
+
+export const CodeBuild_Pulumi_Attach = `{
+  "Version": "2012-10-17",
+  "Statement": [
     {
-      "Action": ["iam:PassRole"],
+      "Action": [
+        "dynamodb:*",
+        "cognito-idp:*",
+        "cognito-identity:*",
+        "cloudfront:*",
+        "route53:*",
+        "acm:*"
+      ],
       "Effect": "Allow",
-      "Resource": ["arn:aws:iam::*:role/service-role/cwe-role-*"],
-      "Condition": {
-        "StringEquals": {
-          "iam:PassedToService": ["events.amazonaws.com"]
-        }
-      }
-    },
-    {
-      "Effect": "Allow",
-      "Action": ["iam:PassRole"],
-      "Resource": "*",
-      "Condition": {
-        "StringEquals": {
-          "iam:PassedToService": ["codepipeline.amazonaws.com"]
-        }
-      }
-    },
-    {
-      "Effect": "Allow",
-      "Action": "iam:CreateServiceLinkedRole",
-      "Resource": "arn:aws:iam::*:role/aws-service-role/ssm.amazonaws.com/AWSServiceRoleForAmazonSSM*",
-      "Condition": {
-        "StringLike": {
-          "iam:AWSServiceName": "ssm.amazonaws.com"
-        }
-      }
+      "Resource": "*"
     }
   ]
 }

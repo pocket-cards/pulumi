@@ -18,51 +18,57 @@ const createPipeline = (projectName: Output<string>, artifact: s3.Bucket) => {
   const role = getRole(artifact.arn);
 
   // backend pipeline
-  return new codepipeline.Pipeline(`${Consts.PROJECT_NAME_UC}-Backend`, {
-    artifactStore: {
-      location: artifact.bucket,
-      type: 'S3',
+  return new codepipeline.Pipeline(
+    `${Consts.PROJECT_NAME_UC}-Backend`,
+    {
+      artifactStore: {
+        location: artifact.bucket,
+        type: 'S3',
+      },
+      roleArn: role.arn,
+      stages: [
+        {
+          name: 'Source',
+          actions: [
+            {
+              category: 'Source',
+              configuration: {
+                Branch: Envs.REPO_BRANCH(),
+                Owner: Consts.REPO_OWNER,
+                Repo: Consts.REPO_BACKEND,
+                OAuthToken: config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET),
+              },
+              name: 'Source',
+              outputArtifacts: ['source_output'],
+              owner: 'ThirdParty',
+              provider: 'GitHub',
+              version: '1',
+            },
+          ],
+        },
+        {
+          actions: [
+            {
+              category: 'Build',
+              configuration: {
+                ProjectName: projectName,
+              },
+              inputArtifacts: ['source_output'],
+              name: 'Build',
+              outputArtifacts: ['build_output'],
+              owner: 'AWS',
+              provider: 'CodeBuild',
+              version: '1',
+            },
+          ],
+          name: 'Build',
+        },
+      ],
     },
-    roleArn: role.arn,
-    stages: [
-      {
-        name: 'Source',
-        actions: [
-          {
-            category: 'Source',
-            configuration: {
-              Branch: Envs.REPO_BRANCH(),
-              Owner: Consts.REPO_OWNER,
-              Repo: Consts.REPO_BACKEND,
-              OAuthToken: config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET),
-            },
-            name: 'Source',
-            outputArtifacts: ['source_output'],
-            owner: 'ThirdParty',
-            provider: 'GitHub',
-            version: '1',
-          },
-        ],
-      },
-      {
-        actions: [
-          {
-            category: 'Build',
-            configuration: {
-              ProjectName: projectName,
-            },
-            inputArtifacts: ['source_output'],
-            name: 'Build',
-            outputArtifacts: ['build_output'],
-            owner: 'AWS',
-            provider: 'CodeBuild',
-            version: '1',
-          },
-        ],
-        name: 'Build',
-      },
-    ],
-  });
+    {
+      ignoreChanges: ['stages[0].actions[0].configuration.OAuthToken'],
+    }
+  );
 };
 
 /** CodePipeline Webhook */

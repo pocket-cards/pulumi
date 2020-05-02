@@ -2,6 +2,10 @@
   "compilerOptions": {
     "strict": true,
     "outDir": "bin",
+    "rootDirs": [
+      "src",
+      "index.ts"
+    ],
     "target": "ES2018",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -10,9 +14,22 @@
     "pretty": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "."
   },
-  "files": ["index.ts"],
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "files": [
+    "index.ts",
+    "typings/index.d.ts",
+    "typings/install.d.ts",
+    "typings/initialize.d.ts",
+    "typings/frontend.d.ts",
+    "typings/backend.d.ts"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "index.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

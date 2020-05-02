@@ -1,7 +1,33 @@
 import Install from './src/install';
 import Initialize from './src/initialize';
+import Frontend from './src/frontend';
+import { Outputs } from 'typings';
 
-// インストール
-const install = Install();
+export let outputs: Outputs;
 
-Initialize(install.ArtifactBucket);
+(() => {
+  // インストール
+  const install = Install();
+
+  // ローカルはインストールのみ
+  if (process.env.ENVIRONMENT === 'local') return;
+
+  // 初期化
+  // const init = Initialize(install);
+
+  // // Frontend 構成
+  // const frontend = Frontend(init);
+
+  // outputs = {
+  //   Bucket: {
+  //     Artifact: install.Bucket.Artifact.bucket,
+  //   },
+  //   UserPoolId: frontend.Cognito.UserPool.id,
+  //   UserPoolClientId: frontend.Cognito.UserPoolClient.id,
+  //   DynamoDB: init.DynamoDB,
+  //   CloudFront: {
+  //     Identity: init.CloudFront.Identity.iamArn,
+  //   },
+  //   Test: init.Route53,
+  // };
+})();

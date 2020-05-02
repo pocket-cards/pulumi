@@ -1,10 +1,11 @@
 import { Config } from '@pulumi/pulumi';
 import { ssm } from '@pulumi/aws';
 import { Consts } from '../consts';
+import { Install } from 'typings/install';
 
 const config = new Config();
 
-export default () => {
+export default (): Install.ParameterOutputs => {
   // github
   const github = new ssm.Parameter(Consts.GITHUB_WEBHOOK_SECRET.toLowerCase(), {
     name: Consts.SSM_KEY_GITHUB_WEBHOOK_SECRET,
@@ -19,5 +20,5 @@ export default () => {
     value: config.requireSecret(Consts.PULUMI_ACCESS_TOKEN),
   });
 
-  return { github, pulumi };
+  return { Github: github, Pulumi: pulumi };
 };

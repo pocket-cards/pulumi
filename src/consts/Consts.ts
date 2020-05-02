@@ -1,7 +1,24 @@
+import * as pulumi from '@pulumi/pulumi';
+
 /** Github Webhook Secret */
 export const GITHUB_WEBHOOK_SECRET = 'GITHUB_WEBHOOK_SECRET';
 /** Pulumi Access Token */
 export const PULUMI_ACCESS_TOKEN = 'PULUMI_ACCESS_TOKEN';
+/** Route53 Zone Id */
+export const ZONE_ID = 'ZONE_ID';
+
+export const DOMAIN_NAME_DEF = {
+  dev: 'dev.aws-handson.com',
+  prod: 'aws-handson.com',
+};
+
+export const DOMAIN_NAME = () => {
+  const env = pulumi.getStack();
+
+  if (env === 'dev') return DOMAIN_NAME_DEF.dev;
+
+  return DOMAIN_NAME_DEF.prod;
+};
 
 /** Project Name */
 export const PROJECT_NAME_UC = 'PocketCards';
