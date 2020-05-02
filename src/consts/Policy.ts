@@ -52,11 +52,14 @@ export const CodeBuild_Pulumi_Attach = `{
   "Statement": [
     {
       "Action": [
+        "cloudfront:*",
+        "cognito-identity:*",
+        "apigateway:*",
+        "route53:*",
+        "ecs:*",
+        "ecr:*",
         "dynamodb:*",
         "cognito-idp:*",
-        "cognito-identity:*",
-        "cloudfront:*",
-        "route53:*",
         "acm:*"
       ],
       "Effect": "Allow",

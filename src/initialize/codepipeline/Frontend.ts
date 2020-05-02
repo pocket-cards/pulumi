@@ -75,7 +75,7 @@ const createPipeline = (projectName: Output<string>, artifact: s3.Bucket) => {
 const createWebhook = (pipeline: Output<string>) => {
   const webhookSecret = config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET);
 
-  new codepipeline.Webhook('webhook_frontend', {
+  new codepipeline.Webhook('webhook.frontend', {
     authentication: 'GITHUB_HMAC',
     authenticationConfiguration: {
       secretToken: webhookSecret,

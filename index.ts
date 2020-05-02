@@ -13,10 +13,14 @@ export let outputs: Outputs;
   if (process.env.ENVIRONMENT === 'local') return;
 
   // 初期化
-  // const init = Initialize(install);
+  const init = Initialize(install);
 
-  // // Frontend 構成
-  // const frontend = Frontend(init);
+  // Frontend 構成
+  const frontend = Frontend({
+    Route53: install.Route53,
+    CloudFront: init.CloudFront,
+    Bucket: init.Bucket,
+  });
 
   // outputs = {
   //   Bucket: {
@@ -28,6 +32,6 @@ export let outputs: Outputs;
   //   CloudFront: {
   //     Identity: init.CloudFront.Identity.iamArn,
   //   },
-  //   Test: init.Route53,
+  //   // Test: init,
   // };
 })();
