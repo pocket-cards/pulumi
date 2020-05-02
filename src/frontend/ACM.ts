@@ -1,32 +1,42 @@
-import { acm, route53, Provider } from '@pulumi/aws';
-import { Frontend, Initialize } from 'typings';
+import { acm, route53 } from '@pulumi/aws';
+import { Frontend } from 'typings';
 import { Consts, Envs } from '../consts';
 
-export default (dns: Initialize.Route53Outputs): Frontend.AMCOutputs => {
+export default (inputs: Frontend.Inputs): Frontend.ACMOutputs => {
   const cert = new acm.Certificate(
     'certificate.frontend',
     {
       domainName: `card.${Consts.DOMAIN_NAME()}`,
-      subjectAlternativeNames: [`card.${Consts.DOMAIN_NAME()}`],
       validationMethod: 'DNS',
     },
     { provider: Envs.PROVIDER_US }
   );
 
-  const validation = new route53.Record('certificate.record', {
+  const record = new route53.Record('route53.record.frontend', {
     name: cert.domainValidationOptions[0].resourceRecordName,
     records: [cert.domainValidationOptions[0].resourceRecordValue],
     ttl: 60,
     type: cert.domainValidationOptions[0].resourceRecordType,
-    zoneId: dns.Zone.id,
+    zoneId: inputs.Route53.Zone.id,
   });
 
-  new acm.CertificateValidation('certificate.validation', {
-    certificateArn: cert.arn,
-    validationRecordFqdns: [validation.fqdn],
-  });
+  const validation = new acm.CertificateValidation(
+    'certificate.validation.frontend',
+    {
+      certificateArn: cert.arn,
+      validationRecordFqdns: [record.fqdn],
+    },
+    {
+      customTimeouts: {
+        create: '10m',
+        update: '10m',
+      },
+      provider: Envs.PROVIDER_US,
+    }
+  );
 
   return {
     Certificate: cert,
+    CertificateValidation: validation,
   };
 };

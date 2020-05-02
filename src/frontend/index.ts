@@ -1,16 +1,14 @@
 import Cognito from './cognito';
 import CloudFront from './CloudFront';
 import ACM from './ACM';
-
 import { Frontend } from 'typings/frontend';
-import { Initialize } from 'typings';
 
-export default (init: Initialize.Outputs): Frontend.Outputs => {
+export default (inputs: Frontend.Inputs): Frontend.Outputs => {
   const cognito = Cognito();
 
-  const acm = ACM(init.Route53);
+  const acm = ACM(inputs);
 
-  const cloudfront = CloudFront(init, acm);
+  const cloudfront = CloudFront(inputs, acm);
 
   return {
     Cognito: cognito,

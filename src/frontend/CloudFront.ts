@@ -1,8 +1,8 @@
 import { cloudfront } from '@pulumi/aws';
-import { Initialize, Frontend } from 'typings';
+import { Frontend } from 'typings';
 import { Consts } from '../consts';
 
-export default (init: Initialize.Outputs, acm: Frontend.AMCOutputs): Frontend.CloudFrontOutputs => {
+export default (inputs: Frontend.Inputs, acm: Frontend.ACMOutputs): Frontend.CloudFrontOutputs => {
   const distribution = new cloudfront.Distribution('cloudfront.frontend', {
     aliases: [`card.${Consts.DOMAIN_NAME()}`],
     origins: [
@@ -20,19 +20,19 @@ export default (init: Initialize.Outputs, acm: Frontend.AMCOutputs): Frontend.Cl
         originPath: '/api',
       },
       {
-        domainName: init.Bucket.Audio.bucketDomainName,
+        domainName: inputs.Bucket.Audio.bucketDomainName,
         originId: 'audio',
         originPath: '',
         s3OriginConfig: {
-          originAccessIdentity: init.CloudFront.Identity.cloudfrontAccessIdentityPath,
+          originAccessIdentity: inputs.CloudFront.Identity.cloudfrontAccessIdentityPath,
         },
       },
       {
-        domainName: init.Bucket.Frontend.bucketDomainName,
+        domainName: inputs.Bucket.Frontend.bucketDomainName,
         originId: 'frontend',
         originPath: '',
         s3OriginConfig: {
-          originAccessIdentity: init.CloudFront.Identity.cloudfrontAccessIdentityPath,
+          originAccessIdentity: inputs.CloudFront.Identity.cloudfrontAccessIdentityPath,
         },
       },
     ],
@@ -86,7 +86,7 @@ export default (init: Initialize.Outputs, acm: Frontend.AMCOutputs): Frontend.Cl
     priceClass: 'PriceClass_All',
     enabled: true,
     viewerCertificate: {
-      acmCertificateArn: acm.Certificate.arn,
+      acmCertificateArn: acm.CertificateValidation.certificateArn,
       minimumProtocolVersion: 'TLSv1.1_2016',
       sslSupportMethod: 'sni-only',
     },
