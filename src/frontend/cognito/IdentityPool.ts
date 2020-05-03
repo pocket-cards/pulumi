@@ -16,13 +16,11 @@ export default (pool: cognito.UserPool, client: cognito.UserPoolClient) => {
   });
 
   const authRole = getAuthenticatedRole(identityPool);
-  const unauthRole = getUnauthenticatedRole(identityPool);
 
   new cognito.IdentityPoolRoleAttachment('cognito.identitypool.attachment', {
     identityPoolId: identityPool.id,
     roles: {
       authenticated: authRole.arn,
-      unauthenticated: unauthRole.arn,
     },
   });
 
@@ -41,16 +39,16 @@ const getAuthenticatedRole = (identityPool: cognito.IdentityPool) =>
     { deleteBeforeReplace: true }
   );
 
-const getUnauthenticatedRole = (identityPool: cognito.IdentityPool) =>
-  new iam.Role(
-    'iam.role.cognito.unauthenticated',
-    {
-      path: '/',
-      name: `${Consts.PROJECT_NAME_UC}_IdentityPool_AuthenticatedRole`,
-      assumeRolePolicy: Principals.COGNITO_UNAUTH(identityPool.id),
-      maxSessionDuration: 3600,
-    },
-    {
-      deleteBeforeReplace: true,
-    }
-  );
+// const getUnauthenticatedRole = (identityPool: cognito.IdentityPool) =>
+//   new iam.Role(
+//     'iam.role.cognito.unauthenticated',
+//     {
+//       path: '/',
+//       name: `${Consts.PROJECT_NAME_UC}_IdentityPool_AuthenticatedRole`,
+//       assumeRolePolicy: Principals.COGNITO_UNAUTH(identityPool.id),
+//       maxSessionDuration: 3600,
+//     },
+//     {
+//       deleteBeforeReplace: true,
+//     }
+//   );
