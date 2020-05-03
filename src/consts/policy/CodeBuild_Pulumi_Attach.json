@@ -3,16 +3,25 @@
   "Statement": [
     {
       "Action": [
-        "cloudfront:*",
         "cognito-identity:*",
         "apigateway:*",
-        "route53:*",
-        "ecs:*",
-        "ecr:*",
+        "ec2:*InternetGateway",
         "dynamodb:*",
+        "ec2:*RouteTable",
+        "ec2:*AvailabilityZones",
+        "ec2:Describe*",
+        "ec2:*VPC*",
+        "cloudfront:*",
+        "ec2:*NetworkInterface*",
+        "ssm:*",
+        "ecs:*",
+        "route53:*",
+        "ecr:*",
         "cognito-idp:*",
         "acm:*",
-        "ssm:*"
+        "ec2:*Subnet*",
+        "iam:GetPolicy",
+        "iam:ListEntitiesForPolicy"
       ],
       "Effect": "Allow",
       "Resource": "*"

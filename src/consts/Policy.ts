@@ -36,4 +36,6 @@ export const CodeBuild_Backend = require('./policy/CodeBuild_Backend.json');
 
 export const CodeBuild_Frontend = require('./policy/CodeBuild_Frontend.json');
 
-export const ECS_Tasks = require('./policy/ECS_Tasks.json');
+export const ECS_Task = require('./policy/ECS_Task.json');
+
+export const ECS_TaskExecution = require('./policy/ECS_TaskExecution.json');

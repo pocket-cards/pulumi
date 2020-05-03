@@ -8,7 +8,9 @@
         "logs:*",
         "s3:*",
         "iam:*Role",
-        "iam:*RolePolicy"
+        "iam:*RolePolicy",
+        "iam:GetPolicy",
+        "iam:ListEntitiesForPolicy"
       ],
       "Effect": "Allow",
       "Resource": "*"

@@ -74,7 +74,12 @@ const createFrontend = (cloudfront: Initialize.CloudFrontOutputs) => {
         }
       ]
     }
-    `,
+    `.apply((item) =>
+      item
+        .split('\n')
+        .map((item) => item.trim())
+        .join('')
+    ),
   });
 
   return bucket;

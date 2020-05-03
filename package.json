@@ -8,7 +8,7 @@
     "start:install": "cross-env ENVIRONMENT=local pulumi up -e -y -p 100 --skip-preview",
     "build": "pulumi up -p 100",
     "valid": "tsc --noemit",
-    "diff": "pulumi up --diff --skip-preview",
+    "diff": "pulumi up --diff ",
     "show:output": "pulumi stack ouput -j",
     "secret": "pulumi config set --secret ZONE_ID Z103238422UEIND0A9CSR",
     "state:import": "pulumi stack import --file state.json",

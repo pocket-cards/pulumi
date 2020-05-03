@@ -28,7 +28,7 @@ export default () => {
       type: 'CODEPIPELINE',
     },
     buildTimeout: 30,
-    description: 'pulumi build',
+    description: 'Pulumi build',
     environment: {
       type: 'LINUX_CONTAINER',
       computeType: 'BUILD_GENERAL1_SMALL',

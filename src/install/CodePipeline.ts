@@ -72,10 +72,10 @@ const createPipeline = (codebuildName: Output<string>, artifact: s3.Bucket) => {
           name: 'Build',
         },
       ],
+    },
+    {
+      ignoreChanges: ['stages[0].actions[0].configuration.OAuthToken'],
     }
-    // {
-    //   ignoreChanges: ['stages[0].actions[0].configuration.OAuthToken'],
-    // }
   );
 
   return { role, pipeline };
