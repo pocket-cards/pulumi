@@ -10,7 +10,9 @@
     "valid": "tsc --noemit",
     "diff": "pulumi up --diff --skip-preview",
     "show:output": "pulumi stack ouput -j",
-    "secret": "pulumi config set --secret ZONE_ID Z103238422UEIND0A9CSR"
+    "secret": "pulumi config set --secret ZONE_ID Z103238422UEIND0A9CSR",
+    "state:import": "pulumi stack import --file state.json",
+    "state:export": "pulumi stack export --file state.json"
   },
   "dependencies": {
     "@pulumi/aws": "^2.2.0",

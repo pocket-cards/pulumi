@@ -4,6 +4,8 @@ export const CODEBUILD = require('./principals/codebuild.json');
 
 export const CODEPIPELINE = require('./principals/codepipeline.json');
 
+export const ECS_TASKS = require('./principals/ecs_tasks.json');
+
 export const COGNITO_AUTH = (identityId: Output<string>) => interpolate`{
   "Version": "2012-10-17",
   "Statement": [

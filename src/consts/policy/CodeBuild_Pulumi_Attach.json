@@ -1,0 +1,21 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "cloudfront:*",
+        "cognito-identity:*",
+        "apigateway:*",
+        "route53:*",
+        "ecs:*",
+        "ecr:*",
+        "dynamodb:*",
+        "cognito-idp:*",
+        "acm:*",
+        "ssm:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}

@@ -13,7 +13,7 @@ export default (): Initialize.DynamoDBOutputs => {
 };
 
 const history = new dynamodb.Table(
-  'history',
+  'dynamodb.table.history',
   {
     name: Consts.TABLE_HISTORY,
     attributes: [
@@ -35,7 +35,7 @@ const history = new dynamodb.Table(
 );
 
 const groups = new dynamodb.Table(
-  'groups',
+  'dynamodb.table.groups',
   {
     name: Consts.TABLE_GROUPS,
     attributes: [
@@ -67,7 +67,7 @@ const groups = new dynamodb.Table(
 );
 
 const users = new dynamodb.Table(
-  'users',
+  'dynamodb.table.users',
   {
     name: Consts.TABLE_USERS,
     hashKey: 'id',
@@ -84,7 +84,7 @@ const users = new dynamodb.Table(
 );
 
 const words = new dynamodb.Table(
-  'words',
+  'dynamodb.table.words',
   {
     name: Consts.TABLE_WORDS,
     hashKey: 'id',
@@ -120,7 +120,7 @@ const words = new dynamodb.Table(
 );
 
 const wordMaster = new dynamodb.Table(
-  'wordMaster',
+  'dynamodb.table.wordMaster',
   {
     name: Consts.TABLE_WORD_MASTER,
     hashKey: 'id',

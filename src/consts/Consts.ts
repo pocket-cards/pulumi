@@ -45,3 +45,8 @@ export const TABLE_GROUPS = `${PROJECT_NAME_UC}_Groups`;
 export const TABLE_USERS = `${PROJECT_NAME_UC}_Users`;
 export const TABLE_WORDS = `${PROJECT_NAME_UC}_Words`;
 export const TABLE_WORD_MASTER = `${PROJECT_NAME_UC}_WordMaster`;
+
+/** VPC */
+export const VPC_CIDR_BLOCK = '10.0.0.0/25';
+export const VPC_SUBNET1_CIDR_BLOCK = '10.0.0.0/24';
+export const VPC_SUBNET2_CIDR_BLOCK = '10.0.1.0/24';

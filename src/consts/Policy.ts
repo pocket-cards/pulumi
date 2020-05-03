@@ -28,100 +28,12 @@ export const CodePipeline = (bucketArn: Output<string>) => interpolate`{
 }
 `;
 
-export const CodeBuild_Pulumi = `{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "codebuild:*",
-        "codepipeline:*",
-        "logs:*",
-        "s3:*",
-        "iam:*Role",
-        "iam:*RolePolicy"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-`;
+export const CodeBuild_Pulumi = require('./policy/CodeBuild_Pulumi.json');
 
-export const CodeBuild_Pulumi_Attach = `{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "cloudfront:*",
-        "cognito-identity:*",
-        "apigateway:*",
-        "route53:*",
-        "ecs:*",
-        "ecr:*",
-        "dynamodb:*",
-        "cognito-idp:*",
-        "acm:*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-`;
+export const CodeBuild_Pulumi_Attach = require('./policy/CodeBuild_Pulumi_Attach.json');
 
-export const CodeBuild_Backend = `{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "cloudwatch:*",
-        "codebuild:*",
-        "codedeploy:*",
-        "dynamodb:*",
-        "ecr:*",
-        "ecs:*",
-        "iam:*Role",
-        "iam:*RolePolicy",
-        "iam:DeleteServiceLinkedRole",
-        "iam:GetServiceLinkedRoleDeletionStatus",
-        "ec2:Describe*",
-        "lambda:GetFunctionConfiguration",
-        "lambda:ListFunctions",
-        "logs:*",
-        "events:*",
-        "sns:*",
-        "s3:*",
-        "ssm:*",
-        "ssmmessages:*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-`;
+export const CodeBuild_Backend = require('./policy/CodeBuild_Backend.json');
 
-export const CodeBuild_Frontend = `{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "cloudwatch:*",
-        "codebuild:*",
-        "codedeploy:*",
-        "iam:*Role",
-        "iam:*RolePolicy",
-        "ec2:Describe*",
-        "logs:*",
-        "events:*",
-        "sns:*",
-        "s3:*",
-        "ssm:*",
-        "ssmmessages:*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-`;
+export const CodeBuild_Frontend = require('./policy/CodeBuild_Frontend.json');
+
+export const ECS_Tasks = require('./policy/ECS_Tasks.json');

@@ -7,14 +7,14 @@ const config = new Config();
 
 export default (): Install.ParameterOutputs => {
   // github
-  const github = new ssm.Parameter(Consts.GITHUB_WEBHOOK_SECRET.toLowerCase(), {
+  const github = new ssm.Parameter('ssm.parameter.github_webhook_secret', {
     name: Consts.SSM_KEY_GITHUB_WEBHOOK_SECRET,
     type: 'SecureString',
     value: config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET),
   });
 
   // pulumi
-  const pulumi = new ssm.Parameter(Consts.PULUMI_ACCESS_TOKEN.toLowerCase(), {
+  const pulumi = new ssm.Parameter('ssm.paramter.pulumi_access_token', {
     name: Consts.SSM_KEY_PULUMI_ACCESS_TOKEN,
     type: 'SecureString',
     value: config.requireSecret(Consts.PULUMI_ACCESS_TOKEN),

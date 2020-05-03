@@ -3,11 +3,13 @@ import { Principals, Policy, Consts, Envs } from '../consts';
 
 /** CodePipeline Role */
 const getRole = () => {
-  const role = new iam.Role(`${Consts.PROJECT_NAME_UC}_CodeBuild_PulumiRole`, {
+  const role = new iam.Role('iam.role.codebuild.pulumi', {
+    name: `${Consts.PROJECT_NAME_UC}_CodeBuild_PulumiRole`,
     assumeRolePolicy: Principals.CODEBUILD,
   });
 
-  new iam.RolePolicy('codebuild', {
+  new iam.RolePolicy('iam.policy.codebuild.pulumi', {
+    name: 'inline-policy',
     policy: Policy.CodeBuild_Pulumi,
     role: role.id,
   });
@@ -20,7 +22,8 @@ export default () => {
   // service role
   const serviceRole = getRole();
 
-  const project = new codebuild.Project(resourceName, {
+  const project = new codebuild.Project('codebuild.project.pulumi', {
+    name: resourceName,
     artifacts: {
       type: 'CODEPIPELINE',
     },

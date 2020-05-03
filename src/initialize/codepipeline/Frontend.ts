@@ -19,8 +19,9 @@ const createPipeline = (projectName: Output<string>, artifact: s3.Bucket) => {
 
   // backend pipeline
   return new codepipeline.Pipeline(
-    `${Consts.PROJECT_NAME_UC}-Frontend`,
+    'codepipeline.pipeline.frontend',
     {
+      name: `${Consts.PROJECT_NAME_UC}-Frontend`,
       artifactStore: {
         location: artifact.bucket,
         type: 'S3',
@@ -64,10 +65,10 @@ const createPipeline = (projectName: Output<string>, artifact: s3.Bucket) => {
           name: 'Build',
         },
       ],
-    },
-    {
-      ignoreChanges: ['stages[0].actions[0].configuration.OAuthToken'],
     }
+    // {
+    //   ignoreChanges: ['stages[0].actions[0].configuration.OAuthToken'],
+    // }
   );
 };
 
@@ -75,7 +76,7 @@ const createPipeline = (projectName: Output<string>, artifact: s3.Bucket) => {
 const createWebhook = (pipeline: Output<string>) => {
   const webhookSecret = config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET);
 
-  new codepipeline.Webhook('webhook.frontend', {
+  new codepipeline.Webhook('codepipeline.webhook.frontend', {
     authentication: 'GITHUB_HMAC',
     authenticationConfiguration: {
       secretToken: webhookSecret,
@@ -93,11 +94,13 @@ const createWebhook = (pipeline: Output<string>) => {
 
 /** CodePipeline Role */
 const getRole = (bucketArn: Output<string>) => {
-  const role = new iam.Role(`${Consts.PROJECT_NAME_UC}_CodePipeline_FrontendRole`, {
+  const role = new iam.Role('iam.role.codepipeline.frontend', {
+    name: `${Consts.PROJECT_NAME_UC}_CodePipeline_FrontendRole`,
     assumeRolePolicy: Principals.CODEPIPELINE,
   });
 
-  new iam.RolePolicy('codepipeline_policy_frontend', {
+  new iam.RolePolicy('iam.policy.codepipeline.frontend', {
+    name: 'inline_policy',
     role: role.id,
     policy: Policy.CodePipeline(bucketArn),
   });

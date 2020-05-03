@@ -1,0 +1,30 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "cloudwatch:*",
+        "codebuild:*",
+        "codedeploy:*",
+        "dynamodb:*",
+        "ecr:*",
+        "ecs:*",
+        "iam:*Role",
+        "iam:*RolePolicy",
+        "iam:DeleteServiceLinkedRole",
+        "iam:GetServiceLinkedRoleDeletionStatus",
+        "ec2:Describe*",
+        "lambda:GetFunctionConfiguration",
+        "lambda:ListFunctions",
+        "logs:*",
+        "events:*",
+        "sns:*",
+        "s3:*",
+        "ssm:*",
+        "ssmmessages:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}

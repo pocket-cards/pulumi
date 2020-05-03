@@ -1,5 +1,5 @@
 import { Initialize } from 'typings';
-import { s3, cloudfront } from '@pulumi/aws';
+import { s3 } from '@pulumi/aws';
 import { Consts } from '../consts';
 import { interpolate } from '@pulumi/pulumi';
 
@@ -28,11 +28,11 @@ export default (cloudfront: Initialize.CloudFrontOutputs): Initialize.S3Outputs 
 };
 
 const createAudio = (cloudfront: Initialize.CloudFrontOutputs) => {
-  const bucket = new s3.Bucket(`${Consts.PROJECT_NAME}-frontend`, {
+  const bucket = new s3.Bucket(`${Consts.PROJECT_NAME}-audio`, {
     acl: 'private',
   });
 
-  new s3.BucketPolicy('bucket.policy.audio', {
+  new s3.BucketPolicy('s3.bucketpolicy.audio', {
     bucket: bucket.bucket,
     policy: interpolate`{
       "Version": "2012-10-17",
@@ -54,11 +54,11 @@ const createAudio = (cloudfront: Initialize.CloudFrontOutputs) => {
 };
 
 const createFrontend = (cloudfront: Initialize.CloudFrontOutputs) => {
-  const bucket = new s3.Bucket(`${Consts.PROJECT_NAME}-audio`, {
+  const bucket = new s3.Bucket(`${Consts.PROJECT_NAME}-frontend`, {
     acl: 'private',
   });
 
-  new s3.BucketPolicy('bucket.policy.frontend', {
+  new s3.BucketPolicy('s3.bucketpolicy.frontend', {
     bucket: bucket.bucket,
     policy: interpolate`{
       "Version": "2012-10-17",
