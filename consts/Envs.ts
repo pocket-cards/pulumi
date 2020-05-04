@@ -8,10 +8,13 @@ const BRANCHS = {
 
 export const REPO_BRANCH = () => BRANCHS['dev'];
 
-export const IS_DEV = () => getStack() === 'dev';
-
+// Develop / Production
+export const IS_DEV = () => getStack().startsWith('dev');
+// US Provider
 export const PROVIDER_US = new Provider('provider', { region: 'us-east-1' });
-
-export const ENVIRONMENT = getStack();
-
+// Stack Name
+export const STACK_NAME = getStack();
+// Environment: dev / prod
+export const ENVIRONMENT = STACK_NAME.split('-')[0];
+// Default Region
 export const DEFAULT_REGION = output(getRegion(undefined, { async: true })).name;

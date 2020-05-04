@@ -5,18 +5,16 @@ import { StackReference } from '@pulumi/pulumi';
 export const GITHUB_WEBHOOK_SECRET = 'GITHUB_WEBHOOK_SECRET';
 /** Pulumi Access Token */
 export const PULUMI_ACCESS_TOKEN = 'PULUMI_ACCESS_TOKEN';
-/** Route53 Zone Id */
-export const ZONE_ID = 'ZONE_ID';
 
 /** Project Name */
 export const PROJECT_NAME_UC = 'PocketCards';
 export const PROJECT_NAME = 'pocket-cards';
 
 /** Stack Refrence */
-export const INSTALL_STACK_NAME = `wwalpha/pocket-cards/${process.env.ENVIRONMENT}-install`;
+export const INSTALL_STACK_NAME = `wwalpha/${PROJECT_NAME}/${process.env.ENVIRONMENT}-install`;
 export const INSTALL_STACK = new StackReference(INSTALL_STACK_NAME);
 
-export const INITIAL_STACK_NAME = `wwalpha/pocket-cards/${process.env.ENVIRONMENT}-initial`;
+export const INITIAL_STACK_NAME = `wwalpha/${PROJECT_NAME}/${process.env.ENVIRONMENT}-initial`;
 export const INITIAL_STACK = new StackReference(INITIAL_STACK_NAME);
 
 export const DOMAIN_NAME_DEF = {
@@ -27,7 +25,7 @@ export const DOMAIN_NAME_DEF = {
 export const DOMAIN_NAME = () => {
   const env = pulumi.getStack();
 
-  if (env === 'dev') return DOMAIN_NAME_DEF.dev;
+  if (env.startsWith('dev')) return DOMAIN_NAME_DEF.dev;
 
   return DOMAIN_NAME_DEF.prod;
 };

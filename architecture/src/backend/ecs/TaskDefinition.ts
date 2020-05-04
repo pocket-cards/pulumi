@@ -1,6 +1,6 @@
-import { ecs, iam, ecr, getRegion } from '@pulumi/aws';
-import { Consts, Principals, Policy } from '../../../../consts';
-import { interpolate, Output, output } from '@pulumi/pulumi';
+import { ecs, iam, ecr } from '@pulumi/aws';
+import { Consts, Principals, Policy, Envs } from '../../../../consts';
+import { interpolate, Output } from '@pulumi/pulumi';
 
 export default (repo: ecr.Repository) => {
   const taskRole = getTaskRole();
@@ -65,7 +65,7 @@ const TASK_DEFINITION = (url: Output<string>) =>
       "logDriver": "awslogs",
       "options": {
         "awslogs-group": "/ecs/PocketCards",
-        "awslogs-region": "${output(getRegion(undefined, { async: true })).name}",
+        "awslogs-region": "${Envs.DEFAULT_REGION}",
         "awslogs-stream-prefix": "ecs"
       }
     },
