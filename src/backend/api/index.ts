@@ -10,6 +10,6 @@ export default (inputs: Backend.API.Inputs): Backend.API.Outputs => {
   Route53(inputs.Route53.Zone, api.API);
 
   return {
-    API: api,
+    ...api,
   };
 };

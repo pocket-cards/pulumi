@@ -25,7 +25,6 @@ export default (vpc: Backend.VPC.VPCOutputs): Backend.VPC.SubnetOutputs => {
   });
 
   return {
-    Subnet1: subnet1,
-    Subnet2: subnet2,
+    Subnets: [subnet1, subnet2],
   };
 };

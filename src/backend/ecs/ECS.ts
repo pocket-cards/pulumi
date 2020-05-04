@@ -1,12 +1,12 @@
 import { interpolate, Output, output } from '@pulumi/pulumi';
-import { ecs, iam, getRegion, ecr, servicediscovery } from '@pulumi/aws';
+import { ecs, iam, getRegion, ecr, servicediscovery, ec2 } from '@pulumi/aws';
 import { Consts, Principals, Policy } from '../../consts';
 import { Backend } from 'typings';
 
 export default (
   repo: ecr.Repository,
   serviceReg: servicediscovery.Service,
-  subnets: Output<string>[]
+  subnets: ec2.Subnet[]
   // targetGroupArn?: Output<string>
 ): Backend.ECS.ECSOutputs => {
   // ECS Cluster
@@ -36,7 +36,7 @@ export default (
     networkConfiguration: {
       assignPublicIp: true,
       securityGroups: ['sg-0043a1dcdd0220a73'],
-      subnets: subnets,
+      subnets: subnets.map((item) => item.id),
     },
     serviceRegistries: {
       containerPort: 0,
@@ -61,7 +61,7 @@ export default (
 
   return {
     Cluster: cluster,
-    Service: service,
+    ECSService: service,
     TaskDefinition: taskDef,
   };
 };

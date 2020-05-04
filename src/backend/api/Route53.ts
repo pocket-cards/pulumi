@@ -7,5 +7,6 @@ export default (zone: route53.Zone, api: apigatewayv2.Api): void => {
     type: 'CNAME',
     zoneId: zone.id,
     records: [api.apiEndpoint],
+    ttl: 300,
   });
 };

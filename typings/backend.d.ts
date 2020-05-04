@@ -1,5 +1,4 @@
-import { ecr, ec2, ecs, servicediscovery, elb, alb, lb, cognito, route53, apigatewayv2 } from '@pulumi/aws';
-import { Install } from './install';
+import { ecr, ec2, ecs, servicediscovery, lb, cognito, route53, apigatewayv2 } from '@pulumi/aws';
 
 export namespace Backend {
   // ----------------------------------------------------------------------------------------------
@@ -40,10 +39,7 @@ export namespace Backend {
   interface ACMOutputs {}
 
   namespace VPC {
-    interface Outputs {
-      VPC: VPC.VPCOutputs;
-      Subnet: VPC.SubnetOutputs;
-    }
+    type Outputs = VPCOutputs & SubnetOutputs;
 
     // ----------------------------------------------------------------------------------------------
     // VPC Outputs
@@ -58,8 +54,7 @@ export namespace Backend {
     // Subnet Outputs
     // ----------------------------------------------------------------------------------------------
     interface SubnetOutputs {
-      Subnet1: ec2.Subnet;
-      Subnet2: ec2.Subnet;
+      Subnets: ec2.Subnet[];
     }
   }
 
@@ -67,19 +62,14 @@ export namespace Backend {
     // ----------------------------------------------------------------------------------------------
     // Outputs
     // ----------------------------------------------------------------------------------------------
-    interface Outputs {
-      ECR: ECROutputs;
-      ECS: ECSOutputs;
-      CloudMap: CloudMapOutputs;
-      // ELB: ELBOutputs;
-    }
+    type Outputs = ECROutputs & ECSOutputs & CloudMapOutputs;
 
     // ----------------------------------------------------------------------------------------------
     // ECS Outputs
     // ----------------------------------------------------------------------------------------------
     interface ECSOutputs {
       Cluster: ecs.Cluster;
-      Service: ecs.Service;
+      ECSService: ecs.Service;
       TaskDefinition: ecs.TaskDefinition;
     }
 
@@ -117,10 +107,11 @@ export namespace Backend {
     // ----------------------------------------------------------------------------------------------
     // Outputs
     // ----------------------------------------------------------------------------------------------
-    interface Outputs {
-      API: APIGatewayOutputs;
-    }
+    type Outputs = APIGatewayOutputs;
 
+    // ----------------------------------------------------------------------------------------------
+    // APIGateway Outputs
+    // ----------------------------------------------------------------------------------------------
     interface APIGatewayOutputs {
       API: apigatewayv2.Api;
       Integration: apigatewayv2.Integration;

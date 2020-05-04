@@ -7,7 +7,7 @@ export default (inputs: Backend.VPC.Outputs): Backend.ECS.ELBOutputs => {
     name: `${Consts.PROJECT_NAME}-alb`,
     internal: false,
     loadBalancerType: 'application',
-    subnets: [inputs.Subnet.Subnet1.id, inputs.Subnet.Subnet2.id],
+    subnets: inputs.Subnets.map((item) => item.id),
     securityGroups: ['sg-02d1ced9b9b7c0ea7'],
     ipAddressType: 'ipv4',
     accessLogs: {
@@ -36,7 +36,7 @@ export default (inputs: Backend.VPC.Outputs): Backend.ECS.ELBOutputs => {
     port: 80,
     protocol: 'HTTP',
     targetType: 'ip',
-    vpcId: inputs.VPC.VPC.id,
+    vpcId: inputs.VPC.id,
     lambdaMultiValueHeadersEnabled: false,
     proxyProtocolV2: false,
   });

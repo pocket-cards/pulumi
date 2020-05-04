@@ -14,14 +14,13 @@ export default (inputs: Backend.VPC.Outputs): Backend.ECS.Outputs => {
   const ecs = ECS(
     ecr.Repository,
     map.Service,
-    [inputs.Subnet.Subnet1.id, inputs.Subnet.Subnet2.id]
+    inputs.Subnets
     // alb.TargetGroup.arn
   );
 
   return {
-    ECR: ecr,
-    ECS: ecs,
-    CloudMap: map,
-    // ELB: alb,
+    ...ecr,
+    ...map,
+    ...ecs,
   };
 };

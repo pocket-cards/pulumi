@@ -8,7 +8,7 @@ export default (): Backend.VPC.Outputs => {
   const subnets = Subnet(vpc);
 
   return {
-    VPC: vpc,
-    Subnet: subnets,
+    ...vpc,
+    ...subnets,
   };
 };
