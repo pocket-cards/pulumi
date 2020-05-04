@@ -2,10 +2,8 @@ import AttachPolicy from './AttachPolicy';
 import CloudFront from './CloudFront';
 import Tables from './DynamoDB';
 import Bucket from './Bucket';
-import CodeBuildBk from './codebuild/Backend';
-import CodeBuildFr from './codebuild/Frontend';
-import CodePipelineBk from './codepipeline/Backend';
-import CodePipelineFr from './codepipeline/Frontend';
+import CodePipelineBk from './codepipeline/backend';
+import CodePipelineFr from './codepipeline/frontend';
 import { Install, Initialize } from 'typings';
 
 export default (install: Install.Outputs): Initialize.Outputs => {
@@ -19,15 +17,10 @@ export default (install: Install.Outputs): Initialize.Outputs => {
   // create dynamodb tables
   const tables = Tables();
 
-  // create codebuild backend
-  const cbbk = CodeBuildBk();
-  // create codebuild frontend
-  const cbfr = CodeBuildFr();
-
   // create codepipeline backend
-  CodePipelineBk(cbbk, install.Bucket.Artifact);
+  CodePipelineBk(install.Bucket);
   // create codepipeline frontend
-  CodePipelineFr(cbfr, install.Bucket.Artifact);
+  CodePipelineFr(install.Bucket);
 
   return {
     DynamoDB: tables,

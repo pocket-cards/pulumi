@@ -1,6 +1,6 @@
 import { Output, Config } from '@pulumi/pulumi';
 import { codepipeline, iam, codebuild, s3 } from '@pulumi/aws';
-import { Envs, Principals, Policy, Consts } from '../../consts';
+import { Envs, Principals, Policy, Consts } from '../../../consts';
 
 const config = new Config();
 
@@ -10,6 +10,8 @@ export default (project: codebuild.Project, artifact: s3.Bucket) => {
 
   // create webhook
   createWebhook(pipeline.name);
+
+  return pipeline;
 };
 
 /** Create CodePipeline */

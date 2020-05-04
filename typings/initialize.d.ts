@@ -1,4 +1,4 @@
-import { s3, cloudfront, route53 } from '@pulumi/aws';
+import { s3, cloudfront, codebuild, codepipeline } from '@pulumi/aws';
 import { Output } from '@pulumi/pulumi';
 
 export namespace Initialize {
@@ -36,5 +36,37 @@ export namespace Initialize {
   // ----------------------------------------------------------------------------------------------
   export interface CloudFrontOutputs {
     Identity: cloudfront.OriginAccessIdentity;
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // CodePipeline Outputs
+  // ----------------------------------------------------------------------------------------------
+  namespace CodePipeline {
+    type Outputs = FrontendOutputs & BackendOutputs;
+
+    // ----------------------------------------------------------------------------------------------
+    // Frontend Outputs
+    // ----------------------------------------------------------------------------------------------
+    interface FrontendOutputs {
+      CodeBuild: codebuild.Project;
+      CodePipeline: codepipeline.Pipeline;
+    }
+
+    // ----------------------------------------------------------------------------------------------
+    // Backend Outputs
+    // ----------------------------------------------------------------------------------------------
+    interface BackendOutputs {
+      CodeBuild: BackendCodeBuildOutputs;
+      CodePipeline: codepipeline.Pipeline;
+    }
+
+    // ----------------------------------------------------------------------------------------------
+    // Backend CodeBuild Outputs
+    // ----------------------------------------------------------------------------------------------
+    interface BackendCodeBuildOutputs {
+      Build: codebuild.Project;
+      Test: codebuild.Project;
+      Push: codebuild.Project;
+    }
   }
 }

@@ -1,19 +1,22 @@
 import { Output, Config } from '@pulumi/pulumi';
 import { codepipeline, iam, codebuild, s3 } from '@pulumi/aws';
-import { Envs, Principals, Policy, Consts } from '../../consts';
+import { Envs, Principals, Policy, Consts } from '../../../consts';
+import { Initialize } from 'typings';
 
 const config = new Config();
 
-export default (project: codebuild.Project, artifact: s3.Bucket) => {
+export default (codebuild: Initialize.CodePipeline.BackendCodeBuildOutputs, artifact: s3.Bucket) => {
   // create pipeline
-  const pipeline = createPipeline(project.name, artifact);
+  const pipeline = createPipeline(codebuild, artifact);
 
   // create webhook
   createWebhook(pipeline.name);
+
+  return pipeline;
 };
 
 /** Create CodePipeline */
-const createPipeline = (projectName: Output<string>, artifact: s3.Bucket) => {
+const createPipeline = (codebuild: Initialize.CodePipeline.BackendCodeBuildOutputs, artifact: s3.Bucket) => {
   // codepipeline role
   const role = getRole(artifact.arn);
 
@@ -52,7 +55,7 @@ const createPipeline = (projectName: Output<string>, artifact: s3.Bucket) => {
             {
               category: 'Build',
               configuration: {
-                ProjectName: projectName,
+                ProjectName: codebuild.Build.name,
               },
               inputArtifacts: ['source_output'],
               name: 'Build',
@@ -64,11 +67,43 @@ const createPipeline = (projectName: Output<string>, artifact: s3.Bucket) => {
           ],
           name: 'Build',
         },
+        {
+          actions: [
+            {
+              category: 'Test',
+              configuration: {
+                ProjectName: codebuild.Test.name,
+              },
+              inputArtifacts: ['build_output'],
+              name: 'Test',
+              owner: 'AWS',
+              provider: 'CodeBuild',
+              version: '1',
+            },
+          ],
+          name: 'Test',
+        },
+        {
+          actions: [
+            {
+              category: 'Build',
+              configuration: {
+                ProjectName: codebuild.Push.name,
+              },
+              inputArtifacts: ['build_output'],
+              name: 'Push',
+              owner: 'AWS',
+              provider: 'CodeBuild',
+              version: '1',
+            },
+          ],
+          name: 'Push',
+        },
       ],
-    },
-    {
-      ignoreChanges: ['stages[0].actions[0].configuration.OAuthToken'],
     }
+    // {
+    //   ignoreChanges: ['stages[0].actions[0].configuration.OAuthToken'],
+    // }
   );
 };
 
