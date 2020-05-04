@@ -12,13 +12,7 @@ phases:
       - npm i -g yarn
   build:
     commands:
-      # install
-      - yarn install
-      # valid
-      - yarn valid
-      # select stack
-      - pulumi stack select $ENVIRONMENT
-      # deployment
-      - yarn start:attach
-      - sleep 15
-      - yarn start
+      # initial
+      - cd initial && yarn install && yarn start
+      # architecture
+      - cd architecture && yarn install && yarn start
