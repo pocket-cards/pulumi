@@ -20,4 +20,5 @@ phases:
       - pulumi stack select $ENVIRONMENT
       # deployment
       - yarn start:attach
+      - sleep 15
       - yarn start
