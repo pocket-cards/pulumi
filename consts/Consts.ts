@@ -16,6 +16,9 @@ export const PROJECT_NAME = 'pocket-cards';
 export const INSTALL_STACK_NAME = `wwalpha/pocket-cards/${process.env.ENVIRONMENT}-install`;
 export const INSTALL_STACK = new StackReference(INSTALL_STACK_NAME);
 
+export const INITIAL_STACK_NAME = `wwalpha/pocket-cards/${process.env.ENVIRONMENT}-initial`;
+export const INITIAL_STACK = new StackReference(INITIAL_STACK_NAME);
+
 export const DOMAIN_NAME_DEF = {
   dev: 'dev.aws-handson.com',
   prod: 'aws-handson.com',

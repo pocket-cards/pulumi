@@ -1,0 +1,22 @@
+{
+  "name": "architecture",
+  "devDependencies": {
+    "@types/node": "^13.13.4"
+  },
+  "scripts": {
+    "prestart": "pulumi stack select $ENVIRONMENT-architecture",
+    "start": "pulumi up -e -y -p 100 --skip-preview ",
+    "diff": "pulumi up --diff ",
+    "show:output": "pulumi stack ouput -j",
+    "valid": "tsc --noemit",
+    "secret": "pulumi config set --secret ZONE_ID Z103238422UEIND0A9CSR",
+    "state:import": "pulumi stack import --file state.json",
+    "state:export": "pulumi stack export --file state.json"
+  },
+  "dependencies": {
+    "@pulumi/aws": "^2.2.0",
+    "@pulumi/awsx": "^0.20.0",
+    "@pulumi/pulumi": "^2.1.0",
+    "cross-env": "^7.0.2"
+  }
+}
