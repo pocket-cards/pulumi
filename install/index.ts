@@ -4,8 +4,12 @@ import CodePipeline from './src/CodePipeline';
 import Bucket from './src/Bucket';
 import Route53 from './src/Route53';
 import { Install } from 'typings';
+import { Output } from '@pulumi/pulumi';
 
-export let outputs: Install.Outputs;
+export let outputs: any;
+export let ArtifactBucket: { [key: string]: Output<string> };
+export let BucketName: Output<string>;
+export let BucketArn: Output<string>;
 
 const start = () => {
   const route53 = Route53();
@@ -18,6 +22,11 @@ const start = () => {
   // create codepipeline
   const pipeline = CodePipeline(codebuild, bucket);
 
+  // outputs = {
+  //   Bucket: {
+  //     Artifact: bucket.Artifact.,
+  //   },
+  // };
   outputs = {
     ParameterStore: parameters,
     Bucket: {
@@ -29,6 +38,14 @@ const start = () => {
       CodePipelinePulumi: pipeline.CodePipelineRole,
     },
   };
+
+  ArtifactBucket = {
+    BucketName: bucket.Artifact.bucket,
+    BUcketArn: bucket.Artifact.bucket,
+  };
+
+  BucketName = bucket.Artifact.bucket;
+  BucketArn = bucket.Artifact.arn;
 };
 
 start();

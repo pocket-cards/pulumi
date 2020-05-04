@@ -4,8 +4,10 @@ import Bucket from './src/Bucket';
 import CodePipelineBk from './src/codepipeline/backend';
 import CodePipelineFr from './src/codepipeline/frontend';
 import { Initialize } from 'typings';
+import { Consts } from '../consts';
+import { INSTALL_STACK } from '../consts/Consts';
 
-let outputs: Initialize.Outputs;
+export let outputs: Initialize.Outputs;
 
 const start = () => {
   // create cloudfront identity
@@ -24,6 +26,7 @@ const start = () => {
     DynamoDB: tables,
     Bucket: bucket,
     CloudFront: identity,
+    // Test: values,
   };
 };
 
