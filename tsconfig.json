@@ -1,24 +1,26 @@
 {
   "compilerOptions": {
     "strict": true,
-    "outDir": "bin",
+    "outDir": "build",
     "rootDirs": [
-      "src",
-      "index.ts"
+      "architecture",
+      "consts",
+      "initialize",
+      "install"
     ],
     "target": "ES2018",
     "module": "commonjs",
     "moduleResolution": "node",
-    "sourceMap": true,
+    "sourceMap": false,
     "experimentalDecorators": true,
     "pretty": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
     "baseUrl": "."
   },
   "files": [
-    "index.ts",
     "typings/index.d.ts",
     "typings/install.d.ts",
     "typings/initialize.d.ts",
@@ -26,8 +28,10 @@
     "typings/backend.d.ts"
   ],
   "include": [
-    "src/**/*.ts",
-    "index.ts"
+    "architecture/**/*.ts",
+    "consts/**/*.ts",
+    "initialize/**/*.ts",
+    "install/**/*.ts",
   ],
   "exclude": [
     "node_modules"

@@ -49,7 +49,7 @@ export namespace Initialize {
     // ----------------------------------------------------------------------------------------------
     interface FrontendOutputs {
       CodeBuild: codebuild.Project;
-      CodePipeline: codepipeline.Pipeline;
+      CodePipeline: Output<codepipeline.Pipeline>;
     }
 
     // ----------------------------------------------------------------------------------------------
@@ -57,7 +57,7 @@ export namespace Initialize {
     // ----------------------------------------------------------------------------------------------
     interface BackendOutputs {
       CodeBuild: BackendCodeBuildOutputs;
-      CodePipeline: codepipeline.Pipeline;
+      CodePipeline: Output<codepipeline.Pipeline>;
     }
 
     // ----------------------------------------------------------------------------------------------
