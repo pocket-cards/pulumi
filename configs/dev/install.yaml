@@ -1,0 +1,7 @@
+config:
+  aws:region: ap-northeast-1
+  pocket-cards:GITHUB_WEBHOOK_SECRET:
+    secure: AAABAPnGIEBIeO/QgN1wZmaoZhQ9tv5YGbkWYtL8f9J4ycc5Cc6VIHqwFGYpilGNXH4HaCEh2NnS+iiABI86fpy+Iy3EQId9
+  pocket-cards:PULUMI_ACCESS_TOKEN:
+    secure: AAABANnHq4hVGVR3u/Pe1KgzaUtq3zduS6kNMIeKgxpCKIA0RIKOassAApzd+Xjjp+TAlMrnc61Yu05F9DmF4KYQXU2clar7Gog7hg==
+  pulumi:template: aws-typescript
