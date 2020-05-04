@@ -1,4 +1,3 @@
-import AttachPolicy from './AttachPolicy';
 import CloudFront from './CloudFront';
 import Tables from './DynamoDB';
 import Bucket from './Bucket';
@@ -7,9 +6,6 @@ import CodePipelineFr from './codepipeline/frontend';
 import { Install, Initialize } from 'typings';
 
 export default (install: Install.Outputs): Initialize.Outputs => {
-  // attach policy
-  AttachPolicy(install.Role.CodeBuildPulumi);
-
   // create cloudfront identity
   const identity = CloudFront();
 

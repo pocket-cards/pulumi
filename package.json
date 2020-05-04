@@ -6,6 +6,7 @@
   "scripts": {
     "start": "pulumi up -e -y -p 100 --skip-preview",
     "start:install": "cross-env ENVIRONMENT=local pulumi up -e -y -p 100 --skip-preview",
+    "start:attach": "cross-env ENVIRONMENT=initialize pulumi up -e -y -p 100 --skip-preview",
     "build": "pulumi up -p 100",
     "valid": "tsc --noemit",
     "diff": "pulumi up --diff ",

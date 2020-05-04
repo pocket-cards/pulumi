@@ -2,10 +2,8 @@ import Install from './src/install';
 import Initialize from './src/initialize';
 import Frontend from './src/frontend';
 import Backend from './src/backend';
-import { Consts } from './src/consts';
 import { Outputs } from 'typings';
-import { route53, ecs } from '@pulumi/aws';
-import { output } from '@pulumi/pulumi';
+import AttachPolicy from './src/initialize/AttachPolicy';
 
 export let outputs: Outputs;
 
@@ -15,6 +13,12 @@ const start = () => {
 
   // ローカルはインストールのみ
   if (process.env.ENVIRONMENT === 'local') return;
+
+  // attach policy
+  AttachPolicy(install.Role.CodeBuildPulumi);
+
+  // ローカルはインストールのみ
+  if (process.env.ENVIRONMENT === 'initialize') return;
 
   // 初期化
   const init = Initialize(install);

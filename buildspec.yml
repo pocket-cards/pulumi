@@ -19,4 +19,5 @@ phases:
       # select stack
       - pulumi stack select $ENVIRONMENT
       # deployment
+      - yarn start:attach
       - yarn start
