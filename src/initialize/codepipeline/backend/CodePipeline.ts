@@ -73,8 +73,9 @@ const createPipeline = (codebuild: Initialize.CodePipeline.BackendCodeBuildOutpu
               category: 'Test',
               configuration: {
                 ProjectName: codebuild.Test.name,
+                PrimarySource: 'source_output',
               },
-              inputArtifacts: ['build_output'],
+              inputArtifacts: ['source_output', 'build_output'],
               name: 'Test',
               owner: 'AWS',
               provider: 'CodeBuild',
@@ -119,7 +120,7 @@ const createWebhook = (pipeline: Output<string>) => {
     filters: [
       {
         jsonPath: '$.ref',
-        matchEquals: 'refs/heads/{Branch}',
+        matchEquals: 'refs/heads/master',
       },
     ],
     targetAction: 'Source',

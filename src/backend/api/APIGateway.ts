@@ -19,7 +19,7 @@ export default (inputs: Backend.CognitoInputs): Backend.API.APIGatewayOutputs =>
       passthroughBehavior: 'WHEN_NO_MATCH',
     },
     {
-      ignoreChanges: ['integrationUri', 'passthroughBehavior'],
+      ignoreChanges: ['integrationUri'],
     }
   );
 

@@ -35,6 +35,7 @@ export const CodeBuild_Pulumi_Attach = require('./policy/CodeBuild_Pulumi_Attach
 export const CodeBuild_Backend_Build = require('./policy/CodeBuild_Backend_Build.json');
 export const CodeBuild_Backend_Test = require('./policy/CodeBuild_Backend_Test.json');
 export const CodeBuild_Backend_Push = require('./policy/CodeBuild_Backend_Push.json');
+export const CodeBuild_Backend_Docker = require('./policy/CodeBuild_Backend_Docker.json');
 
 export const CodeBuild_Frontend = require('./policy/CodeBuild_Frontend.json');
 

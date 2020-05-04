@@ -86,7 +86,7 @@ const createWebhook = (pipeline: Output<string>) => {
     filters: [
       {
         jsonPath: '$.ref',
-        matchEquals: 'refs/heads/{Branch}',
+        matchEquals: 'refs/heads/master',
       },
     ],
     targetAction: 'Source',

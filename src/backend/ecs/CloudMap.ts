@@ -8,16 +8,7 @@ export default (): Backend.ECS.CloudMapOutputs => {
 
   const service = new servicediscovery.Service('servicediscovery.service.backend', {
     name: 'backend',
-    dnsConfig: {
-      dnsRecords: [
-        {
-          ttl: 60,
-          type: 'A',
-        },
-      ],
-      namespaceId: namespace.id,
-      routingPolicy: 'MULTIVALUE',
-    },
+    namespaceId: namespace.id,
     healthCheckCustomConfig: {
       failureThreshold: 1,
     },

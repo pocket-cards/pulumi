@@ -1,8 +1,9 @@
 import { Backend } from 'typings';
 import ECR from './ECR';
+import Cluster from './Cluster';
+import TaskDefinition from './TaskDefinition';
+import Service from './Service';
 import CloudMap from './CloudMap';
-import ECS from './ECS';
-import ELB from './ELB';
 
 export default (inputs: Backend.VPC.Outputs): Backend.ECS.Outputs => {
   const ecr = ECR();
@@ -10,17 +11,15 @@ export default (inputs: Backend.VPC.Outputs): Backend.ECS.Outputs => {
   const map = CloudMap();
 
   // const alb = ELB(inputs);
-
-  const ecs = ECS(
-    ecr.Repository,
-    map.Service,
-    inputs.Subnets
-    // alb.TargetGroup.arn
-  );
+  const cluster = Cluster();
+  const taskDef = TaskDefinition(ecr.Repository);
+  const service = Service(cluster, taskDef, inputs);
 
   return {
     ...ecr,
     ...map,
-    ...ecs,
+    Cluster: cluster,
+    TaskDefinition: taskDef,
+    ECSService: service,
   };
 };

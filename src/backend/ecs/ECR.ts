@@ -3,12 +3,20 @@ import { Consts } from '../../consts';
 import { Backend } from 'typings';
 
 export default (): Backend.ECS.ECROutputs => {
-  const repo = new ecr.Repository('ecr.repo', {
-    name: Consts.PROJECT_NAME,
+  const repo = new ecr.Repository('ecr.repo.backend', {
+    name: `${Consts.PROJECT_NAME}/backend`,
     imageScanningConfiguration: {
       scanOnPush: false,
     },
-    imageTagMutability: 'MUTABLE',
+    imageTagMutability: 'IMMUTABLE',
+  });
+
+  new ecr.Repository('ecr.repo.backend.testing', {
+    name: `${Consts.PROJECT_NAME}/backend-testing`,
+    imageScanningConfiguration: {
+      scanOnPush: false,
+    },
+    imageTagMutability: 'IMMUTABLE',
   });
 
   return {

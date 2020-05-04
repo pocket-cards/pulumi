@@ -48,6 +48,7 @@ export namespace Backend {
       VPC: ec2.Vpc;
       IGW?: ec2.InternetGateway;
       RouteTable?: ec2.RouteTable;
+      DefaultSecurityGroup: ec2.DefaultSecurityGroup;
     }
 
     // ----------------------------------------------------------------------------------------------

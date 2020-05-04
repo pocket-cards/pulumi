@@ -28,31 +28,35 @@ export default () => {
   // service role
   const serviceRole = getRole();
 
-  const project = new codebuild.Project('codebuild.project.backend.build', {
-    name: resourceName,
-    artifacts: {
-      type: 'CODEPIPELINE',
+  const project = new codebuild.Project(
+    'codebuild.project.backend.build',
+    {
+      name: resourceName,
+      artifacts: {
+        type: 'CODEPIPELINE',
+      },
+      buildTimeout: 30,
+      description: 'Backend build',
+      environment: {
+        type: 'LINUX_CONTAINER',
+        computeType: 'BUILD_GENERAL1_SMALL',
+        image: 'aws/codebuild/standard:4.0',
+        imagePullCredentialsType: 'CODEBUILD',
+        environmentVariables: [
+          {
+            name: 'ENVIRONMENT',
+            value: Envs.ENVIRONMENT,
+          },
+        ],
+      },
+      serviceRole: serviceRole.arn,
+      source: {
+        type: 'CODEPIPELINE',
+        buildspec: 'buildspec/build.yml',
+      },
     },
-    buildTimeout: 30,
-    description: 'Backend build',
-    environment: {
-      type: 'LINUX_CONTAINER',
-      computeType: 'BUILD_GENERAL1_SMALL',
-      image: 'aws/codebuild/standard:4.0',
-      imagePullCredentialsType: 'CODEBUILD',
-      environmentVariables: [
-        {
-          name: 'ENVIRONMENT',
-          value: Envs.ENVIRONMENT,
-        },
-      ],
-    },
-    serviceRole: serviceRole.arn,
-    source: {
-      type: 'CODEPIPELINE',
-      buildspec: 'buildspec/build.yml',
-    },
-  });
+    { dependsOn: [serviceRole] }
+  );
 
   return project;
 };
