@@ -16,7 +16,7 @@ const getRole = () => {
 
   new iam.RolePolicy('iam.policy.codebuild.backend', {
     name: 'inline_policy',
-    policy: Policy.CodeBuild_Pulumi,
+    policy: Policy.CodeBuild_Backend,
     role: role.id,
   });
 
