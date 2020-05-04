@@ -11,13 +11,15 @@ export default (): Install.ParameterOutputs => {
     name: Consts.SSM_KEY_GITHUB_WEBHOOK_SECRET,
     type: 'SecureString',
     value: config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET),
+    overwrite: true,
   });
 
   // pulumi
-  const pulumi = new ssm.Parameter('ssm.paramter.pulumi_access_token', {
+  const pulumi = new ssm.Parameter('ssm.parameter.pulumi_access_token', {
     name: Consts.SSM_KEY_PULUMI_ACCESS_TOKEN,
     type: 'SecureString',
     value: config.requireSecret(Consts.PULUMI_ACCESS_TOKEN),
+    overwrite: true,
   });
 
   return { Github: github, Pulumi: pulumi };

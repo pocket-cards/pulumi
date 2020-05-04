@@ -10,7 +10,8 @@
         "iam:*Role",
         "iam:*RolePolicy",
         "iam:GetPolicy",
-        "iam:ListEntitiesForPolicy"
+        "iam:ListEntitiesForPolicy",
+        "ssm:GetParameters"
       ],
       "Effect": "Allow",
       "Resource": "*"
