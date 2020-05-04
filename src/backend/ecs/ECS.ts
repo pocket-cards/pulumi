@@ -6,8 +6,8 @@ import { Backend } from 'typings';
 export default (
   repo: ecr.Repository,
   serviceReg: servicediscovery.Service,
-  subnets: Output<string>[],
-  targetGroupArn: Output<string>
+  subnets: Output<string>[]
+  // targetGroupArn?: Output<string>
 ): Backend.ECS.ECSOutputs => {
   // ECS Cluster
   const cluster = new ecs.Cluster('ecs.cluster', {
@@ -28,13 +28,13 @@ export default (
     name: 'backend',
     cluster: cluster.arn,
     desiredCount: 0,
-    launchType: 'FARGATE',
+    // launchType: 'FARGATE',
     platformVersion: 'LATEST',
     taskDefinition: interpolate`${taskDef.id}:${taskDef.revision.apply((item) => item.toString())}`,
     deploymentMaximumPercent: 200,
     deploymentMinimumHealthyPercent: 100,
     networkConfiguration: {
-      assignPublicIp: false,
+      assignPublicIp: true,
       securityGroups: ['sg-0043a1dcdd0220a73'],
       subnets: subnets,
     },
@@ -43,13 +43,13 @@ export default (
       port: 0,
       registryArn: serviceReg.arn,
     },
-    loadBalancers: [
-      {
-        containerName: 'Backend',
-        containerPort: 8080,
-        targetGroupArn: targetGroupArn,
-      },
-    ],
+    // loadBalancers: [
+    //   {
+    //     containerName: 'Backend',
+    //     containerPort: 8080,
+    //     targetGroupArn: targetGroupArn,
+    //   },
+    // ],
     capacityProviderStrategies: [
       {
         capacityProvider: 'FARGATE_SPOT',

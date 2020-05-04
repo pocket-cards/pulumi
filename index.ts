@@ -20,24 +20,27 @@ const start = () => {
 
   // Frontend 構成
   const frontend = Frontend({
-    Route53: install.Route53,
-    CloudFront: init.CloudFront,
-    Bucket: init.Bucket,
+    Route53: {
+      Zone: install.Route53.Zone,
+    },
+    CloudFront: {
+      Identity: init.CloudFront.Identity,
+    },
+    S3: {
+      Audio: init.Bucket.Audio,
+      Frontend: init.Bucket.Frontend,
+      Images: init.Bucket.Images,
+    },
   });
 
-  const backend = Backend({ Route53: install.Route53 });
-
-  new route53.Record('route53.record.backend', {
-    name: `api.${Consts.DOMAIN_NAME()}`,
-    type: 'A',
-    zoneId: install.Route53.Zone.id,
-    aliases: [
-      {
-        name: backend.ECS.ELB.ALB.dnsName,
-        zoneId: backend.ECS.ELB.ALB.zoneId,
-        evaluateTargetHealth: true,
-      },
-    ],
+  const backend = Backend({
+    Route53: {
+      Zone: install.Route53.Zone,
+    },
+    Cognito: {
+      UserPool: frontend.Cognito.UserPool,
+      UserPoolClient: frontend.Cognito.UserPoolClient,
+    },
   });
 
   outputs = {
@@ -50,7 +53,7 @@ const start = () => {
     CloudFront: {
       Identity: init.CloudFront.Identity.iamArn,
     },
-    // Test: backend,
+    Test: backend,
   };
 };
 

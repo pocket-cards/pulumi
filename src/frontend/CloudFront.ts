@@ -20,7 +20,7 @@ export default (inputs: Frontend.Inputs, acm: Frontend.ACMOutputs): Frontend.Clo
         originPath: '/api',
       },
       {
-        domainName: inputs.Bucket.Audio.bucketDomainName,
+        domainName: inputs.S3.Audio.bucketDomainName,
         originId: 'audio',
         originPath: '',
         s3OriginConfig: {
@@ -28,7 +28,7 @@ export default (inputs: Frontend.Inputs, acm: Frontend.ACMOutputs): Frontend.Clo
         },
       },
       {
-        domainName: inputs.Bucket.Frontend.bucketDomainName,
+        domainName: inputs.S3.Frontend.bucketDomainName,
         originId: 'frontend',
         originPath: '',
         s3OriginConfig: {

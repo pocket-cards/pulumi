@@ -7,6 +7,10 @@ export const PULUMI_ACCESS_TOKEN = 'PULUMI_ACCESS_TOKEN';
 /** Route53 Zone Id */
 export const ZONE_ID = 'ZONE_ID';
 
+/** Project Name */
+export const PROJECT_NAME_UC = 'PocketCards';
+export const PROJECT_NAME = 'pocket-cards';
+
 export const DOMAIN_NAME_DEF = {
   dev: 'dev.aws-handson.com',
   prod: 'aws-handson.com',
@@ -19,10 +23,6 @@ export const DOMAIN_NAME = () => {
 
   return DOMAIN_NAME_DEF.prod;
 };
-
-/** Project Name */
-export const PROJECT_NAME_UC = 'PocketCards';
-export const PROJECT_NAME = 'pocket-cards';
 
 /** Repository Owner */
 export const REPO_OWNER = 'pocket-cards';

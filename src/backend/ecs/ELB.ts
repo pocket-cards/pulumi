@@ -25,7 +25,7 @@ export default (inputs: Backend.VPC.Outputs): Backend.ECS.ELBOutputs => {
     name: `${Consts.PROJECT_NAME}-backend`,
     healthCheck: {
       interval: 30,
-      path: '/version',
+      path: '/',
       port: '8080',
       protocol: 'HTTP',
       timeout: 5,

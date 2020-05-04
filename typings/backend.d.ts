@@ -1,4 +1,4 @@
-import { ecr, ec2, ecs, servicediscovery, elb, alb, lb } from '@pulumi/aws';
+import { ecr, ec2, ecs, servicediscovery, elb, alb, lb, cognito, route53, apigatewayv2 } from '@pulumi/aws';
 import { Install } from './install';
 
 export namespace Backend {
@@ -6,7 +6,8 @@ export namespace Backend {
   // Backend Outputs
   // ----------------------------------------------------------------------------------------------
   export interface Inputs {
-    Route53: Install.Route53Outputs;
+    Route53: Route53Inputs;
+    Cognito: CognitoInputs;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -15,6 +16,22 @@ export namespace Backend {
   export interface Outputs {
     VPC: VPC.Outputs;
     ECS: ECS.Outputs;
+    APIGateway: API.Outputs;
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // Route53 Inputs
+  // ----------------------------------------------------------------------------------------------
+  interface Route53Inputs {
+    Zone: route53.Zone;
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // Cognito Inputs
+  // ----------------------------------------------------------------------------------------------
+  interface CognitoInputs {
+    UserPool: cognito.UserPool;
+    UserPoolClient: cognito.UserPoolClient;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -54,7 +71,7 @@ export namespace Backend {
       ECR: ECROutputs;
       ECS: ECSOutputs;
       CloudMap: CloudMapOutputs;
-      ELB: ELBOutputs;
+      // ELB: ELBOutputs;
     }
 
     // ----------------------------------------------------------------------------------------------
@@ -88,6 +105,28 @@ export namespace Backend {
       ALB: lb.LoadBalancer;
       Listener: lb.Listener;
       TargetGroup: lb.TargetGroup;
+    }
+  }
+
+  namespace API {
+    interface Inputs {
+      Route53: Route53Inputs;
+      Cognito: CognitoInputs;
+    }
+
+    // ----------------------------------------------------------------------------------------------
+    // Outputs
+    // ----------------------------------------------------------------------------------------------
+    interface Outputs {
+      API: APIGatewayOutputs;
+    }
+
+    interface APIGatewayOutputs {
+      API: apigatewayv2.Api;
+      Integration: apigatewayv2.Integration;
+      Authorizer: apigatewayv2.Authorizer;
+      Route: apigatewayv2.Route;
+      Stage: apigatewayv2.Stage;
     }
   }
 }
