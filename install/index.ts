@@ -1,11 +1,11 @@
-import Parameters from './Parameters';
-import CodeBuild from './CodeBuild';
-import CodePipeline from './CodePipeline';
-import Bucket from './Bucket';
-import Route53 from './Route53';
+import Parameters from './src/Parameters';
+import CodeBuild from './src/CodeBuild';
+import CodePipeline from './src/CodePipeline';
+import Bucket from './src/Bucket';
+import Route53 from './src/Route53';
 import { Install } from 'typings';
 
-let outputs: Install.Outputs;
+export let outputs: Install.Outputs;
 
 const start = () => {
   const route53 = Route53();
