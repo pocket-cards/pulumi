@@ -1,14 +1,14 @@
 {
-  "name": "install",
+  "name": "initial",
   "devDependencies": {
     "@types/node": "^13.13.4"
   },
   "scripts": {
-    "prestart": "pulumi stack select $ENVIRONMENT-install",
-    "start": "pulumi up -e -y -p 100 --skip-preview --config-file ../configs/$ENVIRONMENT/install.yaml",
+    "prestart": "pulumi stack select $ENVIRONMENT-initial",
+    "start": "pulumi up -e -y -p 100 --skip-preview --config-file ../configs/$ENVIRONMENT/initial.yaml",
     "diff": "pulumi up --diff ",
-    "valid": "tsc --noemit",
     "show:output": "pulumi stack ouput -j",
+    "valid": "tsc --noemit",
     "secret": "pulumi config set --secret ZONE_ID Z103238422UEIND0A9CSR",
     "state:import": "pulumi stack import --file state.json",
     "state:export": "pulumi stack export --file state.json"
