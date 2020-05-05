@@ -17,6 +17,7 @@ export namespace Backend {
     VPC: VPC.Outputs;
     ECS: ECS.Outputs;
     APIGateway: API.Outputs;
+    Cognito: CognitoOutputs;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -27,11 +28,12 @@ export namespace Backend {
   }
 
   // ----------------------------------------------------------------------------------------------
-  // Cognito Inputs
+  // Cognito Outputs
   // ----------------------------------------------------------------------------------------------
-  interface CognitoInputs {
+  interface CognitoOutputs {
     UserPool: cognito.UserPool;
     UserPoolClient: cognito.UserPoolClient;
+    IdentityPool: cognito.IdentityPool;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -96,7 +98,7 @@ export namespace Backend {
   namespace API {
     interface Inputs {
       Route53: Route53Inputs;
-      Cognito: CognitoInputs;
+      Cognito: CognitoOutputs;
     }
 
     // ----------------------------------------------------------------------------------------------

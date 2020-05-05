@@ -2,7 +2,7 @@ import { acm, route53 } from '@pulumi/aws';
 import { Frontend } from 'typings';
 import { Consts, Envs } from '../../../consts';
 
-export default (zone: route53.Zone): Frontend.ACMOutputs => {
+export default (zone: route53.Zone): Frontend.CloudFront.ACMOutputs => {
   const cert = new acm.Certificate(
     'certificate.frontend',
     {

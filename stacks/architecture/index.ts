@@ -39,10 +39,10 @@ const start = () => {
         Frontend: init.Bucket.Frontend.bucket,
         Images: init.Bucket.Images.bucket,
       },
-      UserPoolId: frontend.Cognito.UserPool.id,
-      UserPoolClientId: frontend.Cognito.UserPoolClient.id,
+      UserPoolId: backend.Cognito.UserPool.id,
+      UserPoolClientId: backend.Cognito.UserPoolClient.id,
       CloudFront: {
-        Identity: init.CloudFront.Identity.iamArn,
+        Identity: frontend.Identity.iamArn,
       },
       APIGateway: {
         Endpoint: apiOutputs.API.apiEndpoint,

@@ -15,6 +15,7 @@
     "stack:initial": "pulumi up -e -y -p 100 --skip-preview -C stacks/initial -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml",
     "stack:main": "pulumi up -e -y -p 100 --skip-preview -C stacks/architecture -s $ENVIRONMENT-architecture",
     "valid": "tsc --noemit",
+    "env": "export ENVIRONMENT=dev",
     "show:output": "pulumi stack ouput -j",
     "secret": "pulumi config set --secret ZONE_ID XXXXXXXXXXXXX",
     "state:import": "pulumi stack import --file state.json",

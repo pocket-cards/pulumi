@@ -4,7 +4,7 @@ import BucketPolicy from './BucketPolicy';
 import CloudFront from './CloudFront';
 import { Frontend } from 'typings';
 
-export default (inputs: Frontend.Inputs): Frontend.CloudFront.Outputs => {
+export default (inputs: Frontend.Inputs): Frontend.Outputs => {
   const acm = ACM(inputs.Route53.Zone);
 
   const identity = OriginAccessIdentity();

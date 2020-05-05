@@ -2,7 +2,11 @@ import { cloudfront } from '@pulumi/aws';
 import { Frontend } from 'typings';
 import { Consts } from '../../../consts';
 
-export default (inputs: Frontend.Inputs, acm: Frontend.ACMOutputs, identity: cloudfront.OriginAccessIdentity) => {
+export default (
+  inputs: Frontend.Inputs,
+  acm: Frontend.CloudFront.ACMOutputs,
+  identity: cloudfront.OriginAccessIdentity
+) => {
   return new cloudfront.Distribution('cloudfront.frontend', {
     aliases: [`card.${Consts.DOMAIN_NAME()}`],
     origins: [

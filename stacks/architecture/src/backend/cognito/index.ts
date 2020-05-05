@@ -1,9 +1,9 @@
 import UserPool from './UserPool';
 import UserPoolClient from './UserPoolClient';
 import IdentityPool from './IdentityPool';
-import { Frontend } from 'typings/frontend';
+import { Backend } from 'typings';
 
-export default (): Frontend.CognitoOutputs => {
+export default (): Backend.CognitoOutputs => {
   // ユーザプール
   const pool = UserPool();
   // ユーザプールクライアント

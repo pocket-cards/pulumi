@@ -18,18 +18,7 @@ export namespace Frontend {
   // ----------------------------------------------------------------------------------------------
   // Frontend Outputs
   // ----------------------------------------------------------------------------------------------
-  export interface Outputs {
-    Cognito: CognitoOutputs;
-  }
-
-  // ----------------------------------------------------------------------------------------------
-  // Cognito Outputs
-  // ----------------------------------------------------------------------------------------------
-  export interface CognitoOutputs {
-    UserPool: cognito.UserPool;
-    UserPoolClient: cognito.UserPoolClient;
-    IdentityPool: cognito.IdentityPool;
-  }
+  export type Outputs = CloudFront.Outputs;
 
   namespace CloudFront {
     type Outputs = CloudFrontOutputs & ACMOutputs;

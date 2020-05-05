@@ -1,6 +1,7 @@
 import { Backend } from 'typings';
 import VPC from './vpc';
 import ECS from './ecs';
+import Cognito from './cognito';
 import APIGateway from './api';
 
 export default (inputs: Backend.Inputs): Backend.Outputs => {
@@ -8,11 +9,13 @@ export default (inputs: Backend.Inputs): Backend.Outputs => {
 
   const ecs = ECS(inputs.ECR, vpc);
 
-  const api = APIGateway({ Route53: inputs.Route53, Cognito: inputs.Cognito });
+  const cognito = Cognito();
+  const api = APIGateway({ Route53: inputs.Route53, Cognito: cognito });
 
   return {
     VPC: vpc,
     ECS: ecs,
     APIGateway: api,
+    Cognito: cognito,
   };
 };

@@ -3,7 +3,7 @@ import { apigatewayv2 } from '@pulumi/aws';
 import { Consts, Envs } from '../../../../consts';
 import { Backend } from 'typings';
 
-export default (inputs: Backend.CognitoInputs): Backend.API.APIGatewayOutputs => {
+export default (inputs: Backend.CognitoOutputs): Backend.API.APIGatewayOutputs => {
   const api = new apigatewayv2.Api('apigateway.api.backend', {
     name: Consts.PROJECT_NAME,
     protocolType: 'HTTP',
