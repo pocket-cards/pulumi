@@ -31,14 +31,17 @@ jobs:
           node-version: 12.x
 
       - run: pwd
-
+      - run: echo $GITHUB_WORKSPACE
       - run: cd $GITHUB_WORKSPACE/stacks/install
+      - run: ls -l
       - run: ln -s ../../typings typings
 
       - run: cd $GITHUB_WORKSPACE/stacks/initial
+      - run: ls -l
       - run: ln -s ../../typings typings
 
       - run: cd $GITHUB_WORKSPACE/stacks/architecture
+      - run: ls -l
       - run: ln -s ../../typings typings
 
       - run: pwd
