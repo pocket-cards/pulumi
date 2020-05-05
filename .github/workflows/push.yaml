@@ -30,22 +30,20 @@ jobs:
         with:
           node-version: 12.x
 
-      - run: pwd
-      - run: echo $GITHUB_WORKSPACE
-      - run: cd $GITHUB_WORKSPACE/stacks/install
       - run: ls -l
-      - run: ln -s ../../typings typings
+        working-directory: $GITHUB_WORKSPACE/stacks/install
 
-      - run: cd $GITHUB_WORKSPACE/stacks/initial
+      - run: ln -s ../../typings typings
+        working-directory: $GITHUB_WORKSPACE/stacks/install
+
       - run: ls -l
-      - run: ln -s ../../typings typings
+        working-directory: $GITHUB_WORKSPACE/stacks/install
 
-      - run: cd $GITHUB_WORKSPACE/stacks/architecture
-      - run: ls -l
       - run: ln -s ../../typings typings
+        working-directory: $GITHUB_WORKSPACE/stacks/initial
 
-      - run: pwd
-      - run: cd $GITHUB_WORKSPACE
+      - run: ln -s ../../typings typings
+        working-directory: $GITHUB_WORKSPACE/stacks/architecture
 
       - uses: docker://pulumi/actions
         with:
