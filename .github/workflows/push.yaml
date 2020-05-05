@@ -30,16 +30,25 @@ jobs:
         with:
           node-version: 12.x
 
-      - run: ls -l
+      - run: pwd
 
-      - run: cd ./stacks/install
+      - run: cd $GITHUB_WORKSPACE/stacks/install
+      - run: ln -s ../../typings typings
 
-      - run: ls -l
+      - run: cd $GITHUB_WORKSPACE/stacks/initial
+      - run: ln -s ../../typings typings
+
+      - run: cd $GITHUB_WORKSPACE/stacks/architecture
+      - run: ln -s ../../typings typings
+
+      - run: pwd
+      - run: cd $GITHUB_WORKSPACE
 
       - uses: docker://pulumi/actions
         with:
-          args: up -e -y -p 100 --skip-preview -C ./stacks/initial -s dev-initial --config-file ../configs/dev/initial.yaml
+          args: up -e -y -p 100 --skip-preview -s dev-initial --config-file ../configs/dev/initial.yaml
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           PULUMI_CI: up
           ENVIRONMENT: dev
+          PULUMI_ROOT: stacks/initial
