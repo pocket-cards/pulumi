@@ -13,7 +13,7 @@
     "postbuildw":"cp -r configs/pulumi/* build/",
     "stack:install": "pulumi up -e -y -p 100 --skip-preview -C stacks/install -s $ENVIRONMENT-install --config-file ../configs/$ENVIRONMENT/install.yaml",
     "stack:initial": "pulumi up -e -y -p 100 --skip-preview -C stacks/initial -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml",
-    "stack:main": "pulumi up -e -y -p 100 --skip-preview -C stacks/architecture -s $ENVIRONMENT-architecture",
+    "stack:main": "pulumi up -e -y -p 100 --skip-preview -C stacks/architecture -s $ENVIRONMENT-architecture --config-file ../configs/$ENVIRONMENT/main.yaml",
     "valid": "tsc --noemit",
     "env": "export ENVIRONMENT=dev",
     "show:output": "pulumi stack ouput -j",

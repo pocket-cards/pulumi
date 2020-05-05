@@ -44,7 +44,7 @@ jobs:
       # update
       - uses: docker://pulumi/actions
         with:
-          args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-architecture --config-file ../configs/$ENVIRONMENT/architecture.yaml
+          args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-architecture --config-file ../configs/$ENVIRONMENT/main.yaml
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
