@@ -1,0 +1,40 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  # AWS Credentials
+  credentials:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Config AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+  # Install Pulumi
+  Update:
+    runs-on: ubuntu-latest
+
+    steps:
+      # source checkout
+      - uses: actions/checkout@master
+
+      # install nodejs
+      - uses: actions/setup-node@master
+        with:
+          version: 12
+
+      - uses: docker://pulumi/actions
+        with:
+          args: up -e -y -p 100 --skip-preview -C ./stacks/initial -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          PULUMI_CI: up
