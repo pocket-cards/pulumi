@@ -43,11 +43,6 @@ export default () => {
           name: 'ENVIRONMENT',
           value: Envs.ENVIRONMENT,
         },
-        {
-          name: Consts.PULUMI_ACCESS_TOKEN,
-          value: Consts.SSM_KEY_PULUMI_ACCESS_TOKEN,
-          type: 'PARAMETER_STORE',
-        },
       ],
     },
     serviceRole: serviceRole.arn,
