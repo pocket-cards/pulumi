@@ -18,6 +18,7 @@ jobs:
       - name: add typings
         working-directory: ./stacks
         run: |
+          ln -s ../../typings install/typings
           ln -s ../../typings initial/typings
           ln -s ../../typings architecture/typings
 

@@ -7,7 +7,6 @@ export * from './initial';
 
 export interface Outputs {
   Bucket: {
-    Artifact: Output<string>;
     Audio: Output<string>;
     Images: Output<string>;
     Frontend: Output<string>;

@@ -34,7 +34,7 @@ const start = () => {
 
     return {
       Bucket: {
-        Artifact: install.Bucket.Artifact.bucket,
+        // Artifact: install.Bucket.Artifact.bucket,
         Audio: init.Bucket.Audio.bucket,
         Frontend: init.Bucket.Frontend.bucket,
         Images: init.Bucket.Images.bucket,

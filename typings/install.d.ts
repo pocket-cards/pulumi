@@ -6,12 +6,12 @@ export namespace Install {
   // ----------------------------------------------------------------------------------------------
   export interface Outputs {
     ParameterStore: ParameterOutputs;
-    Bucket: BucketOutputs;
+    Bucket?: BucketOutputs;
     Route53: Route53Outputs;
-    Role: {
-      CodeBuildPulumi: iam.Role;
-      CodePipelinePulumi: iam.Role;
-    };
+    // Role: {
+    //   CodeBuildPulumi: iam.Role;
+    //   CodePipelinePulumi: iam.Role;
+    // };
   }
 
   // ----------------------------------------------------------------------------------------------
