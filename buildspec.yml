@@ -10,6 +10,7 @@ phases:
       - export PATH=$PATH:$HOME/.pulumi/bin
       # yarn
       - npm i -g yarn
+      - yarn install
   build:
     commands:
       # initial
