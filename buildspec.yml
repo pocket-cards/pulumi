@@ -11,14 +11,6 @@ phases:
       # yarn
       - npm i -g yarn
       - yarn install
-  pre_build:
-    commands:
-      - cd $CODEBUILD_SRC_DIR/stacks/install
-      - ln -s ../../typings typings
-      - cd $CODEBUILD_SRC_DIR/stacks/initial
-      - ln -s ../../typings typings
-      - cd $CODEBUILD_SRC_DIR/stacks/architecture
-      - ln -s ../../typings typings
   build:
     commands:
       - pulumi up -e -y -p 100 --skip-preview -C stacks/initial -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml
