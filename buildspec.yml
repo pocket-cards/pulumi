@@ -14,11 +14,15 @@ phases:
     commands:
       # initial
       - cd $CODEBUILD_SRC_DIR/initial
-      - ln -s ../typings typings
+      - cp ../typings typings
+      - ls -l
+      - ls -l typings
       - yarn install
       - yarn start
       # architecture
       - cd $CODEBUILD_SRC_DIR/architecture
-      - ln -s ../typings typings
+      - cp ../typings typings
+      - ls -l
+      - ls -l typings
       - yarn install
       - yarn start
