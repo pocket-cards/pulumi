@@ -7,10 +7,10 @@
     "start": "pulumi up -e -y -p 100 --skip-preview",
     "prebuild": "rm -rf build",
     "build": "tsc",
-    "postbuild":"cp -r configs/pulumi/* build/",
+    "postbuild": "cp -r configs/pulumi/* build/",
     "prebuildw": "rm -rf build",
     "buildw": "tsc -w",
-    "postbuildw":"cp -r configs/pulumi/* build/",
+    "postbuildw": "cp -r configs/pulumi/* build/",
     "stack:install": "pulumi up -e -y -p 100 --skip-preview -C stacks/install -s $ENVIRONMENT-install --config-file ../configs/$ENVIRONMENT/install.yaml",
     "stack:initial": "pulumi up -e -y -p 100 --skip-preview -C stacks/initial -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml",
     "stack:main": "pulumi up -e -y -p 100 --skip-preview -C stacks/architecture -s $ENVIRONMENT-architecture --config-file ../configs/$ENVIRONMENT/main.yaml",
@@ -22,9 +22,8 @@
     "state:export": "pulumi stack export --file state.json"
   },
   "dependencies": {
-    "@pulumi/aws": "^2.2.0",
+    "@pulumi/aws": "^2.3.0",
     "@pulumi/awsx": "^0.20.0",
-    "@pulumi/pulumi": "^2.1.0",
-    "cross-env": "^7.0.2"
+    "@pulumi/pulumi": "^2.1.0"
   }
 }
