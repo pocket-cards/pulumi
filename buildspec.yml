@@ -6,10 +6,6 @@ phases:
       nodejs: 12
     commands:
       # pulumi
-      - cd $CODEBUILD_SRC_DIR/initial
-      - ln -s ../typings typings
-      - cd $CODEBUILD_SRC_DIR/architecture
-      - ln -s ../typings typings
       - curl -fsSL https://get.pulumi.com/ | sh
       - export PATH=$PATH:$HOME/.pulumi/bin
       # yarn
