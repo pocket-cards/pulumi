@@ -31,19 +31,19 @@ jobs:
           node-version: 12.x
 
       - run: ls -l
-        working-directory: $GITHUB_WORKSPACE/stacks/install
+        working-directory: ./stacks/install
 
       - run: ln -s ../../typings typings
-        working-directory: $GITHUB_WORKSPACE/stacks/install
+        working-directory: ./stacks/install
 
       - run: ls -l
-        working-directory: $GITHUB_WORKSPACE/stacks/install
+        working-directory: ./stacks/install
 
       - run: ln -s ../../typings typings
-        working-directory: $GITHUB_WORKSPACE/stacks/initial
+        working-directory: ./stacks/initial
 
       - run: ln -s ../../typings typings
-        working-directory: $GITHUB_WORKSPACE/stacks/architecture
+        working-directory: ./stacks/architecture
 
       - uses: docker://pulumi/actions
         with:
