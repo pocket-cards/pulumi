@@ -30,6 +30,12 @@ jobs:
         with:
           node-version: 12.x
 
+      - run: ls -l
+
+      - run: cd ./stacks/install
+
+      - run: ls -l
+
       - uses: docker://pulumi/actions
         with:
           args: up -e -y -p 100 --skip-preview -C ./stacks/initial -s dev-initial --config-file ../configs/dev/initial.yaml
