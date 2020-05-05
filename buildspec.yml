@@ -6,6 +6,7 @@ phases:
       nodejs: 12
     commands:
       # pulumi
+      - cd initial && ls -l && ls typing
       - curl -fsSL https://get.pulumi.com/ | sh
       - export PATH=$PATH:$HOME/.pulumi/bin
       # yarn
@@ -13,6 +14,6 @@ phases:
   build:
     commands:
       # initial
-      - cd initial && yarn install && yarn start
+      - cd initial && ls -l && ls typing && yarn install && yarn start
       # architecture
       - cd architecture && yarn install && yarn start
