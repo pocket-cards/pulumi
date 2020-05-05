@@ -6,7 +6,7 @@ phases:
       nodejs: 12
     commands:
       # pulumi
-      - cd initial && ls -l && ls typing
+      - cd initial && ls -l && ls -l typings
       - curl -fsSL https://get.pulumi.com/ | sh
       - export PATH=$PATH:$HOME/.pulumi/bin
       # yarn
