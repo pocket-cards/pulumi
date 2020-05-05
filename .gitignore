@@ -1,3 +1,6 @@
 node_modules
 yarn.lock
 state.json
+/stacks/install/typings
+/stacks/initial/typings
+/stacks/architecture/typings
