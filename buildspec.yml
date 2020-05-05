@@ -13,5 +13,6 @@ phases:
       - yarn install
   build:
     commands:
-      - pulumi up -e -y -p 100 --skip-preview -C stacks/initial -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml
-      - pulumi up -e -y -p 100 --skip-preview -C stacks/architecture -s $ENVIRONMENT-architecture
+      - ls -l ./stacks/install
+      - pulumi up -e -y -p 100 --skip-preview -C ./stacks/initial -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml
+      - pulumi up -e -y -p 100 --skip-preview -C ./stacks/architecture -s $ENVIRONMENT-architecture
