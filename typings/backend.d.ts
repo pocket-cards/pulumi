@@ -1,4 +1,4 @@
-import { ecr, ec2, ecs, servicediscovery, lb, cognito, route53, apigatewayv2 } from '@pulumi/aws';
+import { ec2, ecs, servicediscovery, lb, cognito, route53, apigatewayv2 } from '@pulumi/aws';
 import { Initial } from './initial';
 
 export namespace Backend {
@@ -7,7 +7,6 @@ export namespace Backend {
   // ----------------------------------------------------------------------------------------------
   export interface Inputs {
     Route53: Route53Inputs;
-    Cognito: CognitoInputs;
     ECR: Initial.ECROutputs;
   }
 

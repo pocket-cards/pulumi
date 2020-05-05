@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "outDir": "build",
     "target": "ES2018",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -23,7 +24,7 @@
     "typings/backend.d.ts"
   ],
   "include": [
-    "stacks/**/*",
+    "**/*.ts",
   ],
   "exclude": [
     "node_modules"

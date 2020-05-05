@@ -1,6 +1,4 @@
 import { cognito, cloudfront, acm, route53, s3 } from '@pulumi/aws';
-import { Install } from './install';
-import { Initial } from './initial';
 
 export namespace Frontend {
   // ----------------------------------------------------------------------------------------------
@@ -9,9 +7,6 @@ export namespace Frontend {
   export interface Inputs {
     Route53: {
       Zone: route53.Zone;
-    };
-    CloudFront: {
-      Identity: cloudfront.OriginAccessIdentity;
     };
     S3: {
       Frontend: s3.Bucket;
@@ -25,8 +20,6 @@ export namespace Frontend {
   // ----------------------------------------------------------------------------------------------
   export interface Outputs {
     Cognito: CognitoOutputs;
-    CloudFront: CloudFrontOutputs;
-    ACM: ACMOutputs;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -38,18 +31,23 @@ export namespace Frontend {
     IdentityPool: cognito.IdentityPool;
   }
 
-  // ----------------------------------------------------------------------------------------------
-  // Frontend Outputs
-  // ----------------------------------------------------------------------------------------------
-  export interface CloudFrontOutputs {
-    Distribution: cloudfront.Distribution;
-  }
+  namespace CloudFront {
+    type Outputs = CloudFrontOutputs & ACMOutputs;
 
-  // ----------------------------------------------------------------------------------------------
-  // Certificate Manager Outputs
-  // ----------------------------------------------------------------------------------------------
-  export interface ACMOutputs {
-    Certificate: acm.Certificate;
-    CertificateValidation: acm.CertificateValidation;
+    // ----------------------------------------------------------------------------------------------
+    // CloudFront Outputs
+    // ----------------------------------------------------------------------------------------------
+    interface CloudFrontOutputs {
+      Distribution: cloudfront.Distribution;
+      Identity: cloudfront.OriginAccessIdentity;
+    }
+
+    // ----------------------------------------------------------------------------------------------
+    // Certificate Manager Outputs
+    // ----------------------------------------------------------------------------------------------
+    interface ACMOutputs {
+      Certificate: acm.Certificate;
+      CertificateValidation: acm.CertificateValidation;
+    }
   }
 }

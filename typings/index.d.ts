@@ -1,10 +1,9 @@
 import { Output, OutputInstance } from '@pulumi/pulumi';
-import { Initial } from './initial';
 
-export * from './backend.d';
-export * from './frontend.d';
-export * from './install.d';
-export * from './initial.d';
+export * from './backend';
+export * from './frontend';
+export * from './install';
+export * from './initial';
 
 export interface Outputs {
   Bucket: {

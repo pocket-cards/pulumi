@@ -7,7 +7,6 @@ export namespace Initial {
   export interface Outputs {
     DynamoDB: DynamoDBOutputs;
     Bucket: S3Outputs;
-    CloudFront: CloudFrontOutputs;
     ECR: ECROutputs;
   }
 
@@ -37,13 +36,6 @@ export namespace Initial {
   interface ECROutputs {
     Backend: ecr.Repository;
     BackendTesting: ecr.Repository;
-  }
-
-  // ----------------------------------------------------------------------------------------------
-  // CloudFront Outputs
-  // ----------------------------------------------------------------------------------------------
-  interface CloudFrontOutputs {
-    Identity: cloudfront.OriginAccessIdentity;
   }
 
   // ----------------------------------------------------------------------------------------------
