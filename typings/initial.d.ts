@@ -1,40 +1,48 @@
-import { s3, cloudfront, codebuild, codepipeline } from '@pulumi/aws';
-import { Output } from '@pulumi/pulumi';
+import { s3, cloudfront, codebuild, codepipeline, ecr, dynamodb } from '@pulumi/aws';
 
-export namespace Initialize {
+export namespace Initial {
   // ----------------------------------------------------------------------------------------------
-  // Initialize Outputs
+  // Initial Outputs
   // ----------------------------------------------------------------------------------------------
   export interface Outputs {
     DynamoDB: DynamoDBOutputs;
     Bucket: S3Outputs;
     CloudFront: CloudFrontOutputs;
+    ECR: ECROutputs;
   }
 
   // ----------------------------------------------------------------------------------------------
   // DynamoDB Outputs
   // ----------------------------------------------------------------------------------------------
-  export interface DynamoDBOutputs {
-    Users: Output<string>;
-    Words: Output<string>;
-    Groups: Output<string>;
-    History: Output<string>;
-    WordMaster: Output<string>;
+  interface DynamoDBOutputs {
+    Users: dynamodb.Table;
+    Words: dynamodb.Table;
+    Groups: dynamodb.Table;
+    History: dynamodb.Table;
+    WordMaster: dynamodb.Table;
   }
 
   // ----------------------------------------------------------------------------------------------
   // S3 Outputs
   // ----------------------------------------------------------------------------------------------
-  export interface S3Outputs {
+  interface S3Outputs {
     Frontend: s3.Bucket;
     Audio: s3.Bucket;
     Images: s3.Bucket;
   }
 
   // ----------------------------------------------------------------------------------------------
+  // ECR Outputs
+  // ----------------------------------------------------------------------------------------------
+  interface ECROutputs {
+    Backend: ecr.Repository;
+    BackendTesting: ecr.Repository;
+  }
+
+  // ----------------------------------------------------------------------------------------------
   // CloudFront Outputs
   // ----------------------------------------------------------------------------------------------
-  export interface CloudFrontOutputs {
+  interface CloudFrontOutputs {
     Identity: cloudfront.OriginAccessIdentity;
   }
 
@@ -49,7 +57,7 @@ export namespace Initialize {
     // ----------------------------------------------------------------------------------------------
     interface FrontendOutputs {
       CodeBuild: codebuild.Project;
-      CodePipeline: Output<codepipeline.Pipeline>;
+      CodePipeline: codepipeline.Pipeline;
     }
 
     // ----------------------------------------------------------------------------------------------
@@ -57,7 +65,7 @@ export namespace Initialize {
     // ----------------------------------------------------------------------------------------------
     interface BackendOutputs {
       CodeBuild: BackendCodeBuildOutputs;
-      CodePipeline: Output<codepipeline.Pipeline>;
+      CodePipeline: codepipeline.Pipeline;
     }
 
     // ----------------------------------------------------------------------------------------------

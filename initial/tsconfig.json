@@ -20,7 +20,7 @@
   "files": [
     "typings/index.d.ts",
     "typings/install.d.ts",
-    "typings/initialize.d.ts",
+    "typings/initial.d.ts",
     "typings/frontend.d.ts",
     "typings/backend.d.ts"
   ],

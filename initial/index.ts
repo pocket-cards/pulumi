@@ -1,33 +1,34 @@
-import CloudFront from './src/CloudFront';
-import Tables from './src/DynamoDB';
-import Bucket from './src/Bucket';
-import CodePipelineBk from './src/codepipeline/backend';
-import CodePipelineFr from './src/codepipeline/frontend';
-import { Initialize } from 'typings';
+import { Output } from '@pulumi/pulumi';
+import { CloudFront, Bucket, DynamoDB, ECR, CodePipelineBk, CodePipelineFr } from './src';
 import { Consts } from '../consts';
-import { INSTALL_STACK } from '../consts/Consts';
+import { Initial, Install } from 'typings';
 
-export let outputs: Initialize.Outputs;
+export let outputs: Output<Initial.Outputs>;
 
 const start = () => {
-  // create cloudfront identity
-  const identity = CloudFront();
+  outputs = Consts.INSTALL_STACK.outputs.apply<Initial.Outputs>((item) => {
+    const install = item.outputs as Install.Outputs;
 
-  const bucket = Bucket(identity);
-  // create dynamodb tables
-  const tables = Tables();
+    // create cloudfront identity
+    const identity = CloudFront();
 
-  // create codepipeline backend
-  CodePipelineBk();
-  // create codepipeline frontend
-  CodePipelineFr();
+    const bucket = Bucket(identity);
+    // create dynamodb tables
+    const dynamoDB = DynamoDB();
 
-  outputs = {
-    DynamoDB: tables,
-    Bucket: bucket,
-    CloudFront: identity,
-    // Test: values,
-  };
+    const ecr = ECR();
+    // create codepipeline backend
+    CodePipelineBk(install, ecr);
+    // create codepipeline frontend
+    CodePipelineFr(install);
+
+    return {
+      DynamoDB: dynamoDB,
+      Bucket: bucket,
+      CloudFront: identity,
+      ECR: ecr,
+    };
+  });
 };
 
 start();

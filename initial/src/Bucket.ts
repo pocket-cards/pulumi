@@ -1,9 +1,9 @@
-import { Initialize } from 'typings';
+import { interpolate } from '@pulumi/pulumi';
 import { s3 } from '@pulumi/aws';
 import { Consts } from '../../consts';
-import { interpolate } from '@pulumi/pulumi';
+import { Initial } from 'typings';
 
-export default (cloudfront: Initialize.CloudFrontOutputs): Initialize.S3Outputs => {
+export default (cloudfront: Initial.CloudFrontOutputs): Initial.S3Outputs => {
   const audio = createAudio(cloudfront);
 
   const frontend = createFrontend(cloudfront);
@@ -27,7 +27,7 @@ export default (cloudfront: Initialize.CloudFrontOutputs): Initialize.S3Outputs 
   };
 };
 
-const createAudio = (cloudfront: Initialize.CloudFrontOutputs) => {
+const createAudio = (cloudfront: Initial.CloudFrontOutputs) => {
   const bucket = new s3.Bucket(`${Consts.PROJECT_NAME}-audio`, {
     acl: 'private',
   });
@@ -53,7 +53,7 @@ const createAudio = (cloudfront: Initialize.CloudFrontOutputs) => {
   return bucket;
 };
 
-const createFrontend = (cloudfront: Initialize.CloudFrontOutputs) => {
+const createFrontend = (cloudfront: Initial.CloudFrontOutputs) => {
   const bucket = new s3.Bucket(`${Consts.PROJECT_NAME}-frontend`, {
     acl: 'private',
   });

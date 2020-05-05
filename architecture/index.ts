@@ -1,15 +1,15 @@
 import Frontend from './src/frontend';
 import Backend from './src/backend';
-import { Outputs, Install, Initialize } from 'typings';
+import { Outputs, Install, Initial } from 'typings';
 import { Consts } from '../consts';
-import { all } from '@pulumi/pulumi';
+import { all, Output } from '@pulumi/pulumi';
 
-export let outputs: Outputs;
+export let outputs: Output<Outputs>;
 
 const start = () => {
-  all([Consts.INSTALL_STACK.outputs, Consts.INITIAL_STACK.outputs]).apply(([item1, item2]) => {
+  outputs = all([Consts.INSTALL_STACK.outputs, Consts.INITIAL_STACK.outputs]).apply<Outputs>(([item1, item2]) => {
     const install = item1.outputs as Install.Outputs;
-    const init = item2.outputs as Initialize.Outputs;
+    const init = item2.outputs as Initial.Outputs;
 
     // Frontend 構成
     const frontend = Frontend({
@@ -34,10 +34,12 @@ const start = () => {
         UserPool: frontend.Cognito.UserPool,
         UserPoolClient: frontend.Cognito.UserPoolClient,
       },
+      ECR: init.ECR,
     });
 
     const { ECS: ecsOutputs, VPC: vpcOutputs, APIGateway: apiOutputs } = backend;
-    outputs = {
+
+    return {
       Bucket: {
         Artifact: install.Bucket.Artifact.bucket,
         Audio: init.Bucket.Audio.bucket,
@@ -46,7 +48,6 @@ const start = () => {
       },
       UserPoolId: frontend.Cognito.UserPool.id,
       UserPoolClientId: frontend.Cognito.UserPoolClient.id,
-      DynamoDB: init.DynamoDB,
       CloudFront: {
         Identity: init.CloudFront.Identity.iamArn,
       },

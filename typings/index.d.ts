@@ -1,11 +1,10 @@
 import { Output, OutputInstance } from '@pulumi/pulumi';
+import { Initial } from './initial';
 
 export * from './backend.d';
 export * from './frontend.d';
 export * from './install.d';
-export * from './initialize.d';
-
-import { Initialize } from './initialize';
+export * from './initial.d';
 
 export interface Outputs {
   Bucket: {
@@ -16,7 +15,6 @@ export interface Outputs {
   };
   UserPoolId: Output<string>;
   UserPoolClientId: Output<string>;
-  DynamoDB: Initialize.DynamoDBOutputs;
   CloudFront: {
     Identity: Output<string>;
   };
@@ -33,16 +31,16 @@ export interface Outputs {
     EnableDnsSupport: OutputInstance<boolean | undefined>;
   };
   SubnetIds: Output<string>[];
-  ECS: {
-    Cluster: {
-      Name: Output<string>;
-      Arn: Output<string>;
-    };
-    Service: {
-      DesiredCount: OutputInstance<number | undefined>;
-      Id: Output<string>;
-      TaskDefinition: Output<string>;
-    };
-  };
+  // ECS: {
+  //   Cluster: {
+  //     Name: Output<string>;
+  //     Arn: Output<string>;
+  //   };
+  //   Service: {
+  //     DesiredCount: OutputInstance<number | undefined>;
+  //     Id: Output<string>;
+  //     TaskDefinition: Output<string>;
+  //   };
+  // };
   Test?: any;
 }

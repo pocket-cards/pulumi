@@ -1,5 +1,6 @@
 import { codebuild, iam } from '@pulumi/aws';
 import { Principals, Policy, Consts, Envs } from '../../../../consts';
+import { Initial } from 'typings';
 
 /** CodePipeline Role */
 const getRole = () => {
@@ -23,7 +24,7 @@ const getRole = () => {
   return role;
 };
 
-export default () => {
+export default (inputs: Initial.ECROutputs) => {
   const resourceName = `${Consts.PROJECT_NAME_UC}-Backend-Push`;
   // service role
   const serviceRole = getRole();
@@ -46,6 +47,14 @@ export default () => {
           {
             name: 'ENVIRONMENT',
             value: Envs.ENVIRONMENT,
+          },
+          {
+            name: 'ECR_REGISTRY',
+            value: inputs.Backend.repositoryUrl.apply((item) => item.split('/')[0]),
+          },
+          {
+            name: 'ECR_REPOSITORY',
+            value: inputs.Backend.name,
           },
         ],
       },

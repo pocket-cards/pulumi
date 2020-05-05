@@ -1,6 +1,6 @@
 import { cognito, cloudfront, acm, route53, s3 } from '@pulumi/aws';
 import { Install } from './install';
-import { Initialize } from './initialize';
+import { Initial } from './initial';
 
 export namespace Frontend {
   // ----------------------------------------------------------------------------------------------

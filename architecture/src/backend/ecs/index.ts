@@ -1,22 +1,18 @@
-import { Backend } from 'typings';
-import ECR from './ECR';
+import { Backend, Initial } from 'typings';
 import Cluster from './Cluster';
 import TaskDefinition from './TaskDefinition';
 import Service from './Service';
 import CloudMap from './CloudMap';
 
-export default (inputs: Backend.VPC.Outputs): Backend.ECS.Outputs => {
-  const ecr = ECR();
-
+export default (inputs: Initial.ECROutputs, vpc: Backend.VPC.Outputs): Backend.ECS.Outputs => {
   // const map = CloudMap();
-
   // const alb = ELB(inputs);
+
   const cluster = Cluster();
-  const taskDef = TaskDefinition(ecr.Repository);
-  const service = Service(cluster, taskDef, inputs);
+  const taskDef = TaskDefinition(inputs.Backend);
+  const service = Service(cluster, taskDef, vpc);
 
   return {
-    ...ecr,
     // ...map,
     Cluster: cluster,
     TaskDefinition: taskDef,

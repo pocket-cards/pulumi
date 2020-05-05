@@ -1,13 +1,12 @@
-import { s3 } from '@pulumi/aws';
 import CodeBuild from './CodeBuild';
 import CodePipeline from './CodePipeline';
-import { Initialize } from 'typings';
+import { Initial, Install } from 'typings';
 
-export default (): Initialize.CodePipeline.FrontendOutputs => {
+export default (inputs: Install.Outputs): Initial.CodePipeline.FrontendOutputs => {
   // create codebuild backend
   const codebuild = CodeBuild();
   // create codebuild backend
-  const pipeline = CodePipeline(codebuild);
+  const pipeline = CodePipeline(inputs.Bucket, codebuild);
 
   return {
     CodeBuild: codebuild,

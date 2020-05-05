@@ -1,14 +1,14 @@
 import { dynamodb } from '@pulumi/aws';
 import { Consts } from '../../consts';
-import { Initialize } from 'typings';
+import { Initial } from 'typings';
 
-export default (): Initialize.DynamoDBOutputs => {
+export default (): Initial.DynamoDBOutputs => {
   return {
-    Groups: groups.name,
-    History: history.name,
-    Users: users.name,
-    Words: words.name,
-    WordMaster: wordMaster.name,
+    Groups: groups,
+    History: history,
+    Users: users,
+    Words: words,
+    WordMaster: wordMaster,
   };
 };
 

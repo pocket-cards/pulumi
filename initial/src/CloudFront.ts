@@ -1,8 +1,8 @@
 import { cloudfront } from '@pulumi/aws';
-import { Initialize } from 'typings';
+import { Initial } from 'typings';
 import { Consts } from '../../consts';
 
-export default (): Initialize.CloudFrontOutputs => {
+export default (): Initial.CloudFrontOutputs => {
   const identity = new cloudfront.OriginAccessIdentity('cloudfront.originaccess.identity', {
     comment: Consts.PROJECT_NAME,
   });

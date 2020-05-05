@@ -5,14 +5,9 @@
   },
   "scripts": {
     "start": "pulumi up -e -y -p 100 --skip-preview",
-    "start:install": "cross-env ENVIRONMENT=local pulumi up -e -y -p 100 --skip-preview",
-    "start:attach": "cross-env ENVIRONMENT=initialize pulumi up -e -y -p 100 --skip-preview",
-    "build": "pulumi up -p 100",
     "valid": "tsc --noemit",
-    "diff": "pulumi up --diff ",
-    "diff:install": "cross-env ENVIRONMENT=local pulumi up --diff ",
     "show:output": "pulumi stack ouput -j",
-    "secret": "pulumi config set --secret ZONE_ID Z103238422UEIND0A9CSR",
+    "secret": "pulumi config set --secret ZONE_ID XXXXXXXXXXXXX",
     "state:import": "pulumi stack import --file state.json",
     "state:export": "pulumi stack export --file state.json"
   },

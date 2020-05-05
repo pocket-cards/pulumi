@@ -1,4 +1,5 @@
 import { ecr, ec2, ecs, servicediscovery, lb, cognito, route53, apigatewayv2 } from '@pulumi/aws';
+import { Initial } from './initial';
 
 export namespace Backend {
   // ----------------------------------------------------------------------------------------------
@@ -7,6 +8,7 @@ export namespace Backend {
   export interface Inputs {
     Route53: Route53Inputs;
     Cognito: CognitoInputs;
+    ECR: Initial.ECROutputs;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -63,7 +65,7 @@ export namespace Backend {
     // ----------------------------------------------------------------------------------------------
     // Outputs
     // ----------------------------------------------------------------------------------------------
-    type Outputs = ECROutputs & ECSOutputs;
+    type Outputs = ECSOutputs;
 
     // ----------------------------------------------------------------------------------------------
     // ECS Outputs
@@ -72,13 +74,6 @@ export namespace Backend {
       Cluster: ecs.Cluster;
       ECSService: ecs.Service;
       TaskDefinition: ecs.TaskDefinition;
-    }
-
-    // ----------------------------------------------------------------------------------------------
-    // ECR Outputs
-    // ----------------------------------------------------------------------------------------------
-    interface ECROutputs {
-      Repository: ecr.Repository;
     }
 
     // ----------------------------------------------------------------------------------------------

@@ -1,13 +1,13 @@
-import { Output, Config, StackReference, output } from '@pulumi/pulumi';
+import { Output, Config } from '@pulumi/pulumi';
 import { codepipeline, iam, codebuild, s3 } from '@pulumi/aws';
 import { Envs, Principals, Policy, Consts } from '../../../../consts';
 import { Install } from 'typings';
 
 const config = new Config();
 
-export default (project: codebuild.Project) => {
+export default (inputs: Install.BucketOutputs, project: codebuild.Project) => {
   // create pipeline
-  const pipeline = createPipeline(project.name);
+  const pipeline = createPipeline(inputs.Artifact, project.name);
 
   // create webhook
   createWebhook(pipeline.name);
@@ -16,70 +16,63 @@ export default (project: codebuild.Project) => {
 };
 
 /** Create CodePipeline */
-const createPipeline = (projectName: Output<string>) => {
-  return Consts.INSTALL_STACK.outputs.apply((item) => {
-    const outputs = item.outputs as Install.Outputs;
+const createPipeline = (artifact: s3.Bucket, projectName: Output<string>) => {
+  // codepipeline role
+  const role = getRole(artifact.arn);
 
-    const bucketName = outputs.Bucket.Artifact.bucket;
-    const bucketArn = outputs.Bucket.Artifact.arn;
-
-    // codepipeline role
-    const role = getRole(bucketArn);
-
-    // backend pipeline
-    return new codepipeline.Pipeline(
-      'codepipeline.pipeline.frontend',
-      {
-        name: `${Consts.PROJECT_NAME_UC}-Frontend`,
-        artifactStore: {
-          location: bucketName,
-          type: 'S3',
-        },
-        roleArn: role.arn,
-        stages: [
-          {
-            name: 'Source',
-            actions: [
-              {
-                category: 'Source',
-                configuration: {
-                  Branch: Envs.REPO_BRANCH(),
-                  Owner: Consts.REPO_OWNER,
-                  Repo: Consts.REPO_FRONTEND,
-                  OAuthToken: config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET),
-                },
-                name: 'Source',
-                outputArtifacts: ['source_output'],
-                owner: 'ThirdParty',
-                provider: 'GitHub',
-                version: '1',
-              },
-            ],
-          },
-          {
-            actions: [
-              {
-                category: 'Build',
-                configuration: {
-                  ProjectName: projectName,
-                },
-                inputArtifacts: ['source_output'],
-                name: 'Build',
-                outputArtifacts: ['build_output'],
-                owner: 'AWS',
-                provider: 'CodeBuild',
-                version: '1',
-              },
-            ],
-            name: 'Build',
-          },
-        ],
+  // backend pipeline
+  return new codepipeline.Pipeline(
+    'codepipeline.pipeline.frontend',
+    {
+      name: `${Consts.PROJECT_NAME_UC}-Frontend`,
+      artifactStore: {
+        location: artifact.bucket,
+        type: 'S3',
       },
-      {
-        ignoreChanges: ['stages[0].actions[0].configuration.OAuthToken'],
-      }
-    );
-  });
+      roleArn: role.arn,
+      stages: [
+        {
+          name: 'Source',
+          actions: [
+            {
+              category: 'Source',
+              configuration: {
+                Branch: Envs.REPO_BRANCH(),
+                Owner: Consts.REPO_OWNER,
+                Repo: Consts.REPO_FRONTEND,
+                OAuthToken: config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET),
+              },
+              name: 'Source',
+              outputArtifacts: ['source_output'],
+              owner: 'ThirdParty',
+              provider: 'GitHub',
+              version: '1',
+            },
+          ],
+        },
+        {
+          actions: [
+            {
+              category: 'Build',
+              configuration: {
+                ProjectName: projectName,
+              },
+              inputArtifacts: ['source_output'],
+              name: 'Build',
+              outputArtifacts: ['build_output'],
+              owner: 'AWS',
+              provider: 'CodeBuild',
+              version: '1',
+            },
+          ],
+          name: 'Build',
+        },
+      ],
+    }
+    // {
+    //   ignoreChanges: ['stages[0].actions[0].configuration.OAuthToken'],
+    // }
+  );
 };
 
 /** CodePipeline Webhook */

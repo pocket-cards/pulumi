@@ -1,18 +1,17 @@
-import { s3 } from '@pulumi/aws';
 import CodeBuildBuild from './CodeBuildBuild';
 import CodeBuildTest from './CodeBuildTest';
 import CodeBuildPush from './CodeBuildPush';
 import CodePipeline from './CodePipeline';
-import { Initialize } from 'typings';
+import { Initial, Install } from 'typings';
 
-export default (): Initialize.CodePipeline.BackendOutputs => {
+export default (inputs: Install.Outputs, ecr: Initial.ECROutputs): Initial.CodePipeline.BackendOutputs => {
   // create codebuild backend
   const cbBuild = CodeBuildBuild();
   const cbTest = CodeBuildTest();
-  const cbPush = CodeBuildPush();
+  const cbPush = CodeBuildPush(ecr);
 
   // create codebuild backend
-  const pipeline = CodePipeline({
+  const pipeline = CodePipeline(inputs.Bucket, {
     Build: cbBuild,
     Test: cbTest,
     Push: cbPush,

@@ -1,5 +1,5 @@
 import { getStack, output } from '@pulumi/pulumi';
-import { Provider, getRegion } from '@pulumi/aws';
+import { Provider, getRegion, getBillingServiceAccount, getCallerIdentity } from '@pulumi/aws';
 
 const BRANCHS = {
   dev: 'master',
@@ -18,3 +18,5 @@ export const STACK_NAME = getStack();
 export const ENVIRONMENT = STACK_NAME.split('-')[0];
 // Default Region
 export const DEFAULT_REGION = output(getRegion(undefined, { async: true })).name;
+// AWS Account ID
+export const ACCOUNT_ID = output(getCallerIdentity({ async: true })).accountId;

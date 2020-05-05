@@ -28,8 +28,8 @@ export default (inputs: Frontend.Inputs): Frontend.ACMOutputs => {
     },
     {
       customTimeouts: {
-        create: '10m',
-        update: '10m',
+        create: '15m',
+        update: '15m',
       },
       provider: Envs.PROVIDER_US,
     }
