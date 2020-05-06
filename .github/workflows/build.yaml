@@ -72,5 +72,6 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: build
           SLACK_TITLE: Pulumi Build
-          SLACK_COLOR: '#3278BD'
-          SLACK_MESSAGE: 'Post Content :rocket:'
+          SLACK_COLOR: '#43a047'
+          SLACK_MESSAGE: $GITHUB_REPOSITORY Build Success
+          SLACK_USERNAME: $GITHUB_REPOSITORY
