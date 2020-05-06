@@ -5,30 +5,7 @@ export namespace Install {
   // Install Outputs
   // ----------------------------------------------------------------------------------------------
   export interface Outputs {
-    ParameterStore: ParameterOutputs;
-    Bucket?: BucketOutputs;
     Route53: Route53Outputs;
-    // Role: {
-    //   CodeBuildPulumi: iam.Role;
-    //   CodePipelinePulumi: iam.Role;
-    // };
-  }
-
-  // ----------------------------------------------------------------------------------------------
-  // CodeBuild Outputs
-  // ----------------------------------------------------------------------------------------------
-  export interface CodeBuildOutputs {
-    CodeBuild: codebuild.Project;
-    CodeBuildRole: iam.Role;
-  }
-
-  // ----------------------------------------------------------------------------------------------
-  // CodePipeline Outputs
-  // ----------------------------------------------------------------------------------------------
-  export interface CodePipelineOutputs {
-    CodePipeline: codepipeline.Pipeline;
-    CodePipelineWebhook: codepipeline.Webhook;
-    CodePipelineRole: iam.Role;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -37,13 +14,6 @@ export namespace Install {
   export interface ParameterOutputs {
     Github: ssm.Parameter;
     Pulumi: ssm.Parameter;
-  }
-
-  // ----------------------------------------------------------------------------------------------
-  // Bucket Outputs
-  // ----------------------------------------------------------------------------------------------
-  export interface BucketOutputs {
-    Artifact: s3.Bucket;
   }
 
   // ----------------------------------------------------------------------------------------------

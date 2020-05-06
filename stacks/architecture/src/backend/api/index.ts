@@ -4,7 +4,7 @@ import { Backend } from 'typings';
 
 export default (inputs: Backend.API.Inputs): Backend.API.Outputs => {
   // API Gateway
-  const api = APIGateway(inputs.Cognito);
+  const api = APIGateway(inputs);
 
   // Route53 Record
   Route53(inputs.Route53.Zone, api.API);

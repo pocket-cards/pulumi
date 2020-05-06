@@ -1,4 +1,4 @@
-import { s3, cloudfront, codebuild, codepipeline, ecr, dynamodb } from '@pulumi/aws';
+import { s3, codebuild, codepipeline, ecr, dynamodb, cognito } from '@pulumi/aws';
 
 export namespace Initial {
   // ----------------------------------------------------------------------------------------------
@@ -6,8 +6,9 @@ export namespace Initial {
   // ----------------------------------------------------------------------------------------------
   export interface Outputs {
     DynamoDB: DynamoDBOutputs;
-    Bucket: S3Outputs;
+    S3: S3Outputs;
     ECR: ECROutputs;
+    Cognito: CognitoOutputs;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -28,6 +29,7 @@ export namespace Initial {
     Frontend: s3.Bucket;
     Audio: s3.Bucket;
     Images: s3.Bucket;
+    Artifacts: s3.Bucket;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -36,6 +38,15 @@ export namespace Initial {
   interface ECROutputs {
     Backend: ecr.Repository;
     BackendTesting: ecr.Repository;
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // Cognito Outputs
+  // ----------------------------------------------------------------------------------------------
+  interface CognitoOutputs {
+    UserPool: cognito.UserPool;
+    UserPoolClient: cognito.UserPoolClient;
+    IdentityPool: cognito.IdentityPool;
   }
 
   // ----------------------------------------------------------------------------------------------

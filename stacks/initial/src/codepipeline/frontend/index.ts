@@ -1,15 +1,16 @@
-// import CodeBuild from './CodeBuild';
-// import CodePipeline from './CodePipeline';
-// import { Initial, Install } from 'typings';
+import { s3 } from '@pulumi/aws';
+import CodeBuild from './CodeBuild';
+import CodePipeline from './CodePipeline';
+import { Initial } from 'typings';
 
-// export default (inputs: Install.Outputs): Initial.CodePipeline.FrontendOutputs => {
-//   // create codebuild backend
-//   const codebuild = CodeBuild();
-//   // create codebuild backend
-//   const pipeline = CodePipeline(inputs.Bucket, codebuild);
+export default (artifact: s3.Bucket, cognito: Initial.CognitoOutputs): Initial.CodePipeline.FrontendOutputs => {
+  // create codebuild backend
+  const codebuild = CodeBuild(cognito);
+  // create codebuild backend
+  const pipeline = CodePipeline(artifact, codebuild);
 
-//   return {
-//     CodeBuild: codebuild,
-//     CodePipeline: pipeline,
-//   };
-// };
+  return {
+    CodeBuild: codebuild,
+    CodePipeline: pipeline,
+  };
+};

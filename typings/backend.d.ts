@@ -1,13 +1,15 @@
-import { ec2, ecs, servicediscovery, lb, cognito, route53, apigatewayv2 } from '@pulumi/aws';
+import { ec2, ecs, servicediscovery, lb, route53, apigatewayv2 } from '@pulumi/aws';
 import { Initial } from './initial';
+import { Install } from './install';
 
 export namespace Backend {
   // ----------------------------------------------------------------------------------------------
   // Backend Outputs
   // ----------------------------------------------------------------------------------------------
   export interface Inputs {
-    Route53: Route53Inputs;
+    Route53: Install.Route53Outputs;
     ECR: Initial.ECROutputs;
+    Cognito: Initial.CognitoOutputs;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -17,7 +19,6 @@ export namespace Backend {
     VPC: VPC.Outputs;
     ECS: ECS.Outputs;
     APIGateway: API.Outputs;
-    Cognito: CognitoOutputs;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -25,15 +26,6 @@ export namespace Backend {
   // ----------------------------------------------------------------------------------------------
   interface Route53Inputs {
     Zone: route53.Zone;
-  }
-
-  // ----------------------------------------------------------------------------------------------
-  // Cognito Outputs
-  // ----------------------------------------------------------------------------------------------
-  interface CognitoOutputs {
-    UserPool: cognito.UserPool;
-    UserPoolClient: cognito.UserPoolClient;
-    IdentityPool: cognito.IdentityPool;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -98,7 +90,7 @@ export namespace Backend {
   namespace API {
     interface Inputs {
       Route53: Route53Inputs;
-      Cognito: CognitoOutputs;
+      Cognito: Initial.CognitoOutputs;
     }
 
     // ----------------------------------------------------------------------------------------------

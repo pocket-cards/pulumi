@@ -1,30 +1,28 @@
-import { Output } from '@pulumi/pulumi';
-import { Bucket, DynamoDB, ECR } from './src';
-import { Consts } from '../consts';
+import { Bucket, DynamoDB, ECR, CodePipelineFr, Cognito } from './src';
 import { Initial } from 'typings';
 
-export let outputs: Output<Initial.Outputs>;
+export let outputs: Initial.Outputs;
 
 const start = () => {
-  outputs = Consts.INSTALL_STACK.outputs.apply<Initial.Outputs>((item) => {
-    // const install = item.outputs as Install.Outputs;
+  const bucket = Bucket();
+  // create dynamodb tables
+  const dynamoDB = DynamoDB();
+  // create cognito
+  const cognito = Cognito();
+  // create ECR
+  const ecr = ECR();
 
-    const bucket = Bucket();
-    // create dynamodb tables
-    const dynamoDB = DynamoDB();
+  // create codepipeline backend
+  // CodePipelineBk(install, ecr);
+  // create codepipeline frontend
+  CodePipelineFr(bucket.Artifacts, cognito);
 
-    const ecr = ECR();
-    // create codepipeline backend
-    // CodePipelineBk(install, ecr);
-    // create codepipeline frontend
-    // CodePipelineFr(install);
-
-    return {
-      DynamoDB: dynamoDB,
-      Bucket: bucket,
-      ECR: ecr,
-    };
-  });
+  outputs = {
+    DynamoDB: dynamoDB,
+    ECR: ecr,
+    S3: bucket,
+    Cognito: cognito,
+  };
 };
 
 start();

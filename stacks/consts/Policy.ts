@@ -36,3 +36,5 @@ export { default as CodeBuild_Backend_Push } from './policy/CodeBuild_Backend_Pu
 export { default as CodeBuild_Frontend } from './policy/CodeBuild_Frontend';
 export { default as ECS_Task } from './policy/ECS_Task';
 export { default as ECS_TaskExecution } from './policy/ECS_TaskExecution';
+export { default as Cognito_Authenticated } from './policy/Cognito_Authenticated';
+export { default as Lambda_Basic } from './policy/Lambda_Basic';

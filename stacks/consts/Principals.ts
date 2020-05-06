@@ -3,6 +3,7 @@ import { interpolate, Output } from '@pulumi/pulumi';
 export { default as CODEBUILD } from './principals/CodeBuild';
 export { default as CODEPIPELINE } from './principals/CodePipeline';
 export { default as ECS_TASKS } from './principals/ECSTask';
+export { default as LAMBDA } from './principals/Lambda';
 
 export const COGNITO_AUTH = (identityId: Output<string>) => interpolate`{
   "Version": "2012-10-17",

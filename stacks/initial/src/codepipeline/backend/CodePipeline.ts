@@ -1,13 +1,13 @@
 import { Output, Config } from '@pulumi/pulumi';
 import { codepipeline, iam, s3 } from '@pulumi/aws';
 import { Envs, Principals, Policy, Consts } from '../../../../consts';
-import { Initial, Install } from 'typings';
+import { Initial } from 'typings';
 
 const config = new Config();
 
-export default (inputs: Install.BucketOutputs, codebuild: Initial.CodePipeline.BackendCodeBuildOutputs) => {
+export default (inputs: Initial.S3Outputs, codebuild: Initial.CodePipeline.BackendCodeBuildOutputs) => {
   // create pipeline
-  const pipeline = createPipeline(inputs.Artifact, codebuild);
+  const pipeline = createPipeline(inputs.Artifacts, codebuild);
 
   // create webhook
   createWebhook(pipeline.name);

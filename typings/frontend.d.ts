@@ -1,18 +1,14 @@
-import { cognito, cloudfront, acm, route53, s3 } from '@pulumi/aws';
+import { cloudfront, acm } from '@pulumi/aws';
+import { Initial } from './initial';
+import { Install } from './install';
 
 export namespace Frontend {
   // ----------------------------------------------------------------------------------------------
   // Frontend Inputs
   // ----------------------------------------------------------------------------------------------
   export interface Inputs {
-    Route53: {
-      Zone: route53.Zone;
-    };
-    S3: {
-      Frontend: s3.Bucket;
-      Audio: s3.Bucket;
-      Images: s3.Bucket;
-    };
+    Route53: Install.Route53Outputs;
+    S3: Initial.S3Outputs;
   }
 
   // ----------------------------------------------------------------------------------------------

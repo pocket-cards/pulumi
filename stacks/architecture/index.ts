@@ -13,21 +13,14 @@ const start = () => {
 
     // Frontend 構成
     const frontend = Frontend({
-      Route53: {
-        Zone: install.Route53.Zone,
-      },
-      S3: {
-        Audio: init.Bucket.Audio,
-        Frontend: init.Bucket.Frontend,
-        Images: init.Bucket.Images,
-      },
+      Route53: install.Route53,
+      S3: init.S3,
     });
 
     const backend = Backend({
-      Route53: {
-        Zone: install.Route53.Zone,
-      },
+      Route53: install.Route53,
       ECR: init.ECR,
+      Cognito: init.Cognito,
     });
 
     const { ECS: ecsOutputs, VPC: vpcOutputs, APIGateway: apiOutputs } = backend;
@@ -35,12 +28,12 @@ const start = () => {
     return {
       Bucket: {
         // Artifact: install.Bucket.Artifact.bucket,
-        Audio: init.Bucket.Audio.bucket,
-        Frontend: init.Bucket.Frontend.bucket,
-        Images: init.Bucket.Images.bucket,
+        Audio: init.S3.Audio.bucket,
+        Frontend: init.S3.Frontend.bucket,
+        Images: init.S3.Images.bucket,
       },
-      UserPoolId: backend.Cognito.UserPool.id,
-      UserPoolClientId: backend.Cognito.UserPoolClient.id,
+      UserPoolId: init.Cognito.UserPool.id,
+      UserPoolClientId: init.Cognito.UserPoolClient.id,
       CloudFront: {
         Identity: frontend.Identity.iamArn,
       },

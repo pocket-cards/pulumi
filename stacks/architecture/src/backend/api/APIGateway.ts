@@ -3,7 +3,7 @@ import { apigatewayv2 } from '@pulumi/aws';
 import { Consts, Envs } from '../../../../consts';
 import { Backend } from 'typings';
 
-export default (inputs: Backend.CognitoOutputs): Backend.API.APIGatewayOutputs => {
+export default (inputs: Backend.API.Inputs): Backend.API.APIGatewayOutputs => {
   const api = new apigatewayv2.Api('apigateway.api.backend', {
     name: Consts.PROJECT_NAME,
     protocolType: 'HTTP',
@@ -29,8 +29,8 @@ export default (inputs: Backend.CognitoOutputs): Backend.API.APIGatewayOutputs =
     authorizerType: 'JWT',
     identitySources: ['$request.header.Authorization'],
     jwtConfiguration: {
-      audiences: [inputs.UserPoolClient.id],
-      issuer: interpolate`https://cognito-idp.${Envs.DEFAULT_REGION}.amazonaws.com/${inputs.UserPool.id}`,
+      audiences: [inputs.Cognito.UserPoolClient.id],
+      issuer: interpolate`https://cognito-idp.${Envs.DEFAULT_REGION}.amazonaws.com/${inputs.Cognito.UserPool.id}`,
     },
   });
 

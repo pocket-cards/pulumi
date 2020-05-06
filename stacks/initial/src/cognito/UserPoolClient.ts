@@ -1,5 +1,5 @@
 import { cognito } from '@pulumi/aws';
-import { Consts } from '../../../../consts';
+import { Consts } from '../../../consts';
 
 export default (userpool: cognito.UserPool) => {
   return new cognito.UserPoolClient('cognito.userpoolclient', {
