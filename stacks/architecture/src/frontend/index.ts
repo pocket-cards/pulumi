@@ -3,6 +3,8 @@ import BucketPolicy from './BucketPolicy';
 import CloudFront from './CloudFront';
 import Record from './Record';
 import CodePipeline from './codepipeline';
+import SNS from './sns';
+
 import { Frontend } from 'typings';
 
 export default ({ ACM, Cognito, Route53, S3 }: Frontend.Inputs): Frontend.Outputs => {
@@ -29,8 +31,13 @@ export default ({ ACM, Cognito, Route53, S3 }: Frontend.Inputs): Frontend.Output
   // Route53 Record
   Record(Route53.Zone, cloudfront.Distribution);
 
+  SNS();
+
   const pipeline = CodePipeline({
-    Bucket: S3.Artifacts,
+    Bucket: {
+      Artifact: S3.Artifacts,
+      Frontend: S3.Frontend,
+    },
     Cognito: Cognito,
   });
 

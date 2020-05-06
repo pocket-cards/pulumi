@@ -6,7 +6,7 @@ export default (inputs: Frontend.CodePipeline.Inputs): Frontend.CodePipeline.Out
   // create codebuild backend
   const codebuild = CodeBuild(inputs.Cognito);
   // create codebuild backend
-  const pipeline = CodePipeline(inputs.Bucket, codebuild);
+  const pipeline = CodePipeline(inputs.Bucket.Artifact, inputs.Bucket.Frontend, codebuild);
 
   return {
     CodeBuild: codebuild,

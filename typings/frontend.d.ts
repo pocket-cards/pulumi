@@ -103,7 +103,10 @@ export namespace Frontend {
     // ----------------------------------------------------------------------------------------------
     interface Inputs {
       Cognito: CognitoInputs;
-      Bucket: s3.Bucket;
+      Bucket: {
+        Artifact: s3.Bucket;
+        Frontend: s3.Bucket;
+      };
     }
     // ----------------------------------------------------------------------------------------------
     // Outputs

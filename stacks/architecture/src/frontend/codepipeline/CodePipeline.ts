@@ -5,9 +5,9 @@ import { Frontend } from 'typings';
 
 const config = new Config();
 
-export default (artifact: s3.Bucket, project: codebuild.Project) => {
+export default (artifact: s3.Bucket, frontend: s3.Bucket, project: codebuild.Project) => {
   // create pipeline
-  const pipeline = createPipeline(artifact, project.name);
+  const pipeline = createPipeline(artifact, frontend, project.name);
 
   // create webhook
   createWebhook(pipeline.name);
@@ -16,9 +16,9 @@ export default (artifact: s3.Bucket, project: codebuild.Project) => {
 };
 
 /** Create CodePipeline */
-const createPipeline = (artifact: s3.Bucket, projectName: Output<string>) => {
+const createPipeline = (artifact: s3.Bucket, frontend: s3.Bucket, projectName: Output<string>) => {
   // codepipeline role
-  const role = getRole(artifact.arn);
+  const role = getRole();
 
   // backend pipeline
   return new codepipeline.Pipeline(
@@ -67,6 +67,23 @@ const createPipeline = (artifact: s3.Bucket, projectName: Output<string>) => {
           ],
           name: 'Build',
         },
+        {
+          actions: [
+            {
+              name: 'Deploy',
+              owner: 'AWS',
+              provider: 'S3',
+              category: 'Deploy',
+              inputArtifacts: ['build_output'],
+              configuration: {
+                BucketName: frontend.bucket,
+                Extract: 'true',
+              },
+              version: '1',
+            },
+          ],
+          name: 'Deploy',
+        },
       ],
     }
     // {
@@ -96,7 +113,7 @@ const createWebhook = (pipeline: Output<string>) => {
 };
 
 /** CodePipeline Role */
-const getRole = (bucketArn: Output<string>) => {
+const getRole = () => {
   const role = new iam.Role('iam.role.codepipeline.frontend', {
     name: `${Consts.PROJECT_NAME_UC}_CodePipeline_FrontendRole`,
     assumeRolePolicy: Principals.CODEPIPELINE,
@@ -105,7 +122,7 @@ const getRole = (bucketArn: Output<string>) => {
   new iam.RolePolicy('iam.policy.codepipeline.frontend', {
     name: 'inline_policy',
     role: role.id,
-    policy: Policy.CodePipeline(bucketArn),
+    policy: Policy.CodePipeline,
   });
 
   return role;

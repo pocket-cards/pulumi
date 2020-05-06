@@ -1,6 +1,4 @@
-import { Output, interpolate } from '@pulumi/pulumi';
-
-export const CodePipeline = (bucketArn: Output<string>) => interpolate`{
+export const CodePipeline = JSON.parse(`{
   "Version": "2012-10-17",
   "Statement": [
     {
@@ -12,8 +10,7 @@ export const CodePipeline = (bucketArn: Output<string>) => interpolate`{
         "s3:PutObject"
       ],
       "Resource": [
-        "${bucketArn}",
-        "${bucketArn}/*"
+        "*"
       ]
     },
     {
@@ -26,7 +23,7 @@ export const CodePipeline = (bucketArn: Output<string>) => interpolate`{
     }
   ]
 }
-`;
+`);
 
 export { default as CodeBuild_Pulumi } from './policy/CodeBuild_Pulumi';
 export { default as CodeBuild_Pulumi_Attach } from './policy/CodeBuild_Pulumi_Attach';
@@ -38,3 +35,4 @@ export { default as ECS_Task } from './policy/ECS_Task';
 export { default as ECS_TaskExecution } from './policy/ECS_TaskExecution';
 export { default as Cognito_Authenticated } from './policy/Cognito_Authenticated';
 export { default as Lambda_Basic } from './policy/Lambda_Basic';
+export { default as SNS_Topic } from './policy/SNS_Topic';

@@ -10,19 +10,19 @@ export default ({
   const distribution = new cloudfront.Distribution('cloudfront.frontend', {
     aliases: [`card.${Consts.DOMAIN_NAME()}`],
     origins: [
-      {
-        customOriginConfig: {
-          httpPort: 80,
-          httpsPort: 443,
-          originKeepaliveTimeout: 5,
-          originProtocolPolicy: 'https-only',
-          originReadTimeout: 30,
-          originSslProtocols: ['TLSv1'],
-        },
-        domainName: `api.${Consts.DOMAIN_NAME()}`,
-        originId: 'api',
-        originPath: '/api',
-      },
+      // {
+      //   customOriginConfig: {
+      //     httpPort: 80,
+      //     httpsPort: 443,
+      //     originKeepaliveTimeout: 5,
+      //     originProtocolPolicy: 'https-only',
+      //     originReadTimeout: 30,
+      //     originSslProtocols: ['TLSv1'],
+      //   },
+      //   domainName: `api.${Consts.DOMAIN_NAME()}`,
+      //   originId: 'api',
+      //   originPath: '/api',
+      // },
       {
         domainName: Bucket.Audio.bucketDomainName,
         originId: 'audio',
@@ -43,7 +43,7 @@ export default ({
     defaultCacheBehavior: {
       allowedMethods: ['HEAD', 'DELETE', 'POST', 'GET', 'OPTIONS', 'PUT', 'PATCH'],
       cachedMethods: ['HEAD', 'GET'],
-      compress: false,
+      compress: true,
       defaultTtl: 86400,
       forwardedValues: {
         cookies: {

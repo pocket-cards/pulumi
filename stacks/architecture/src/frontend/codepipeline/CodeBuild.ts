@@ -56,6 +56,10 @@ export default (cognito: Frontend.CodePipeline.CognitoInputs) => {
           name: 'IDENTITY_POOL_ID',
           value: cognito.IdentityPool.id,
         },
+        {
+          name: 'API_URL',
+          value: `https://api.${Consts.DOMAIN_NAME()}`,
+        },
       ],
     },
     serviceRole: serviceRole.arn,

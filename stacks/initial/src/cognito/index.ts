@@ -15,7 +15,7 @@ export default (): Initial.CognitoOutputs => {
   const identity = IdentityPool(pool, poolClient);
 
   new lambda.Permission('lambda.permission.cognito', {
-    statementId: 'lambda_permission_cognito',
+    statementId: 'lambda-permission-cognito',
     action: 'lambda:InvokeFunction',
     function: func.arn,
     principal: 'cognito-sync.amazonaws.com',

@@ -9,12 +9,15 @@ export * from './initial';
 
 export interface Outputs {
   Bucket: {
-    Audio: Output<string>;
-    Images: Output<string>;
-    Frontend: Output<string>;
+    Audio: BucketOutputs;
+    Images: BucketOutputs;
+    Frontend: BucketOutputs;
+    Artifacts: BucketOutputs;
   };
-  UserPoolId: Output<string>;
-  UserPoolClientId: Output<string>;
+  Cognito: {
+    UserPoolId: Output<string>;
+    UserPoolClientId: Output<string>;
+  };
   CloudFront: {
     Identity: cloudfront.OriginAccessIdentity;
     Distribution: cloudfront.Distribution;
@@ -42,4 +45,10 @@ export interface Outputs {
   //   };
   // };
   Test?: any;
+}
+
+interface BucketOutputs {
+  bucketName: Output<string>;
+  bucketArn: Output<string>;
+  bucketDomainName: Output<string>;
 }

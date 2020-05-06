@@ -3,6 +3,7 @@ import Frontend from './src/frontend';
 import Backend from './src/backend';
 import { Consts } from '../consts';
 import { Outputs, Install, Initial } from 'typings';
+import { INITIAL_STACK } from '../consts/Consts';
 
 export let outputs: Output<Outputs>;
 
@@ -36,13 +37,31 @@ const start = () => {
 
     return {
       Bucket: {
-        // Artifact: install.Bucket.Artifact.bucket,
-        Audio: init.S3.Audio.bucket,
-        Frontend: init.S3.Frontend.bucket,
-        Images: init.S3.Images.bucket,
+        Artifacts: {
+          bucketName: init.S3.Artifacts.bucket,
+          bucketArn: init.S3.Artifacts.arn,
+          bucketDomainName: init.S3.Artifacts.bucketDomainName,
+        },
+        Audio: {
+          bucketName: init.S3.Audio.bucket,
+          bucketArn: init.S3.Audio.arn,
+          bucketDomainName: init.S3.Audio.bucketDomainName,
+        },
+        Frontend: {
+          bucketName: init.S3.Frontend.bucket,
+          bucketArn: init.S3.Frontend.arn,
+          bucketDomainName: init.S3.Frontend.bucketDomainName,
+        },
+        Images: {
+          bucketName: init.S3.Images.bucket,
+          bucketArn: init.S3.Images.arn,
+          bucketDomainName: init.S3.Images.bucketDomainName,
+        },
       },
-      UserPoolId: init.Cognito.UserPool.id,
-      UserPoolClientId: init.Cognito.UserPoolClient.id,
+      Cognito: {
+        UserPoolId: init.Cognito.UserPool.id,
+        UserPoolClientId: init.Cognito.UserPoolClient.id,
+      },
       CloudFront: {
         Identity: frontend.CloudFront.Identity,
         Distribution: frontend.CloudFront.Distribution,
