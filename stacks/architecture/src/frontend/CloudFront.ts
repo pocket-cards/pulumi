@@ -1,9 +1,13 @@
 import { cloudfront } from '@pulumi/aws';
-import { Frontend, Install } from 'typings';
+import { Frontend } from 'typings';
 import { Consts } from '../../../consts';
 
-export default (inputs: Frontend.Inputs, acm: Install.ACM.Outputs, identity: cloudfront.OriginAccessIdentity) => {
-  return new cloudfront.Distribution('cloudfront.frontend', {
+export default ({
+  Bucket,
+  Identity,
+  CertificateValidation,
+}: Frontend.CloudFront.Inputs): Frontend.CloudFront.Outputs => {
+  const distribution = new cloudfront.Distribution('cloudfront.frontend', {
     aliases: [`card.${Consts.DOMAIN_NAME()}`],
     origins: [
       {
@@ -20,19 +24,19 @@ export default (inputs: Frontend.Inputs, acm: Install.ACM.Outputs, identity: clo
         originPath: '/api',
       },
       {
-        domainName: inputs.S3.Audio.bucketDomainName,
+        domainName: Bucket.Audio.bucketDomainName,
         originId: 'audio',
         originPath: '',
         s3OriginConfig: {
-          originAccessIdentity: identity.cloudfrontAccessIdentityPath,
+          originAccessIdentity: Identity.cloudfrontAccessIdentityPath,
         },
       },
       {
-        domainName: inputs.S3.Frontend.bucketDomainName,
+        domainName: Bucket.Frontend.bucketDomainName,
         originId: 'frontend',
         originPath: '',
         s3OriginConfig: {
-          originAccessIdentity: identity.cloudfrontAccessIdentityPath,
+          originAccessIdentity: Identity.cloudfrontAccessIdentityPath,
         },
       },
     ],
@@ -86,7 +90,7 @@ export default (inputs: Frontend.Inputs, acm: Install.ACM.Outputs, identity: clo
     priceClass: 'PriceClass_All',
     enabled: true,
     viewerCertificate: {
-      acmCertificateArn: acm.Virginia.CertificateValidation.certificateArn,
+      acmCertificateArn: CertificateValidation.certificateArn,
       minimumProtocolVersion: 'TLSv1.1_2016',
       sslSupportMethod: 'sni-only',
     },
@@ -98,4 +102,8 @@ export default (inputs: Frontend.Inputs, acm: Install.ACM.Outputs, identity: clo
     httpVersion: 'http2',
     isIpv6Enabled: false,
   });
+
+  return {
+    Distribution: distribution,
+  };
 };

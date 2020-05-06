@@ -1,22 +1,44 @@
 import OriginAccessIdentity from './OriginAccessIdentity';
 import BucketPolicy from './BucketPolicy';
 import CloudFront from './CloudFront';
+import Record from './Record';
+import CodePipeline from './codepipeline';
 import { Frontend } from 'typings';
-import Route53 from './Route53';
 
-export default (inputs: Frontend.Inputs): Frontend.Outputs => {
+export default ({ ACM, Cognito, Route53, S3 }: Frontend.Inputs): Frontend.Outputs => {
   const identity = OriginAccessIdentity();
 
   // Add Bucket Access Policy
-  BucketPolicy(inputs, identity);
+  BucketPolicy({
+    Bucket: {
+      Audio: S3.Audio,
+      Frontend: S3.Frontend,
+    },
+    Identity: identity,
+  });
 
-  const distribution = CloudFront(inputs, inputs.ACM, identity);
+  const cloudfront = CloudFront({
+    Bucket: {
+      Audio: S3.Audio,
+      Frontend: S3.Frontend,
+    },
+    CertificateValidation: ACM.Virginia.CertificateValidation,
+    Identity: identity,
+  });
 
   // Route53 Record
-  Route53(inputs.Route53.Zone, distribution);
+  Record(Route53.Zone, cloudfront.Distribution);
+
+  const pipeline = CodePipeline({
+    Bucket: S3.Artifacts,
+    Cognito: Cognito,
+  });
 
   return {
-    Identity: identity,
-    Distribution: distribution,
+    CloudFront: {
+      Distribution: cloudfront.Distribution,
+      Identity: identity,
+    },
+    CodePipeline: pipeline,
   };
 };

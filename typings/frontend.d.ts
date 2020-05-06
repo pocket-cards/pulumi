@@ -1,23 +1,89 @@
-import { cloudfront, acm } from '@pulumi/aws';
-import { Initial } from './initial';
-import { Install } from './install';
+import { cloudfront, acm, cognito, s3, codebuild, codepipeline, route53 } from '@pulumi/aws';
 
 export namespace Frontend {
   // ----------------------------------------------------------------------------------------------
   // Frontend Inputs
   // ----------------------------------------------------------------------------------------------
   export interface Inputs {
-    Route53: Install.Route53Outputs;
-    S3: Initial.S3Outputs;
-    ACM: Install.ACM.Outputs;
+    Route53: Route53Inputs;
+    S3: S3Input;
+    ACM: ACMInputs;
+    Cognito: CognitoInputs;
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // Route53 Inputs
+  // ----------------------------------------------------------------------------------------------
+  interface Route53Inputs {
+    Zone: route53.Zone;
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // S3 Inputs
+  // ----------------------------------------------------------------------------------------------
+  interface S3Input {
+    Frontend: s3.Bucket;
+    Audio: s3.Bucket;
+    Artifacts: s3.Bucket;
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // ACM Inputs
+  // ----------------------------------------------------------------------------------------------
+  interface ACMInputs {
+    Virginia: ACMRegionInputs;
+  }
+
+  interface ACMRegionInputs {
+    Certificate: acm.Certificate;
+    CertificateValidation: acm.CertificateValidation;
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // Cognito Inputs
+  // ----------------------------------------------------------------------------------------------
+  interface CognitoInputs {
+    UserPool: cognito.UserPool;
+    UserPoolClient: cognito.UserPoolClient;
+    IdentityPool: cognito.IdentityPool;
   }
 
   // ----------------------------------------------------------------------------------------------
   // Frontend Outputs
   // ----------------------------------------------------------------------------------------------
-  export type Outputs = CloudFront.Outputs;
+  export interface Outputs {
+    CloudFront: CloudFront.Outputs & {
+      Identity: cloudfront.OriginAccessIdentity;
+    };
+    CodePipeline: CodePipeline.Outputs;
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // Bucket Policy
+  // ----------------------------------------------------------------------------------------------
+  namespace BucketPolicy {
+    // ----------------------------------------------------------------------------------------------
+    //  Inputs
+    // ----------------------------------------------------------------------------------------------
+    interface Inputs {
+      Bucket: {
+        Audio: s3.Bucket;
+        Frontend: s3.Bucket;
+      };
+      Identity: cloudfront.OriginAccessIdentity;
+    }
+  }
 
   namespace CloudFront {
+    interface Inputs {
+      Bucket: {
+        Audio: s3.Bucket;
+        Frontend: s3.Bucket;
+      };
+      CertificateValidation: acm.CertificateValidation;
+      Identity: cloudfront.OriginAccessIdentity;
+    }
+
     type Outputs = CloudFrontOutputs;
 
     // ----------------------------------------------------------------------------------------------
@@ -25,7 +91,34 @@ export namespace Frontend {
     // ----------------------------------------------------------------------------------------------
     interface CloudFrontOutputs {
       Distribution: cloudfront.Distribution;
-      Identity: cloudfront.OriginAccessIdentity;
+    }
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // CodePipeline
+  // ----------------------------------------------------------------------------------------------
+  namespace CodePipeline {
+    // ----------------------------------------------------------------------------------------------
+    // Inputs
+    // ----------------------------------------------------------------------------------------------
+    interface Inputs {
+      Cognito: CognitoInputs;
+      Bucket: s3.Bucket;
+    }
+    // ----------------------------------------------------------------------------------------------
+    // Outputs
+    // ----------------------------------------------------------------------------------------------
+    interface Outputs {
+      CodeBuild: codebuild.Project;
+      CodePipeline: codepipeline.Pipeline;
+    }
+    // ----------------------------------------------------------------------------------------------
+    // Cognito Inputs
+    // ----------------------------------------------------------------------------------------------
+    interface CognitoInputs {
+      UserPool: cognito.UserPool;
+      UserPoolClient: cognito.UserPoolClient;
+      IdentityPool: cognito.IdentityPool;
     }
   }
 }

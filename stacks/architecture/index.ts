@@ -13,9 +13,16 @@ const start = () => {
 
     // Frontend 構成
     const frontend = Frontend({
-      Route53: install.Route53,
-      S3: init.S3,
-      ACM: install.ACM,
+      Route53: { ...install.Route53 },
+      Cognito: { ...init.Cognito },
+      S3: {
+        Artifacts: init.S3.Artifacts,
+        Audio: init.S3.Audio,
+        Frontend: init.S3.Frontend,
+      },
+      ACM: {
+        Virginia: { ...install.ACM.Virginia },
+      },
     });
 
     const backend = Backend({
@@ -37,8 +44,8 @@ const start = () => {
       UserPoolId: init.Cognito.UserPool.id,
       UserPoolClientId: init.Cognito.UserPoolClient.id,
       CloudFront: {
-        Identity: frontend.Identity,
-        Distribution: frontend.Distribution,
+        Identity: frontend.CloudFront.Identity,
+        Distribution: frontend.CloudFront.Distribution,
       },
       APIGateway: apiOutputs,
       VPC: {
