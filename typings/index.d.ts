@@ -1,4 +1,6 @@
 import { Output, OutputInstance } from '@pulumi/pulumi';
+import { cloudfront, apigateway, apigatewayv2 } from '@pulumi/aws';
+import { Backend } from './backend';
 
 export * from './backend';
 export * from './frontend';
@@ -14,11 +16,10 @@ export interface Outputs {
   UserPoolId: Output<string>;
   UserPoolClientId: Output<string>;
   CloudFront: {
-    Identity: Output<string>;
+    Identity: cloudfront.OriginAccessIdentity;
+    Distribution: cloudfront.Distribution;
   };
-  APIGateway: {
-    Endpoint: Output<string>;
-  };
+  APIGateway: Backend.API.Outputs;
   VPC: {
     Name?: Output<string>;
     Id: Output<string>;

@@ -15,12 +15,14 @@ const start = () => {
     const frontend = Frontend({
       Route53: install.Route53,
       S3: init.S3,
+      ACM: install.ACM,
     });
 
     const backend = Backend({
       Route53: install.Route53,
       ECR: init.ECR,
       Cognito: init.Cognito,
+      ACM: install.ACM,
     });
 
     const { ECS: ecsOutputs, VPC: vpcOutputs, APIGateway: apiOutputs } = backend;
@@ -35,11 +37,10 @@ const start = () => {
       UserPoolId: init.Cognito.UserPool.id,
       UserPoolClientId: init.Cognito.UserPoolClient.id,
       CloudFront: {
-        Identity: frontend.Identity.iamArn,
+        Identity: frontend.Identity,
+        Distribution: frontend.Distribution,
       },
-      APIGateway: {
-        Endpoint: apiOutputs.API.apiEndpoint,
-      },
+      APIGateway: apiOutputs,
       VPC: {
         Id: vpcOutputs.VPC.id,
         Arn: vpcOutputs.VPC.arn,
@@ -61,7 +62,7 @@ const start = () => {
         },
       },
       // Test: backend,
-    };
+    } as Outputs;
   });
 };
 

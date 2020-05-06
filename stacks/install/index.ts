@@ -1,5 +1,6 @@
 import Parameters from './src/Parameters';
 import Route53 from './src/Route53';
+import ACM from './src/acm';
 import { Install } from 'typings';
 
 export let outputs: Install.Outputs;
@@ -9,8 +10,11 @@ const start = () => {
   // parameter store
   Parameters();
 
+  const acm = ACM(route53.Zone);
+
   outputs = {
     Route53: route53,
+    ACM: acm,
   };
 };
 

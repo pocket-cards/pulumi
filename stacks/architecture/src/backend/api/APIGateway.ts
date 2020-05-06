@@ -1,9 +1,9 @@
 import { interpolate } from '@pulumi/pulumi';
 import { apigatewayv2 } from '@pulumi/aws';
 import { Consts, Envs } from '../../../../consts';
-import { Backend } from 'typings';
+import { Backend, Initial } from 'typings';
 
-export default (inputs: Backend.API.Inputs): Backend.API.APIGatewayOutputs => {
+export default (cognito: Initial.CognitoOutputs, domain: apigatewayv2.DomainName): Backend.API.APIGatewayOutputs => {
   const api = new apigatewayv2.Api('apigateway.api.backend', {
     name: Consts.PROJECT_NAME,
     protocolType: 'HTTP',
@@ -29,8 +29,8 @@ export default (inputs: Backend.API.Inputs): Backend.API.APIGatewayOutputs => {
     authorizerType: 'JWT',
     identitySources: ['$request.header.Authorization'],
     jwtConfiguration: {
-      audiences: [inputs.Cognito.UserPoolClient.id],
-      issuer: interpolate`https://cognito-idp.${Envs.DEFAULT_REGION}.amazonaws.com/${inputs.Cognito.UserPool.id}`,
+      audiences: [cognito.UserPoolClient.id],
+      issuer: interpolate`https://cognito-idp.${Envs.DEFAULT_REGION}.amazonaws.com/${cognito.UserPool.id}`,
     },
   });
 
@@ -53,11 +53,19 @@ export default (inputs: Backend.API.Inputs): Backend.API.APIGatewayOutputs => {
     { ignoreChanges: ['deploymentId'] }
   );
 
+  const mapping = new apigatewayv2.ApiMapping('apigateway.apimapping', {
+    apiId: api.id,
+    domainName: domain.domainName,
+    stage: stage.id,
+    apiMappingKey: '',
+  });
+
   return {
     API: api,
     Authorizer: authorizer,
     Integration: integration,
     Route: route,
     Stage: stage,
+    APIMapping: mapping,
   };
 };

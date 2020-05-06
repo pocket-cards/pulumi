@@ -1,4 +1,4 @@
-import { ssm, s3, iam, codebuild, codepipeline, route53 } from '@pulumi/aws';
+import { ssm, route53, acm } from '@pulumi/aws';
 
 export namespace Install {
   // ----------------------------------------------------------------------------------------------
@@ -6,6 +6,7 @@ export namespace Install {
   // ----------------------------------------------------------------------------------------------
   export interface Outputs {
     Route53: Route53Outputs;
+    ACM: ACM.Outputs;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -21,6 +22,31 @@ export namespace Install {
   // ----------------------------------------------------------------------------------------------
   export interface Route53Outputs {
     Zone: route53.Zone;
-    Record?: route53.Record;
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // Route53 Outputs
+  // ----------------------------------------------------------------------------------------------
+  namespace ACM {
+    interface Outputs {
+      Record: route53.Record;
+      Tokyo: ACMOutputs;
+      Virginia: ACMOutputs;
+    }
+
+    interface ACMOutputs {
+      Certificate: acm.Certificate;
+      CertificateValidation: acm.CertificateValidation;
+    }
+
+    interface Certificates {
+      Tokyo: acm.Certificate;
+      Virginia: acm.Certificate;
+    }
+
+    interface Validations {
+      Tokyo: acm.CertificateValidation;
+      Virginia: acm.CertificateValidation;
+    }
   }
 }

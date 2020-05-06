@@ -8,7 +8,11 @@ export default (inputs: Backend.Inputs): Backend.Outputs => {
 
   const ecs = ECS(inputs.ECR, vpc);
 
-  const api = APIGateway({ Route53: inputs.Route53, Cognito: inputs.Cognito });
+  const api = APIGateway({
+    Route53: inputs.Route53,
+    ACM: inputs.ACM,
+    Cognito: inputs.Cognito,
+  });
 
   return {
     VPC: vpc,

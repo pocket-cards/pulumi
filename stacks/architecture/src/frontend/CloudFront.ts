@@ -1,12 +1,8 @@
 import { cloudfront } from '@pulumi/aws';
-import { Frontend } from 'typings';
+import { Frontend, Install } from 'typings';
 import { Consts } from '../../../consts';
 
-export default (
-  inputs: Frontend.Inputs,
-  acm: Frontend.CloudFront.ACMOutputs,
-  identity: cloudfront.OriginAccessIdentity
-) => {
+export default (inputs: Frontend.Inputs, acm: Install.ACM.Outputs, identity: cloudfront.OriginAccessIdentity) => {
   return new cloudfront.Distribution('cloudfront.frontend', {
     aliases: [`card.${Consts.DOMAIN_NAME()}`],
     origins: [
@@ -90,7 +86,7 @@ export default (
     priceClass: 'PriceClass_All',
     enabled: true,
     viewerCertificate: {
-      acmCertificateArn: acm.CertificateValidation.certificateArn,
+      acmCertificateArn: acm.Virginia.CertificateValidation.certificateArn,
       minimumProtocolVersion: 'TLSv1.1_2016',
       sslSupportMethod: 'sni-only',
     },

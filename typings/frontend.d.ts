@@ -9,6 +9,7 @@ export namespace Frontend {
   export interface Inputs {
     Route53: Install.Route53Outputs;
     S3: Initial.S3Outputs;
+    ACM: Install.ACM.Outputs;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -17,7 +18,7 @@ export namespace Frontend {
   export type Outputs = CloudFront.Outputs;
 
   namespace CloudFront {
-    type Outputs = CloudFrontOutputs & ACMOutputs;
+    type Outputs = CloudFrontOutputs;
 
     // ----------------------------------------------------------------------------------------------
     // CloudFront Outputs
@@ -25,14 +26,6 @@ export namespace Frontend {
     interface CloudFrontOutputs {
       Distribution: cloudfront.Distribution;
       Identity: cloudfront.OriginAccessIdentity;
-    }
-
-    // ----------------------------------------------------------------------------------------------
-    // Certificate Manager Outputs
-    // ----------------------------------------------------------------------------------------------
-    interface ACMOutputs {
-      Certificate: acm.Certificate;
-      CertificateValidation: acm.CertificateValidation;
     }
   }
 }

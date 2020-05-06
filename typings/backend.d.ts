@@ -10,6 +10,7 @@ export namespace Backend {
     Route53: Install.Route53Outputs;
     ECR: Initial.ECROutputs;
     Cognito: Initial.CognitoOutputs;
+    ACM: Install.ACM.Outputs;
   }
 
   // ----------------------------------------------------------------------------------------------
@@ -91,12 +92,15 @@ export namespace Backend {
     interface Inputs {
       Route53: Route53Inputs;
       Cognito: Initial.CognitoOutputs;
+      ACM: Install.ACM.Outputs;
     }
 
     // ----------------------------------------------------------------------------------------------
     // Outputs
     // ----------------------------------------------------------------------------------------------
-    type Outputs = APIGatewayOutputs;
+    type Outputs = APIGatewayOutputs & {
+      Domain: apigatewayv2.DomainName;
+    };
 
     // ----------------------------------------------------------------------------------------------
     // APIGateway Outputs
@@ -107,6 +111,7 @@ export namespace Backend {
       Authorizer: apigatewayv2.Authorizer;
       Route: apigatewayv2.Route;
       Stage: apigatewayv2.Stage;
+      APIMapping: apigatewayv2.ApiMapping;
     }
   }
 }
