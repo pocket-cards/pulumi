@@ -1,4 +1,4 @@
-import { Bucket, DynamoDB, ECR, CodePipelineFr, Cognito } from './src';
+import { Bucket, DynamoDB, ECR, Cognito } from './src';
 import { Initial } from 'typings';
 
 export let outputs: Initial.Outputs;
@@ -15,7 +15,7 @@ const start = () => {
   // create codepipeline backend
   // CodePipelineBk(install, ecr);
   // create codepipeline frontend
-  CodePipelineFr(bucket.Artifacts, cognito);
+  // CodePipelineFr(bucket.Artifacts, cognito);
 
   outputs = {
     DynamoDB: dynamoDB,
