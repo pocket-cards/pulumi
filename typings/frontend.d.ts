@@ -1,4 +1,4 @@
-import { cloudfront, acm, cognito, s3, codebuild, codepipeline, route53 } from '@pulumi/aws';
+import { cloudfront, acm, cognito, s3, codebuild, codepipeline, route53, sns } from '@pulumi/aws';
 
 export namespace Frontend {
   // ----------------------------------------------------------------------------------------------
@@ -74,6 +74,9 @@ export namespace Frontend {
     }
   }
 
+  // ----------------------------------------------------------------------------------------------
+  // CloudFront
+  // ----------------------------------------------------------------------------------------------
   namespace CloudFront {
     interface Inputs {
       Bucket: {
@@ -107,6 +110,7 @@ export namespace Frontend {
         Artifact: s3.Bucket;
         Frontend: s3.Bucket;
       };
+      SNSTopic: sns.Topic;
     }
     // ----------------------------------------------------------------------------------------------
     // Outputs
@@ -122,6 +126,24 @@ export namespace Frontend {
       UserPool: cognito.UserPool;
       UserPoolClient: cognito.UserPoolClient;
       IdentityPool: cognito.IdentityPool;
+    }
+  }
+
+  // ----------------------------------------------------------------------------------------------
+  // SNS
+  // ----------------------------------------------------------------------------------------------
+  namespace SNS {
+    interface Inputs {
+      Distribution: cloudfront.Distribution;
+    }
+
+    type Outputs = SNSOutput;
+
+    // ----------------------------------------------------------------------------------------------
+    // SNS Outputs
+    // ----------------------------------------------------------------------------------------------
+    interface SNSOutput {
+      Topic: sns.Topic;
     }
   }
 }

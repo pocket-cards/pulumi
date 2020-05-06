@@ -22,7 +22,20 @@ export interface Outputs {
     Identity: cloudfront.OriginAccessIdentity;
     Distribution: cloudfront.Distribution;
   };
-  APIGateway: Backend.API.Outputs;
+  APIGateway: {
+    API: {
+      Id: Output<string>;
+      Arn: Output<string>;
+      ExecutionArn: Output<string>;
+      Endpoint: Output<string>;
+    };
+    // Authorizer: {
+    //   Id: Output<string>;
+    //   Name: Output<string>;
+    //   AuthorizerType: Output<string>;
+    //   JWTConfiguration: any;
+    // };
+  };
   VPC: {
     Name?: Output<string>;
     Id: Output<string>;

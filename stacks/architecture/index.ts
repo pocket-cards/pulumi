@@ -4,6 +4,7 @@ import Backend from './src/backend';
 import { Consts } from '../consts';
 import { Outputs, Install, Initial } from 'typings';
 import { INITIAL_STACK } from '../consts/Consts';
+import api from 'src/backend/api';
 
 export let outputs: Output<Outputs>;
 
@@ -66,7 +67,20 @@ const start = () => {
         Identity: frontend.CloudFront.Identity,
         Distribution: frontend.CloudFront.Distribution,
       },
-      APIGateway: apiOutputs,
+      APIGateway: {
+        API: {
+          Id: apiOutputs.API.id,
+          Arn: apiOutputs.API.arn,
+          Endpoint: apiOutputs.API.apiEndpoint,
+          ExecutionArn: apiOutputs.API.executionArn,
+        },
+        Authorizer: {
+          Id: apiOutputs.Authorizer.id,
+          Name: apiOutputs.Authorizer.name,
+          JWTConfiguration: apiOutputs.Authorizer.jwtConfiguration,
+          AuthorizerType: apiOutputs.Authorizer.authorizerType,
+        },
+      },
       VPC: {
         Id: vpcOutputs.VPC.id,
         Arn: vpcOutputs.VPC.arn,

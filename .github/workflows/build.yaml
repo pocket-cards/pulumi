@@ -66,6 +66,10 @@ jobs:
           ENVIRONMENT: dev
           PULUMI_ROOT: stacks/architecture
 
+  Slack:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Slack Notify
         uses: rtCamp/action-slack-notify@v2.0.1
         env:
@@ -73,5 +77,5 @@ jobs:
           SLACK_CHANNEL: build
           SLACK_TITLE: Pulumi Build
           SLACK_COLOR: '#43a047'
-          SLACK_MESSAGE: $GITHUB_REPOSITORY Build Success
-          SLACK_USERNAME: $GITHUB_REPOSITORY
+          SLACK_MESSAGE: ${{ GITHUB_REPOSITORY }} Build Success
+          SLACK_USERNAME: ${{ GITHUB_REPOSITORY }}

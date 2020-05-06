@@ -31,7 +31,9 @@ export default ({ ACM, Cognito, Route53, S3 }: Frontend.Inputs): Frontend.Output
   // Route53 Record
   Record(Route53.Zone, cloudfront.Distribution);
 
-  SNS();
+  const sns = SNS({
+    Distribution: cloudfront.Distribution,
+  });
 
   const pipeline = CodePipeline({
     Bucket: {
@@ -39,6 +41,7 @@ export default ({ ACM, Cognito, Route53, S3 }: Frontend.Inputs): Frontend.Output
       Frontend: S3.Frontend,
     },
     Cognito: Cognito,
+    SNSTopic: sns.Topic,
   });
 
   return {

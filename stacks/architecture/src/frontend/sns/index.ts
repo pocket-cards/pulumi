@@ -1,11 +1,12 @@
 import { lambda, sns } from '@pulumi/aws';
 import Topic from './Topic';
 import Lambda from './Lambda';
+import { Frontend } from 'typings';
 
-export default () => {
+export default (inputs: Frontend.SNS.Inputs): Frontend.SNS.Outputs => {
   const topic = Topic();
 
-  const func = Lambda();
+  const func = Lambda(inputs.Distribution);
 
   new lambda.Permission('lambda.permission.sns.frontend', {
     statementId: 'lambda-permission-sns-frontend',
@@ -20,4 +21,8 @@ export default () => {
     protocol: 'lambda',
     topic: topic.arn,
   });
+
+  return {
+    Topic: topic,
+  };
 };

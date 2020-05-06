@@ -7,10 +7,10 @@ export default () => {
     displayName: 'Codepipeline frontend build success',
   });
 
-  // new sns.TopicPolicy('sns.topicpolicy.pipeline.frontend', {
-  //   policy: Policy.SNS_Topic,
-  //   arn: topic.arn,
-  // });
+  new sns.TopicPolicy('sns.topicpolicy.pipeline.frontend', {
+    policy: Policy.SNS_Topic,
+    arn: topic.arn,
+  });
 
   return topic;
 };
