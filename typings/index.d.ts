@@ -35,6 +35,9 @@ export interface Outputs {
     //   AuthorizerType: Output<string>;
     //   JWTConfiguration: any;
     // };
+    Integration: {
+      Id: Output<string>;
+    };
   };
   VPC: {
     Name?: Output<string>;
@@ -46,6 +49,7 @@ export interface Outputs {
     EnableDnsSupport: OutputInstance<boolean | undefined>;
   };
   SubnetIds: Output<string>[];
+  ECS: ECSOutputs;
   // ECS: {
   //   Cluster: {
   //     Name: Output<string>;
@@ -64,4 +68,16 @@ interface BucketOutputs {
   bucketName: Output<string>;
   bucketArn: Output<string>;
   bucketDomainName: Output<string>;
+}
+
+interface ECSOutputs {
+  Cluster: {
+    Name: Output<string>;
+    Arn: Output<string>;
+  };
+  Service: {
+    Arn: Output<string>;
+    TaskDefinition: Output<string>;
+    DesiredCount: Output<string>;
+  };
 }

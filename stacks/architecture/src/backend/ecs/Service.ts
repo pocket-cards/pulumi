@@ -15,10 +15,11 @@ export default (cluster: ecs.Cluster, taskDef: ecs.TaskDefinition, inputs: Backe
     ],
     ingress: [
       {
-        fromPort: 0,
-        protocol: '-1',
-        self: true,
-        toPort: 0,
+        cidrBlocks: ['0.0.0.0/0'],
+        fromPort: 80,
+        protocol: 'tcp',
+        self: false,
+        toPort: 80,
       },
     ],
   });

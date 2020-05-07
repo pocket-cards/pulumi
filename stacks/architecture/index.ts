@@ -80,6 +80,9 @@ const start = () => {
           JWTConfiguration: apiOutputs.Authorizer.jwtConfiguration,
           AuthorizerType: apiOutputs.Authorizer.authorizerType,
         },
+        Integration: {
+          Id: apiOutputs.Integration.id,
+        },
       },
       VPC: {
         Id: vpcOutputs.VPC.id,
@@ -96,7 +99,7 @@ const start = () => {
           Arn: ecsOutputs.Cluster.arn,
         },
         Service: {
-          Id: ecsOutputs.ECSService.id,
+          Arn: ecsOutputs.ECSService.id,
           TaskDefinition: ecsOutputs.TaskDefinition.id,
           DesiredCount: ecsOutputs.ECSService.desiredCount,
         },
