@@ -1,12 +1,11 @@
-import { apigatewayv2 } from '@pulumi/aws';
+import { apigatewayv2, acm } from '@pulumi/aws';
 import { Consts } from '../../../../consts';
-import { Install } from 'typings';
 
-export default (acm: Install.ACM.Outputs) => {
+export default (cert: acm.Certificate) => {
   const domain = new apigatewayv2.DomainName('apigateway.domain', {
     domainName: `api.${Consts.DOMAIN_NAME()}`,
     domainNameConfiguration: {
-      certificateArn: acm.Tokyo.Certificate.arn,
+      certificateArn: cert.arn,
       endpointType: 'REGIONAL',
       securityPolicy: 'TLS_1_2',
     },

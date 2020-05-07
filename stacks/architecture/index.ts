@@ -3,8 +3,6 @@ import Frontend from './src/frontend';
 import Backend from './src/backend';
 import { Consts } from '../consts';
 import { Outputs, Install, Initial } from 'typings';
-import { INITIAL_STACK } from '../consts/Consts';
-import api from 'src/backend/api';
 
 export let outputs: Output<Outputs>;
 
@@ -29,9 +27,13 @@ const start = () => {
 
     const backend = Backend({
       Route53: install.Route53,
-      ECR: init.ECR,
-      Cognito: init.Cognito,
-      ACM: install.ACM,
+      ECR: init.ECR.Backend,
+      Cognito: { ...init.Cognito },
+      ACM: install.ACM.Tokyo.Certificate,
+      DynamoDB: { ...init.DynamoDB },
+      S3: {
+        Audio: init.S3.Audio,
+      },
     });
 
     const { ECS: ecsOutputs, VPC: vpcOutputs, APIGateway: apiOutputs } = backend;
@@ -93,17 +95,17 @@ const start = () => {
         EnableDnsSupport: vpcOutputs.VPC.enableDnsSupport,
       },
       SubnetIds: vpcOutputs.Subnets.map((item) => item.id),
-      ECS: {
-        Cluster: {
-          Name: ecsOutputs.Cluster.name,
-          Arn: ecsOutputs.Cluster.arn,
-        },
-        Service: {
-          Arn: ecsOutputs.ECSService.id,
-          TaskDefinition: ecsOutputs.TaskDefinition.id,
-          DesiredCount: ecsOutputs.ECSService.desiredCount,
-        },
-      },
+      // ECS: {
+      //   Cluster: {
+      //     Name: ecsOutputs.Cluster.name,
+      //     Arn: ecsOutputs.Cluster.arn,
+      //   },
+      //   Service: {
+      //     Arn: ecsOutputs.ECSService.id,
+      //     TaskDefinition: ecsOutputs.TaskDefinition.id,
+      //     DesiredCount: ecsOutputs.ECSService.desiredCount,
+      //   },
+      // },
       // Test: backend,
     } as Outputs;
   });

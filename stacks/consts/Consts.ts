@@ -6,6 +6,14 @@ import { Envs } from '.';
 export const GITHUB_WEBHOOK_SECRET = 'GITHUB_WEBHOOK_SECRET';
 /** Pulumi Access Token */
 export const PULUMI_ACCESS_TOKEN = 'PULUMI_ACCESS_TOKEN';
+/** IPA URL */
+export const IPA_URL = 'IPA_URL';
+/** IPA API Key */
+export const IPA_API_KEY = 'IPA_API_KEY';
+/** Translation Url */
+export const TRANSLATION_URL = 'TRANSLATION_URL';
+/** Translation API Key */
+export const TRANSLATION_API_KEY = 'TRANSLATION_API_KEY';
 
 /** Project Name */
 export const PROJECT_NAME_UC = 'PocketCards';
@@ -45,6 +53,10 @@ export const SSM_KEY_GITHUB_WEBHOOK_SECRET = `/${PROJECT_NAME}/${GITHUB_WEBHOOK_
   /_/g,
   '-'
 )}`;
+export const SSM_KEY_IPA_URL = `/${PROJECT_NAME}/${IPA_URL.toLowerCase().replace(/_/g, '-')}`;
+export const SSM_KEY_IPA_API_KEY = `/${PROJECT_NAME}/${IPA_API_KEY.toLowerCase().replace(/_/g, '-')}`;
+export const SSM_KEY_TRANSLATION_URL = `/${PROJECT_NAME}/${TRANSLATION_URL.toLowerCase().replace(/_/g, '-')}`;
+export const SSM_KEY_TRANSLATION_API_KEY = `/${PROJECT_NAME}/${TRANSLATION_API_KEY.toLowerCase().replace(/_/g, '-')}`;
 
 /** Tables */
 export const TABLE_HISTORY = `${PROJECT_NAME_UC}_History`;

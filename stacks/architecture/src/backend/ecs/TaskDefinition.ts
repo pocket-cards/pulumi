@@ -1,15 +1,24 @@
 import { ecs, iam, ecr } from '@pulumi/aws';
-import { Consts, Principals, Policy, Envs } from '../../../../consts';
+import { Consts, Principals, Policy } from '../../../../consts';
 import { interpolate, Output } from '@pulumi/pulumi';
+import { Backend } from 'typings';
 
-export default (repo: ecr.Repository) => {
+export default (inputs: Backend.ECS.Inputs) => {
   const taskRole = getTaskRole();
   const execRole = getExecRole();
 
   const taskDef = new ecs.TaskDefinition(
     'ecs.task_definition',
     {
-      containerDefinitions: TASK_DEFINITION(repo.repositoryUrl),
+      containerDefinitions: TASK_DEFINITION({
+        REPO_URL: inputs.TaskDef.REPO_URL,
+        TABLE_GROUPS: inputs.TaskDef.TABLE_GROUPS,
+        TABLE_HISTORY: inputs.TaskDef.TABLE_HISTORY,
+        TABLE_USERS: inputs.TaskDef.TABLE_USERS,
+        TABLE_WORDS: inputs.TaskDef.TABLE_WORDS,
+        TABLE_WORD_MASTER: inputs.TaskDef.TABLE_WORD_MASTER,
+        MP3_BUCKET: inputs.S3.Audio.bucket,
+      }),
       family: `${Consts.PROJECT_NAME_UC}`,
       taskRoleArn: taskRole.arn,
       executionRoleArn: execRole.arn,
@@ -18,7 +27,9 @@ export default (repo: ecr.Repository) => {
       cpu: '256',
       memory: '512',
     },
-    { dependsOn: [taskRole, execRole] }
+    {
+      dependsOn: [taskRole, execRole],
+    }
   );
 
   return taskDef;
@@ -54,33 +65,90 @@ const getExecRole = () => {
   return role;
 };
 
-const TASK_DEFINITION = (url: Output<string>) =>
+interface TaskDefinition {
+  TABLE_GROUPS: Output<string>;
+  TABLE_USERS: Output<string>;
+  TABLE_HISTORY: Output<string>;
+  TABLE_WORD_MASTER: Output<string>;
+  TABLE_WORDS: Output<string>;
+  REPO_URL: Output<string>;
+  MP3_BUCKET: Output<string>;
+}
+
+const TASK_DEFINITION = (def: TaskDefinition) =>
   interpolate`[
-  {
-    "cpu": 0,
-    "environment": [],
-    "essential": true,
-    "image": "${url}:latest",
-    "logConfiguration": {
-      "logDriver": "awslogs",
-      "options": {
-        "awslogs-group": "/ecs/PocketCards",
-        "awslogs-region": "${Envs.DEFAULT_REGION}",
-        "awslogs-stream-prefix": "ecs"
-      }
-    },
-    "mountPoints": [],
-    "name": "Backend",
-    "portMappings": [
-      {
-        "containerPort": 8080,
-        "hostPort": 8080,
-        "protocol": "tcp"
-      }
-    ],
-    "volumesFrom": []
-  }
-]`.apply((item) =>
+    {
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "WORDS_LIMIT",
+          "value": "10"
+        },
+        {
+          "name": "${def.TABLE_GROUPS}",
+          "value": "PocketCards_Groups"
+        },
+        {
+          "name": "${def.TABLE_USERS}",
+          "value": "PocketCards_Users"
+        },
+        {
+          "name": "${def.TABLE_HISTORY}",
+          "value": "PocketCards_History"
+        },
+        {
+          "name": "${def.MP3_BUCKET}",
+          "value": "pocket-cards-audios"
+        },
+        {
+          "name": "${def.TABLE_WORD_MASTER}",
+          "value": "PocketCards_WordMaster"
+        },
+        {
+          "name": "${def.TABLE_WORDS}",
+          "value": "PocketCards_Words"
+        }
+      ],
+      "essential": true,
+      "image": "${def.REPO_URL}:latest",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/PocketCards",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "mountPoints": [],
+      "name": "Backend",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "IPA_URL",
+          "valueFrom": "/${Consts.PROJECT_NAME}/ipa_url"
+        },
+        {
+          "name": "IPA_API_KEY",
+          "valueFrom": "/${Consts.PROJECT_NAME}/ipa_api_key"
+        },
+        {
+          "name": "TRANSLATION_URL",
+          "valueFrom": "/${Consts.PROJECT_NAME}/translation_url"
+        },
+        {
+          "name": "TRANSLATION_API_KEY",
+          "valueFrom": "/${Consts.PROJECT_NAME}/translation_api_key"
+        }
+      ],
+      "volumesFrom": []
+    }
+  ]`.apply((item) =>
     item
       .split('\n')
       .map((row) => row.trim().replace(/ /g, ''))

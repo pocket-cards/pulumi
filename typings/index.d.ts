@@ -49,7 +49,7 @@ export interface Outputs {
     EnableDnsSupport: OutputInstance<boolean | undefined>;
   };
   SubnetIds: Output<string>[];
-  ECS: ECSOutputs;
+  // ECS: ECSOutputs;
   // ECS: {
   //   Cluster: {
   //     Name: Output<string>;

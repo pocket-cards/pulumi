@@ -1,9 +1,9 @@
 import { interpolate } from '@pulumi/pulumi';
 import { apigatewayv2 } from '@pulumi/aws';
 import { Consts, Envs } from '../../../../consts';
-import { Backend, Initial } from 'typings';
+import { Backend } from 'typings';
 
-export default (cognito: Initial.CognitoOutputs, domain: apigatewayv2.DomainName): Backend.API.APIGatewayOutputs => {
+export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName): Backend.API.APIGatewayOutputs => {
   const api = new apigatewayv2.Api('apigateway.api.backend', {
     name: Consts.PROJECT_NAME,
     protocolType: 'HTTP',

@@ -2,9 +2,9 @@ import { ecs, ec2 } from '@pulumi/aws';
 import { interpolate } from '@pulumi/pulumi';
 import { Backend } from 'typings';
 
-export default (cluster: ecs.Cluster, taskDef: ecs.TaskDefinition, inputs: Backend.VPC.Outputs) => {
+export default (cluster: ecs.Cluster, taskDef: ecs.TaskDefinition, inputs: Backend.ECS.Inputs) => {
   const sg = new ec2.SecurityGroup('ecs.service.sg', {
-    vpcId: inputs.VPC.id,
+    vpcId: inputs.VPC.VPC.id,
     egress: [
       {
         cidrBlocks: ['0.0.0.0/0'],
@@ -37,7 +37,7 @@ export default (cluster: ecs.Cluster, taskDef: ecs.TaskDefinition, inputs: Backe
     networkConfiguration: {
       assignPublicIp: true,
       securityGroups: [sg.id],
-      subnets: inputs.Subnets.map((item) => item.id),
+      subnets: inputs.VPC.Subnets.map((item) => item.id),
     },
     // serviceRegistries: {
     //   containerPort: 0,

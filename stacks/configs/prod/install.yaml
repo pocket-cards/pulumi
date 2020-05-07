@@ -4,4 +4,12 @@ config:
     secure: AAABAF0rfQIVSTvtbBOH7XkMqrg/mUHRCBzEM+FHamTidGGhbjfmVaIotuxbqSeRgSWgsklo7jT1H5gMj305kf7BFsT7sjr5
   pocket-cards:PULUMI_ACCESS_TOKEN:
     secure: AAABAMNrJn83ZATmDODVfLK0+KM0h08ZX5q1dwIEJi6EdbZ5PcHd52w1cxhWD3YF1WFVt+kCza/uLETzuz2jhvSuFpa7ifNqIL+yFg==
+  pocket-cards:IPA_API_KEY:
+    secure: AAABAGvehF7Q6oaLlRm1AaCRJPFqRor0tNP+cbbHisLrHvhO+vGEeabn5f4a2mf3nnE7DiNvxxowOMA9ChqZrbgBw1Pu+JQA
+  pocket-cards:IPA_URL:
+    secure: AAABAPR0IDB0unJHRhV0BukVk9A15kgUWgbfTFmXIah+T/+eLWMifef1OUbUsuoXNJFICsR0oy6BcDkeBREAWRlfmhhblP/hN9Ze/gMBcH7HDXG201gt7ZiWc8dRjw==
+  pocket-cards:TRANSLATION_API_KEY:
+    secure: AAABAPyqsr1jTrggi8FlpaQqHqGp2k6ljXCnqpSIgr6L86ij6bT9Bh/E1zmjGKTdPCU1soYr+4moVZGfhlXKnG0VI5KOwe4=
+  pocket-cards:TRANSLATION_URL:
+    secure: AAABAFhdIBMSMnX2dVGcTcWo6RHTp8NIRtt8o0CV4KJZD8WEeBAWKu3vtkW4qGvaK/LZuZb5UxGiFttVntFqyu+QThTcqIHRd87YQcbCofeDUgWakq4wZA==
   pulumi:template: aws-typescript
