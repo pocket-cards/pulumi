@@ -5,6 +5,7 @@ export default JSON.parse(`
     {
       "Effect": "Allow",
       "Action": [
+        "ssm:GetParameters",
         "ecr:GetAuthorizationToken",
         "ecr:BatchCheckLayerAvailability",
         "ecr:GetDownloadUrlForLayer",

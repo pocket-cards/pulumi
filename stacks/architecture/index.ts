@@ -95,17 +95,17 @@ const start = () => {
         EnableDnsSupport: vpcOutputs.VPC.enableDnsSupport,
       },
       SubnetIds: vpcOutputs.Subnets.map((item) => item.id),
-      // ECS: {
-      //   Cluster: {
-      //     Name: ecsOutputs.Cluster.name,
-      //     Arn: ecsOutputs.Cluster.arn,
-      //   },
-      //   Service: {
-      //     Arn: ecsOutputs.ECSService.id,
-      //     TaskDefinition: ecsOutputs.TaskDefinition.id,
-      //     DesiredCount: ecsOutputs.ECSService.desiredCount,
-      //   },
-      // },
+      ECS: {
+        Cluster: {
+          Name: ecsOutputs.Cluster.name,
+          Arn: ecsOutputs.Cluster.arn,
+        },
+        Service: {
+          Arn: ecsOutputs.ECSService.id,
+          TaskDefinition: ecsOutputs.TaskDefinition.id,
+          DesiredCount: ecsOutputs.ECSService.desiredCount,
+        },
+      },
       // Test: backend,
     } as Outputs;
   });

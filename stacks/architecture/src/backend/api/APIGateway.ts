@@ -36,7 +36,7 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
 
   const route = new apigatewayv2.Route('apigateway.route', {
     apiId: api.id,
-    routeKey: '$default',
+    routeKey: 'ANY /{proxy+}',
     authorizationType: 'JWT',
     authorizerId: authorizer.id,
     target: interpolate`integrations/${integration.id}`,
@@ -45,20 +45,24 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
   const stage = new apigatewayv2.Stage(
     'apigateway.stage',
     {
-      name: '$default',
+      name: 'v1',
       apiId: api.id,
       autoDeploy: true,
       description: 'Example ',
     },
-    { ignoreChanges: ['deploymentId'] }
+    { ignoreChanges: ['deploymentId'], deleteBeforeReplace: true }
   );
 
-  const mapping = new apigatewayv2.ApiMapping('apigateway.apimapping', {
-    apiId: api.id,
-    domainName: domain.domainName,
-    stage: stage.id,
-    apiMappingKey: '',
-  });
+  const mapping = new apigatewayv2.ApiMapping(
+    'apigateway.apimapping',
+    {
+      apiId: api.id,
+      domainName: domain.domainName,
+      stage: stage.id,
+      apiMappingKey: '',
+    },
+    { dependsOn: stage, deleteBeforeReplace: true }
+  );
 
   return {
     API: api,

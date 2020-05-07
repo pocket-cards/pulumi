@@ -1,4 +1,4 @@
-import { ecs, iam, ecr } from '@pulumi/aws';
+import { ecs, iam } from '@pulumi/aws';
 import { Consts, Principals, Policy } from '../../../../consts';
 import { interpolate, Output } from '@pulumi/pulumi';
 import { Backend } from 'typings';
@@ -85,28 +85,28 @@ const TASK_DEFINITION = (def: TaskDefinition) =>
           "value": "10"
         },
         {
-          "name": "${def.TABLE_GROUPS}",
-          "value": "PocketCards_Groups"
+          "name": "TABLE_GROUPS",
+          "value": "${def.TABLE_GROUPS}"
         },
         {
-          "name": "${def.TABLE_USERS}",
-          "value": "PocketCards_Users"
+          "name": "TABLE_USERS",
+          "value": "${def.TABLE_USERS}"
         },
         {
-          "name": "${def.TABLE_HISTORY}",
-          "value": "PocketCards_History"
+          "name": "TABLE_HISTORY",
+          "value": "${def.TABLE_HISTORY}"
         },
         {
-          "name": "${def.MP3_BUCKET}",
-          "value": "pocket-cards-audios"
+          "name": "MP3_BUCKET",
+          "value": "${def.MP3_BUCKET}"
         },
         {
-          "name": "${def.TABLE_WORD_MASTER}",
-          "value": "PocketCards_WordMaster"
+          "name": "TABLE_WORD_MASTER",
+          "value": "${def.TABLE_WORD_MASTER}"
         },
         {
-          "name": "${def.TABLE_WORDS}",
-          "value": "PocketCards_Words"
+          "name": "TABLE_WORDS",
+          "value": "${def.TABLE_WORDS}"
         }
       ],
       "essential": true,
@@ -131,19 +131,19 @@ const TASK_DEFINITION = (def: TaskDefinition) =>
       "secrets": [
         {
           "name": "IPA_URL",
-          "valueFrom": "/${Consts.PROJECT_NAME}/ipa_url"
+          "valueFrom": "/${Consts.PROJECT_NAME}/ipa-url"
         },
         {
           "name": "IPA_API_KEY",
-          "valueFrom": "/${Consts.PROJECT_NAME}/ipa_api_key"
+          "valueFrom": "/${Consts.PROJECT_NAME}/ipa-api-key"
         },
         {
           "name": "TRANSLATION_URL",
-          "valueFrom": "/${Consts.PROJECT_NAME}/translation_url"
+          "valueFrom": "/${Consts.PROJECT_NAME}/translation-url"
         },
         {
           "name": "TRANSLATION_API_KEY",
-          "valueFrom": "/${Consts.PROJECT_NAME}/translation_api_key"
+          "valueFrom": "/${Consts.PROJECT_NAME}/translation-api-key"
         }
       ],
       "volumesFrom": []
