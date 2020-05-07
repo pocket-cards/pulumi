@@ -67,6 +67,7 @@ jobs:
           PULUMI_ROOT: stacks/architecture
 
   Slack:
+    needs: Update
     runs-on: ubuntu-latest
 
     steps:
