@@ -1,6 +1,5 @@
 import { Output, OutputInstance } from '@pulumi/pulumi';
-import { cloudfront, apigateway, apigatewayv2 } from '@pulumi/aws';
-import { Backend } from './backend';
+import { cloudfront } from '@pulumi/aws';
 
 export * from './backend';
 export * from './frontend';
@@ -18,10 +17,7 @@ export interface Outputs {
     UserPoolId: Output<string>;
     UserPoolClientId: Output<string>;
   };
-  CloudFront: {
-    Identity: cloudfront.OriginAccessIdentity;
-    Distribution: cloudfront.Distribution;
-  };
+  CloudFront: CloudFrontOutputs;
   APIGateway: {
     API: {
       Id: Output<string>;
@@ -29,15 +25,12 @@ export interface Outputs {
       ExecutionArn: Output<string>;
       Endpoint: Output<string>;
     };
-    // Authorizer: {
-    //   Id: Output<string>;
-    //   Name: Output<string>;
-    //   AuthorizerType: Output<string>;
-    //   JWTConfiguration: any;
-    // };
-    Integration: {
+    Authorizer: {
       Id: Output<string>;
+      Name: Output<string>;
+      AuthorizerType: Output<string>;
     };
+    Integration: IntegrationOutputs[];
   };
   VPC: {
     Name?: Output<string>;
@@ -50,18 +43,30 @@ export interface Outputs {
   };
   SubnetIds: Output<string>[];
   ECS: ECSOutputs;
-  // ECS: {
-  //   Cluster: {
-  //     Name: Output<string>;
-  //     Arn: Output<string>;
-  //   };
-  //   Service: {
-  //     DesiredCount: OutputInstance<number | undefined>;
-  //     Id: Output<string>;
-  //     TaskDefinition: Output<string>;
-  //   };
-  // };
   Test?: any;
+}
+
+interface CloudFrontOutputs {
+  Arn: Output<string>;
+  DomainName: Output<string>;
+  Enabled: OutputInstance<boolean>;
+  Origins: Output<
+    {
+      DomainName: string;
+      OriginId: string;
+      OriginPath: string | undefined;
+    }[]
+  >;
+  CertificateArn: OutputInstance<string | undefined>;
+  IdentityId: Output<string>;
+  AccessIdentityPath: Output<string>;
+}
+
+interface IntegrationOutputs {
+  Id: Output<string>;
+  Method: Output<string>;
+  Type: Output<string>;
+  Uri: Output<string>;
 }
 
 interface BucketOutputs {

@@ -15,7 +15,7 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
       apiId: api.id,
       integrationType: 'HTTP_PROXY',
       integrationMethod: 'ANY',
-      integrationUri: 'http://13.231.186.142',
+      integrationUri: 'http://13.231.186.142/{proxy}',
       passthroughBehavior: 'WHEN_NO_MATCH',
     },
     {

@@ -37,6 +37,9 @@ const start = () => {
     });
 
     const { ECS: ecsOutputs, VPC: vpcOutputs, APIGateway: apiOutputs } = backend;
+    const {
+      CloudFront: { Distribution: distribution, Identity: identity },
+    } = frontend;
 
     return {
       Bucket: {
@@ -64,10 +67,22 @@ const start = () => {
       Cognito: {
         UserPoolId: init.Cognito.UserPool.id,
         UserPoolClientId: init.Cognito.UserPoolClient.id,
+        IdentityPoolId: init.Cognito.IdentityPool.id,
       },
       CloudFront: {
-        Identity: frontend.CloudFront.Identity,
-        Distribution: frontend.CloudFront.Distribution,
+        Arn: distribution.arn,
+        DomainName: distribution.domainName,
+        Enabled: distribution.enabled,
+        Origins: distribution.origins.apply((origins) =>
+          origins.map((item) => ({
+            DomainName: item.domainName,
+            OriginId: item.originId,
+            OriginPath: item.originPath,
+          }))
+        ),
+        CertificateArn: distribution.viewerCertificate.acmCertificateArn,
+        IdentityId: identity.id,
+        AccessIdentityPath: identity.cloudfrontAccessIdentityPath,
       },
       APIGateway: {
         API: {
@@ -79,12 +94,16 @@ const start = () => {
         Authorizer: {
           Id: apiOutputs.Authorizer.id,
           Name: apiOutputs.Authorizer.name,
-          JWTConfiguration: apiOutputs.Authorizer.jwtConfiguration,
           AuthorizerType: apiOutputs.Authorizer.authorizerType,
         },
-        Integration: {
-          Id: apiOutputs.Integration.id,
-        },
+        Integration: [
+          {
+            Id: apiOutputs.Integration.id,
+            Uri: apiOutputs.Integration.integrationUri,
+            Method: apiOutputs.Integration.integrationMethod,
+            Type: apiOutputs.Integration.integrationType,
+          },
+        ],
       },
       VPC: {
         Id: vpcOutputs.VPC.id,
