@@ -7,6 +7,13 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
   const api = new apigatewayv2.Api('apigateway.api.backend', {
     name: Consts.PROJECT_NAME,
     protocolType: 'HTTP',
+    corsConfiguration: {
+      allowCredentials: true,
+      allowHeaders: ['authorization'],
+      allowMethods: ['*'],
+      allowOrigins: ['http://localhost:3000'],
+      maxAge: 300,
+    },
   });
 
   const integration = new apigatewayv2.Integration(
