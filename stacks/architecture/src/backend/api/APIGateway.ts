@@ -11,7 +11,7 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
       allowCredentials: true,
       allowHeaders: ['authorization'],
       allowMethods: ['*'],
-      allowOrigins: ['http://localhost:3000'],
+      allowOrigins: ['http://localhost:3000', `https://card.${Consts.DOMAIN_NAME()}`],
       maxAge: 300,
     },
   });
