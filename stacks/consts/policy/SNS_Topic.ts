@@ -27,6 +27,15 @@ export default interpolate`
           "AWS:SourceOwner": "${Envs.ACCOUNT_ID}"
         }
       }
+    },
+    {
+      "Sid": "AWSCodeStarNotifications_publish",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "codestar-notifications.amazonaws.com"
+      },
+      "Action": "SNS:Publish",
+      "Resource": "arn:aws:sns:${Envs.DEFAULT_REGION}:${Envs.ACCOUNT_ID}:*"
     }
   ]
 }
