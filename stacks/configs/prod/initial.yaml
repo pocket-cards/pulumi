@@ -2,4 +2,8 @@ config:
   aws:region: ap-northeast-1
   pocket-cards:GITHUB_WEBHOOK_SECRET:
     secure: AAABAN0snKmyXOQyBuX04VbWlcgAyrD/MLYC0NKrlbTHQCaxQshpF9ri9f7EK5PfjfpH1ymXpwfWxvotTapa/vt2GRhCKbLX
+  pocket-cards:GOOGLE_APP_CLIENT_ID:
+    secure: AAABAFgzMlOHNPILFFhKr5KDMrzzBcw/OzC9iQBSwe+2JhvUw37Bb+8GT6710XEKOqUBN8ncS/o=
+  pocket-cards:GOOGLE_APP_SECRET:
+    secure: AAABAAN01i1bxOtRGp40n5I0PhM7AUfdNmM9aqACEAYDWkOWE9aJDpTXAkFq66S2tW/UlKJ7NhA=
   pulumi:template: aws-typescript
