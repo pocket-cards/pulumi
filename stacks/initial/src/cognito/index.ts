@@ -2,15 +2,21 @@ import { lambda } from '@pulumi/aws';
 import UserPool from './UserPool';
 import UserPoolClient from './UserPoolClient';
 import IdentityPool from './IdentityPool';
+import UserPoolDomain from './UserPoolDomain';
 import Lambda from './Lambda';
 import { Initial } from 'typings';
+import IdentityProvider from './IdentityProvider';
 
 export default (): Initial.CognitoOutputs => {
   const func = Lambda();
   // ユーザプール
   const pool = UserPool(func);
+  // google provider
+  const provider = IdentityProvider(pool);
   // ユーザプールクライアント
   const poolClient = UserPoolClient(pool);
+  // domain
+  const domain = UserPoolDomain(pool);
 
   const identity = IdentityPool(pool, poolClient);
 

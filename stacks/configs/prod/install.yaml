@@ -12,4 +12,8 @@ config:
     secure: AAABAPyqsr1jTrggi8FlpaQqHqGp2k6ljXCnqpSIgr6L86ij6bT9Bh/E1zmjGKTdPCU1soYr+4moVZGfhlXKnG0VI5KOwe4=
   pocket-cards:TRANSLATION_URL:
     secure: AAABAFhdIBMSMnX2dVGcTcWo6RHTp8NIRtt8o0CV4KJZD8WEeBAWKu3vtkW4qGvaK/LZuZb5UxGiFttVntFqyu+QThTcqIHRd87YQcbCofeDUgWakq4wZA==
+  pocket-cards:GOOGLE_APP_CLIENT_ID:
+    secure: AAABACvAjx1w5Hba/9p8EkCl4Mx6+tvBHrVNHFYbFi2xuP9iJb2jlhchuLSvokC/hHt0BpITq/KY+QQzgJ/mm1Z91szNG8AlYUiDI4EtzYq3mLF6IlnVcNONLUDjc9uIIamJBOzwww==
+  pocket-cards:GOOGLE_APP_SECRET:
+    secure: AAABAJDgh1qq2mxYoCzsBkwL3oMrUVGN4sD1Y7ezZ4g2a0YhJGn4yV1PWCA98qU6848AOAE5FtI=
   pulumi:template: aws-typescript

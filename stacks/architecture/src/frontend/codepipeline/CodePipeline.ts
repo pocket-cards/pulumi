@@ -1,9 +1,6 @@
-import { Output, Config } from '@pulumi/pulumi';
-import { codepipeline, iam, codebuild, s3 } from '@pulumi/aws';
+import { Output, Config, output } from '@pulumi/pulumi';
+import { codepipeline, iam, codebuild, s3, ssm } from '@pulumi/aws';
 import { Envs, Principals, Policy, Consts } from '../../../../consts';
-import { Frontend } from 'typings';
-
-const config = new Config();
 
 export default (artifact: s3.Bucket, frontend: s3.Bucket, project: codebuild.Project) => {
   // create pipeline
@@ -40,7 +37,14 @@ const createPipeline = (artifact: s3.Bucket, frontend: s3.Bucket, projectName: O
                 Branch: Envs.REPO_BRANCH(),
                 Owner: Consts.REPO_OWNER,
                 Repo: Consts.REPO_FRONTEND,
-                OAuthToken: config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET),
+                OAuthToken: output(
+                  ssm.getParameter(
+                    {
+                      name: Consts.SSM_KEY_GITHUB_WEBHOOK_SECRET,
+                    },
+                    { async: true }
+                  )
+                ).value,
               },
               name: 'Source',
               outputArtifacts: ['source_output'],
@@ -94,7 +98,14 @@ const createPipeline = (artifact: s3.Bucket, frontend: s3.Bucket, projectName: O
 
 /** CodePipeline Webhook */
 const createWebhook = (pipeline: Output<string>) => {
-  const webhookSecret = config.requireSecret(Consts.GITHUB_WEBHOOK_SECRET);
+  const webhookSecret = output(
+    ssm.getParameter(
+      {
+        name: Consts.SSM_KEY_GITHUB_WEBHOOK_SECRET,
+      },
+      { async: true }
+    )
+  ).value;
 
   new codepipeline.Webhook('codepipeline.webhook.frontend', {
     authentication: 'GITHUB_HMAC',

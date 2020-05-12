@@ -48,4 +48,18 @@ export default (): void => {
     value: config.requireSecret(Consts.TRANSLATION_API_KEY),
     overwrite: true,
   });
+
+  new ssm.Parameter('ssm.parameter.google_app_client_id', {
+    name: Consts.SSM_KEY_GOOGLE_APP_CLIENT_ID,
+    type: 'SecureString',
+    value: config.requireSecret(Consts.GOOGLE_APP_CLIENT_ID),
+    overwrite: true,
+  });
+
+  new ssm.Parameter('ssm.parameter.google_app_secret', {
+    name: Consts.SSM_KEY_GOOGLE_APP_SECRET,
+    type: 'SecureString',
+    value: config.requireSecret(Consts.GOOGLE_APP_SECRET),
+    overwrite: true,
+  });
 };

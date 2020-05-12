@@ -14,6 +14,10 @@ export const IPA_API_KEY = 'IPA_API_KEY';
 export const TRANSLATION_URL = 'TRANSLATION_URL';
 /** Translation API Key */
 export const TRANSLATION_API_KEY = 'TRANSLATION_API_KEY';
+/** Google App Client Id */
+export const GOOGLE_APP_CLIENT_ID = 'GOOGLE_APP_CLIENT_ID';
+/** Google App Secret */
+export const GOOGLE_APP_SECRET = 'GOOGLE_APP_SECRET';
 
 /** Project Name */
 export const PROJECT_NAME_UC = 'PocketCards';
@@ -57,6 +61,9 @@ export const SSM_KEY_IPA_URL = `/${PROJECT_NAME}/${IPA_URL.toLowerCase().replace
 export const SSM_KEY_IPA_API_KEY = `/${PROJECT_NAME}/${IPA_API_KEY.toLowerCase().replace(/_/g, '-')}`;
 export const SSM_KEY_TRANSLATION_URL = `/${PROJECT_NAME}/${TRANSLATION_URL.toLowerCase().replace(/_/g, '-')}`;
 export const SSM_KEY_TRANSLATION_API_KEY = `/${PROJECT_NAME}/${TRANSLATION_API_KEY.toLowerCase().replace(/_/g, '-')}`;
+
+export const SSM_KEY_GOOGLE_APP_CLIENT_ID = `/${PROJECT_NAME}/${GOOGLE_APP_CLIENT_ID.toLowerCase().replace(/_/g, '-')}`;
+export const SSM_KEY_GOOGLE_APP_SECRET = `/${PROJECT_NAME}/${GOOGLE_APP_SECRET.toLowerCase().replace(/_/g, '-')}`;
 
 /** Tables */
 export const TABLE_HISTORY = `${PROJECT_NAME_UC}_History`;

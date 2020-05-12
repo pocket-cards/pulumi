@@ -10,6 +10,7 @@
     "stack:main": "pulumi up -e -y -p 100 --skip-preview -C stacks/architecture -s $ENVIRONMENT-architecture --config-file ../configs/$ENVIRONMENT/main.yaml",
     "valid": "tsc --noemit",
     "diff:main": "pulumi up --diff -p 100 -C stacks/architecture -s $ENVIRONMENT-architecture --config-file ../configs/$ENVIRONMENT/main.yaml",
+    "diff:initial": "pulumi up --diff -p 100 -C stacks/initial -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml",
     "env": "export ENVIRONMENT=dev",
     "show:output": "pulumi stack ouput -j",
     "secret": "pulumi config set --secret ZONE_ID XXXXXXXXXXXXX",
