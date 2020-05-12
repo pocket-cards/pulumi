@@ -1,7 +1,15 @@
 import { cognito } from '@pulumi/aws';
-import { Consts } from '../../../consts';
+import { Consts, Envs } from '../../../consts';
 
 export default (userpool: cognito.UserPool) => {
+  const callbackUrls = [`https://card.${Consts.DOMAIN_NAME()}/login`];
+  const logoutUrls = [`https://card.${Consts.DOMAIN_NAME()}/logout`];
+
+  if (Envs.IS_DEV()) {
+    callbackUrls.push('http://localhost:3000/login');
+    logoutUrls.push('http://localhost:3000/logout');
+  }
+
   return new cognito.UserPoolClient('cognito.userpoolclient', {
     userPoolId: userpool.id,
     name: `${Consts.PROJECT_NAME_UC}_UserPoolClient`,
@@ -15,8 +23,8 @@ export default (userpool: cognito.UserPool) => {
     allowedOauthFlows: ['code'],
     allowedOauthFlowsUserPoolClient: true,
     allowedOauthScopes: ['openid', 'phone', 'aws.cognito.signin.user.admin', 'profile', 'email'],
-    callbackUrls: ['http://localhost:3000/login'],
-    logoutUrls: ['http://localhost:3000/logout'],
+    callbackUrls: callbackUrls,
+    logoutUrls: logoutUrls,
     preventUserExistenceErrors: 'ENABLED',
     supportedIdentityProviders: ['Google'],
   });

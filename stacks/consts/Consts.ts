@@ -76,3 +76,7 @@ export const TABLE_WORD_MASTER = `${PROJECT_NAME_UC}_WordMaster`;
 export const VPC_CIDR_BLOCK = '10.0.0.0/23';
 export const VPC_SUBNET1_CIDR_BLOCK = '10.0.0.0/24';
 export const VPC_SUBNET2_CIDR_BLOCK = '10.0.1.0/24';
+
+export const AUTH_DOMAIN = 'card';
+export const AUTH_SIGN_IN_URL = `https://card.${DOMAIN_NAME()}/login`;
+export const AUTH_SIGN_OUT_URL = `https://card.${DOMAIN_NAME()}/logout`;

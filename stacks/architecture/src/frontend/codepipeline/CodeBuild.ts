@@ -60,6 +60,22 @@ export default (cognito: Frontend.CodePipeline.CognitoInputs) => {
           name: 'API_URL',
           value: `https://api.${Consts.DOMAIN_NAME()}`,
         },
+        {
+          name: 'API_SERVER_URL',
+          value: `https://api.${Consts.DOMAIN_NAME()}`,
+        },
+        {
+          name: 'AUTH_DOMAIN',
+          value: `https://${Consts.AUTH_DOMAIN}.auth.ap-northeast-1.amazoncognito.com          `,
+        },
+        {
+          name: 'AUTH_SIGN_IN_URL',
+          value: Consts.AUTH_SIGN_IN_URL,
+        },
+        {
+          name: 'AUTH_SIGN_OUT_URL',
+          value: Consts.AUTH_SIGN_OUT_URL,
+        },
       ],
     },
     serviceRole: serviceRole.arn,
