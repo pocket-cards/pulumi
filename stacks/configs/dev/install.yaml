@@ -1,6 +1,5 @@
 config:
   aws:region: ap-northeast-1
-  aws:version: 2.4.0
   pocket-cards:GITHUB_WEBHOOK_SECRET:
     secure: AAABAAEiXRprwVxd0usT+wmGu1f8wn9R4FORA8lZKjZllSpyajLv9V2csQhPYLWeCt4nGIkXR63k3RD1MS/diSNDtqyBXtXt
   pocket-cards:PULUMI_ACCESS_TOKEN:

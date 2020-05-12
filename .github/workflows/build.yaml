@@ -48,7 +48,7 @@ jobs:
       #     PULUMI_ROOT: stacks/install
 
       # initial stack
-      - uses: docker://pulumi/actions
+      - uses: docker://pulumi/actions:v2.1.1
         with:
           args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml
         env:
@@ -58,7 +58,7 @@ jobs:
           PULUMI_ROOT: stacks/initial
 
       # architecture stack
-      - uses: docker://pulumi/actions
+      - uses: docker://pulumi/actions:v2.1.1
         with:
           args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-architecture --config-file ../configs/$ENVIRONMENT/main.yaml
         env:
