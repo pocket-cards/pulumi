@@ -66,7 +66,7 @@ export default (cognito: Frontend.CodePipeline.CognitoInputs) => {
         },
         {
           name: 'AUTH_DOMAIN',
-          value: `https://${Consts.AUTH_DOMAIN}.auth.ap-northeast-1.amazoncognito.com          `,
+          value: `${Consts.AUTH_DOMAIN}.auth.ap-northeast-1.amazoncognito.com`,
         },
         {
           name: 'AUTH_SIGN_IN_URL',

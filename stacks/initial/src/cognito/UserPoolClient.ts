@@ -5,11 +5,6 @@ export default (userpool: cognito.UserPool) => {
   const callbackUrls = [`https://card.${Consts.DOMAIN_NAME()}/login`];
   const logoutUrls = [`https://card.${Consts.DOMAIN_NAME()}/logout`];
 
-  if (Envs.IS_DEV()) {
-    callbackUrls.push('http://localhost:3000/login');
-    logoutUrls.push('http://localhost:3000/logout');
-  }
-
   return new cognito.UserPoolClient('cognito.userpoolclient', {
     userPoolId: userpool.id,
     name: `${Consts.PROJECT_NAME_UC}_UserPoolClient`,
