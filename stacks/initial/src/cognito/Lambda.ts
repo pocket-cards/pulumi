@@ -1,7 +1,6 @@
 import { iam, lambda } from '@pulumi/aws';
-import { asset } from '@pulumi/pulumi';
-import * as path from 'path';
 import { Principals, Consts, Policy } from '../../../consts';
+import { AssetArchive, StringAsset } from '@pulumi/pulumi/asset';
 
 export default () => {
   const role = getRole();
@@ -10,7 +9,17 @@ export default () => {
     'lambda.function.cognito',
     {
       name: `${Consts.PROJECT_NAME_UC}_Cognito`,
-      code: new asset.FileArchive(path.join(__dirname, './payload.zip')),
+      code: new AssetArchive({
+        'index.js': new StringAsset(`
+          exports.handler = async (event) => {
+            const response = {
+              statusCode: 200,
+              body: JSON.stringify('Hello from Lambda!'),
+            };
+            return response;
+          };
+        `),
+      }),
       handler: 'index.handler',
       role: role.arn,
       runtime: 'nodejs12.x',
