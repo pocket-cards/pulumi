@@ -6,7 +6,7 @@ on:
       - created
 
 env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION: ap-northeast-1
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@master
 
       # initialize
-      - name: add typings
+      - name: Add typings
         working-directory: ./stacks
         run: |
           ln -s ../../typings install/typings
@@ -29,7 +29,7 @@ jobs:
           ln -s ../../typings architecture/typings
 
       # add package.json
-      - name: add package.json
+      - name: Add package.json
         run: |
           cp package.json stacks/install
           cp package.json stacks/initial
