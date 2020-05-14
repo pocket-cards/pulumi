@@ -10,7 +10,7 @@ export default (): Install.Route53Outputs => {
       comment: Consts.DOMAIN_NAME(),
       forceDestroy: false,
     },
-    { protect: true }
+    { protect: true, ignoreChanges: ['forceDestroy'] }
   );
 
   return {
