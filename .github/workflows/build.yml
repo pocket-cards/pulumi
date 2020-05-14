@@ -36,6 +36,11 @@ jobs:
       # install library
       - run: yarn install
 
+      # install plugin
+      - uses: docker://pulumi/actions
+        with:
+          args: plugin install resource aws 2.4.0
+
       # install stack
       - uses: docker://pulumi/actions
         with:
