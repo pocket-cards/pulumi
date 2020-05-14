@@ -1,15 +1,14 @@
 on:
-  push:
-    branches:
-      - master
   release:
     types:
       - created
 
 env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION: ap-northeast-1
+  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+  ENVIRONMENT: prod
 
 jobs:
   Update:
@@ -36,25 +35,19 @@ jobs:
       - run: yarn install
 
       # install stack
-      # - uses: docker://pulumi/actions
-      #   with:
-      #     args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-install --config-file ../configs/$ENVIRONMENT/install.yaml
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-      #     PULUMI_CI: up
-      #     ENVIRONMENT: dev
-      #     PULUMI_ROOT: stacks/install
+      - uses: docker://pulumi/actions:v2.1.1
+        with:
+          args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-install --config-file ../configs/$ENVIRONMENT/install.yaml
+        env:
+          PULUMI_CI: up
+          PULUMI_ROOT: stacks/install
 
       # initial stack
       - uses: docker://pulumi/actions:v2.1.1
         with:
           args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml
         env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           PULUMI_CI: up
-          ENVIRONMENT: dev
           PULUMI_ROOT: stacks/initial
 
       # architecture stack
@@ -62,9 +55,7 @@ jobs:
         with:
           args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-architecture --config-file ../configs/$ENVIRONMENT/main.yaml
         env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           PULUMI_CI: up
-          ENVIRONMENT: dev
           PULUMI_ROOT: stacks/architecture
 
   Slack:
