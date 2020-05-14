@@ -5,12 +5,10 @@ import { AssetArchive, StringAsset } from '@pulumi/pulumi/asset';
 export default () => {
   const role = getRole();
 
-  const func = new lambda.Function(
-    'lambda.function.cognito',
-    {
-      name: `${Consts.PROJECT_NAME_UC}_Cognito`,
-      code: new AssetArchive({
-        'index.js': new StringAsset(`
+  const func = new lambda.Function('lambda.function.cognito', {
+    name: `${Consts.PROJECT_NAME_UC}_Cognito`,
+    code: new AssetArchive({
+      'index.js': new StringAsset(`
           exports.handler = async (event) => {
             const response = {
               statusCode: 200,
@@ -19,14 +17,12 @@ export default () => {
             return response;
           };
         `),
-      }),
-      handler: 'index.handler',
-      role: role.arn,
-      runtime: 'nodejs12.x',
-      memorySize: 256,
-    },
-    { ignoreChanges: ['code'] }
-  );
+    }),
+    handler: 'index.handler',
+    role: role.arn,
+    runtime: 'nodejs12.x',
+    memorySize: 256,
+  });
 
   return func;
 };
