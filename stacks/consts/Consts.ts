@@ -1,5 +1,4 @@
 import * as pulumi from '@pulumi/pulumi';
-import { StackReference } from '@pulumi/pulumi';
 import { Envs } from '.';
 
 /** Github Webhook Secret */
@@ -25,10 +24,7 @@ export const PROJECT_NAME = 'pocket-cards';
 
 /** Stack Refrence */
 export const INSTALL_STACK_NAME = `wwalpha/${PROJECT_NAME}/${Envs.ENVIRONMENT}-install`;
-export const INSTALL_STACK = new StackReference(INSTALL_STACK_NAME);
-
 export const INITIAL_STACK_NAME = `wwalpha/${PROJECT_NAME}/${Envs.ENVIRONMENT}-initial`;
-export const INITIAL_STACK = new StackReference(INITIAL_STACK_NAME);
 
 export const DOMAIN_NAME_DEF = {
   dev: 'dev.aws-handson.com',

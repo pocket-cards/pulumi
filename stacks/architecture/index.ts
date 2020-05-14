@@ -1,4 +1,4 @@
-import { all, Output } from '@pulumi/pulumi';
+import { all, Output, StackReference } from '@pulumi/pulumi';
 import Frontend from './src/frontend';
 import Backend from './src/backend';
 import { Consts } from '../consts';
@@ -6,8 +6,11 @@ import { Outputs, Install, Initial } from 'typings';
 
 export let outputs: Output<Outputs>;
 
+const INSTALL_STACK = new StackReference(Consts.INSTALL_STACK_NAME);
+const INITIAL_STACK = new StackReference(Consts.INITIAL_STACK_NAME);
+
 const start = () => {
-  outputs = all([Consts.INSTALL_STACK.outputs, Consts.INITIAL_STACK.outputs]).apply<Outputs>(([item1, item2]) => {
+  outputs = all([INSTALL_STACK.outputs, INITIAL_STACK.outputs]).apply<Outputs>(([item1, item2]) => {
     const install = item1.outputs as Install.Outputs;
     const init = item2.outputs as Initial.Outputs;
 
