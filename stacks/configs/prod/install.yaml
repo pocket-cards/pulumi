@@ -2,18 +2,18 @@ config:
   aws:region: ap-northeast-1
   pulumi:template: aws-typescript
   pocket-cards:GITHUB_WEBHOOK_SECRET:
-    secure: AAABAPxp7HS2OwvmhLrz6FAOOZfEDu+GqKbCd6NaC+LbEra1RcbGtTCC2g+VmGTQ8a5veXL5VwBdfW048k36CFiny9DjfYhd
+    secure: AAABAF9s9UwXV+DYDF9/sbHwiLea+TGKbcZaQtw4qdBDyFuobTzuKAAXnj2KSVzUl28cuzVJIKTg6FA5/s0V2gHoMqNvjN7w
   pocket-cards:GOOGLE_APP_CLIENT_ID:
-    secure: AAABALWtKglDqyC/hclpk24hJxU9EIogF+16KdwZjlc7camHG+l8JkeJ1H5H501cDX9xrLodXZ7Fec6qK59yNKHjddJrkIEmDJmio08czxMBRnk2alaPVbp1sv8/AM5eI0le0OzzGg==
+    secure: AAABABErd8XW6Roand5BB+z+etOWNuxRavXJ8PaByDGS2LlOzxW2s6gr1xJv5MXjSp+hwp/BAmgkk+duQVGN0hoBYllVQajmoJqTa/j6OL/huWmb+akFtS8UEGNgPt4VvPi6oCfBOg==
   pocket-cards:GOOGLE_APP_SECRET:
-    secure: AAABADEWtP9jRvESnoWkfTv97Uhzx6HA0QL3EnP6LdZGfS4iMArlKu0HrqoxgFEbpGrtT2v+EjQ=
+    secure: AAABAOAILaOLXoVRnfqPZVu5cYJ+bTbWHlUEKPiNEfhHSPmZAqwyo0FTffct6y2KZlWFKXhUjv8=
   pocket-cards:IPA_API_KEY:
-    secure: AAABADWCUWNsYvM6TA4SO1YA5SooNTKm7nsB+z+lNm7BIRvGVNR5UrYIvc4fuQGfmxwLhqaeHPRvjxMuv6sfz6HzKer8mjPR
+    secure: AAABAOCym/mMDiMR5BlxAjk03g5Mi5CSAjQOrWvqDVv+ZUwlZOaXeANqB21jnLqLGGV8O/6iebh+DZnH56cHqPMjQf/ARDNE
   pocket-cards:IPA_URL:
-    secure: AAABAFjJ55CEAF6Bgvf2tUsRUJLuhy8J1uEjQB8BFvG6WhqXEqR2IvoUA0bweOO6bOqy7A+80mr/pWMW49uZqGoXvSDU3kwGGk1FGFwH4915E1hraYSDf333l3OlYQ==
+    secure: AAABABP/OGFY1Fu9c/GETBAhRKGmG8qZPVPlgE+qTnPwF2wsZgptMl8Nd+Ro3ygQke7qGWnWLrF94F3rc9R5o8afyr0eRtI5nyL7oO0Ma1EVdb6TABtO37nq2yEfMw==
   pocket-cards:PULUMI_ACCESS_TOKEN:
-    secure: AAABAN1EgV5UT3BohSJUQIXpJ7cM0YT7nbKYgjO6yC30XBegSMQIIrdMjLG+JayHdHK3vQJjEIW3UElw7w2HJ9wfjNwKfhNsr08T/g==
+    secure: AAABAMG2f6JJJkXgzl0+h43guwPgT2+tpqX+YzTOK5BV41x97agopeSLa0EFfkT2pueBNy00aqp0lg+bb5RMzB89xgPQPP6pXT044Q==
   pocket-cards:TRANSLATION_API_KEY:
-    secure: AAABAEzI0cEFv3Bp7cFIa138uOJUzR6hFI5QSB4eUEpppXApysM5Zgh6uJVc6pXb50Pr3oElinrGW4c5aekqQRIMpAFB6So=
+    secure: AAABAAV75joJmVMPptIvtyXdSYyv4Yi2brhY9IyUEXNyofAZdOBhQMAXeCN3dNcoXXgQJX6U6PahjZCIK9C1tAwxXPKKyhs=
   pocket-cards:TRANSLATION_URL:
-    secure: AAABAKKvhzKGCWdsVbHLZWvvmSb/UVp74Lj2hG078E1aHkSD/tZj9FDrGHgyEPHPn44XvqYA1vYI4QrUWuYhN43Tal/rzhi54H0ihj5gq826+xANSgbUVA==
+    secure: AAABAAQzzyb1fZrDmb0et7bEhL5+kui0gvUIFZ2eySK/t63MA2xlV+lAnyxPkBJ3jLB/Hky3AmNjHHG9lwDRg13aP94PP6t+m3+fcuyjwaGxbelqq6ZEfg==
