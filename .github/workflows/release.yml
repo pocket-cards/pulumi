@@ -28,6 +28,13 @@ jobs:
           ln -s ../../typings initial/typings
           ln -s ../../typings architecture/typings
 
+      # add package.json
+      - name: add package.json
+        run: |
+          cp package.json stacks/install
+          cp package.json stacks/initial
+          cp package.json stacks/architecture
+
       # install nodejs
       - uses: actions/setup-node@master
         with:
