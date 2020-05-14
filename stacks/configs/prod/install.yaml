@@ -1,19 +1,19 @@
 config:
   aws:region: ap-northeast-1
-  pocket-cards:GITHUB_WEBHOOK_SECRET:
-    secure: AAABAF0rfQIVSTvtbBOH7XkMqrg/mUHRCBzEM+FHamTidGGhbjfmVaIotuxbqSeRgSWgsklo7jT1H5gMj305kf7BFsT7sjr5
-  pocket-cards:PULUMI_ACCESS_TOKEN:
-    secure: AAABAMNrJn83ZATmDODVfLK0+KM0h08ZX5q1dwIEJi6EdbZ5PcHd52w1cxhWD3YF1WFVt+kCza/uLETzuz2jhvSuFpa7ifNqIL+yFg==
-  pocket-cards:IPA_API_KEY:
-    secure: AAABAGvehF7Q6oaLlRm1AaCRJPFqRor0tNP+cbbHisLrHvhO+vGEeabn5f4a2mf3nnE7DiNvxxowOMA9ChqZrbgBw1Pu+JQA
-  pocket-cards:IPA_URL:
-    secure: AAABAPR0IDB0unJHRhV0BukVk9A15kgUWgbfTFmXIah+T/+eLWMifef1OUbUsuoXNJFICsR0oy6BcDkeBREAWRlfmhhblP/hN9Ze/gMBcH7HDXG201gt7ZiWc8dRjw==
-  pocket-cards:TRANSLATION_API_KEY:
-    secure: AAABAPyqsr1jTrggi8FlpaQqHqGp2k6ljXCnqpSIgr6L86ij6bT9Bh/E1zmjGKTdPCU1soYr+4moVZGfhlXKnG0VI5KOwe4=
-  pocket-cards:TRANSLATION_URL:
-    secure: AAABAFhdIBMSMnX2dVGcTcWo6RHTp8NIRtt8o0CV4KJZD8WEeBAWKu3vtkW4qGvaK/LZuZb5UxGiFttVntFqyu+QThTcqIHRd87YQcbCofeDUgWakq4wZA==
-  pocket-cards:GOOGLE_APP_CLIENT_ID:
-    secure: AAABACvAjx1w5Hba/9p8EkCl4Mx6+tvBHrVNHFYbFi2xuP9iJb2jlhchuLSvokC/hHt0BpITq/KY+QQzgJ/mm1Z91szNG8AlYUiDI4EtzYq3mLF6IlnVcNONLUDjc9uIIamJBOzwww==
-  pocket-cards:GOOGLE_APP_SECRET:
-    secure: AAABAJDgh1qq2mxYoCzsBkwL3oMrUVGN4sD1Y7ezZ4g2a0YhJGn4yV1PWCA98qU6848AOAE5FtI=
   pulumi:template: aws-typescript
+  pocket-cards:GITHUB_WEBHOOK_SECRET:
+    secure: AAABAPxp7HS2OwvmhLrz6FAOOZfEDu+GqKbCd6NaC+LbEra1RcbGtTCC2g+VmGTQ8a5veXL5VwBdfW048k36CFiny9DjfYhd
+  pocket-cards:GOOGLE_APP_CLIENT_ID:
+    secure: AAABALWtKglDqyC/hclpk24hJxU9EIogF+16KdwZjlc7camHG+l8JkeJ1H5H501cDX9xrLodXZ7Fec6qK59yNKHjddJrkIEmDJmio08czxMBRnk2alaPVbp1sv8/AM5eI0le0OzzGg==
+  pocket-cards:GOOGLE_APP_SECRET:
+    secure: AAABADEWtP9jRvESnoWkfTv97Uhzx6HA0QL3EnP6LdZGfS4iMArlKu0HrqoxgFEbpGrtT2v+EjQ=
+  pocket-cards:IPA_API_KEY:
+    secure: AAABADWCUWNsYvM6TA4SO1YA5SooNTKm7nsB+z+lNm7BIRvGVNR5UrYIvc4fuQGfmxwLhqaeHPRvjxMuv6sfz6HzKer8mjPR
+  pocket-cards:IPA_URL:
+    secure: AAABAFjJ55CEAF6Bgvf2tUsRUJLuhy8J1uEjQB8BFvG6WhqXEqR2IvoUA0bweOO6bOqy7A+80mr/pWMW49uZqGoXvSDU3kwGGk1FGFwH4915E1hraYSDf333l3OlYQ==
+  pocket-cards:PULUMI_ACCESS_TOKEN:
+    secure: AAABAN1EgV5UT3BohSJUQIXpJ7cM0YT7nbKYgjO6yC30XBegSMQIIrdMjLG+JayHdHK3vQJjEIW3UElw7w2HJ9wfjNwKfhNsr08T/g==
+  pocket-cards:TRANSLATION_API_KEY:
+    secure: AAABAEzI0cEFv3Bp7cFIa138uOJUzR6hFI5QSB4eUEpppXApysM5Zgh6uJVc6pXb50Pr3oElinrGW4c5aekqQRIMpAFB6So=
+  pocket-cards:TRANSLATION_URL:
+    secure: AAABAKKvhzKGCWdsVbHLZWvvmSb/UVp74Lj2hG078E1aHkSD/tZj9FDrGHgyEPHPn44XvqYA1vYI4QrUWuYhN43Tal/rzhi54H0ihj5gq826+xANSgbUVA==
