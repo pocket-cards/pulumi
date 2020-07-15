@@ -35,5 +35,6 @@ export { default as ECS_Task } from './policy/ECS_Task';
 export { default as ECS_TaskExecution } from './policy/ECS_TaskExecution';
 export { default as Cognito_Authenticated } from './policy/Cognito_Authenticated';
 export { default as Lambda_Basic } from './policy/Lambda_Basic';
+export { default as Lambda_Dynamodb } from './policy/Lambda_Dynamodb';
 export { default as Lambda_CloudFront_Invalidation } from './policy/Lambda_CloudFront_Invalidation';
 export { default as SNS_Topic } from './policy/SNS_Topic';

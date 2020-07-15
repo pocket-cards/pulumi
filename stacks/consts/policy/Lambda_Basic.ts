@@ -9,9 +9,7 @@ export default JSON.parse(`
         "logs:CreateLogStream",
         "logs:PutLogEvents"
       ],
-      "Resource": [
-        "arn:aws:logs:ap-northeast-1:*:*"
-      ]
+      "Resource": "*"
     }
   ]
 }

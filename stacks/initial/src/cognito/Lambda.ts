@@ -42,7 +42,7 @@ const getRole = () => {
   new iam.RolePolicy('iam.policy.lambda.cognito', {
     name: 'inline_policy',
     role: role.id,
-    policy: Policy.Lambda_Basic,
+    policy: Policy.Lambda_Dynamodb,
   });
   return role;
 };
