@@ -8,7 +8,9 @@ const start = () => {
   // create dynamodb tables
   const dynamoDB = DynamoDB();
   // create cognito
-  const cognito = Cognito();
+  const cognito = Cognito({
+    Dynamodb: dynamoDB,
+  });
   // create ECR
   const ecr = ECR();
 

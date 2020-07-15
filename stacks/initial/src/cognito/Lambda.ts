@@ -1,8 +1,9 @@
 import { iam, lambda } from '@pulumi/aws';
 import { Principals, Consts, Policy } from '../../../consts';
 import { AssetArchive, StringAsset } from '@pulumi/pulumi/asset';
+import { Initial } from 'typings';
 
-export default () => {
+export default (inputs: Initial.CognitoInputs) => {
   const role = getRole();
 
   const func = new lambda.Function('lambda.function.cognito', {
@@ -22,6 +23,11 @@ export default () => {
     role: role.arn,
     runtime: 'nodejs12.x',
     memorySize: 256,
+    environment: {
+      variables: {
+        TABLE_USERS: inputs.Dynamodb.Users.name,
+      },
+    },
   });
 
   return func;

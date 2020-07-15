@@ -7,8 +7,8 @@ import Lambda from './Lambda';
 import { Initial } from 'typings';
 import IdentityProvider from './IdentityProvider';
 
-export default (): Initial.CognitoOutputs => {
-  const func = Lambda();
+export default (inputs: Initial.CognitoInputs): Initial.CognitoOutputs => {
+  const func = Lambda(inputs);
   // ユーザプール
   const pool = UserPool(func);
   // google provider
