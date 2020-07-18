@@ -173,7 +173,6 @@ export namespace Backend {
       API: apigatewayv2.Api;
       Integration: apigatewayv2.Integration;
       Authorizer: apigatewayv2.Authorizer;
-      Route: apigatewayv2.Route;
       Stage: apigatewayv2.Stage;
       APIMapping?: apigatewayv2.ApiMapping;
     }

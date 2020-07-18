@@ -22,7 +22,7 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
       apiId: api.id,
       integrationType: 'HTTP_PROXY',
       integrationMethod: 'ANY',
-      integrationUri: 'http://13.231.186.142/{proxy}',
+      integrationUri: 'http://18.183.195.186/{proxy}',
       passthroughBehavior: 'WHEN_NO_MATCH',
     },
     {
@@ -41,11 +41,37 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
     },
   });
 
-  const route = new apigatewayv2.Route('apigateway.route', {
+  const proxy_post = new apigatewayv2.Route('apigateway.route.proxy.post', {
     apiId: api.id,
-    routeKey: 'ANY /{proxy+}',
+    routeKey: 'POST /{proxy+}',
     authorizationType: 'JWT',
     authorizerId: authorizer.id,
+    target: interpolate`integrations/${integration.id}`,
+  });
+  const proxy_put = new apigatewayv2.Route('apigateway.route.proxy.put', {
+    apiId: api.id,
+    routeKey: 'PUT /{proxy+}',
+    authorizationType: 'JWT',
+    authorizerId: authorizer.id,
+    target: interpolate`integrations/${integration.id}`,
+  });
+  const proxy_get = new apigatewayv2.Route('apigateway.route.proxy.get', {
+    apiId: api.id,
+    routeKey: 'GET /{proxy+}',
+    authorizationType: 'JWT',
+    authorizerId: authorizer.id,
+    target: interpolate`integrations/${integration.id}`,
+  });
+  const proxy_delete = new apigatewayv2.Route('apigateway.route.proxy.delete', {
+    apiId: api.id,
+    routeKey: 'DELETE /{proxy+}',
+    authorizationType: 'JWT',
+    authorizerId: authorizer.id,
+    target: interpolate`integrations/${integration.id}`,
+  });
+  const proxy_options = new apigatewayv2.Route('apigateway.route.proxy.options', {
+    apiId: api.id,
+    routeKey: 'OPTIONS /{proxy+}',
     target: interpolate`integrations/${integration.id}`,
   });
 
@@ -75,7 +101,6 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
     API: api,
     Authorizer: authorizer,
     Integration: integration,
-    Route: route,
     Stage: stage,
     APIMapping: mapping,
   };
