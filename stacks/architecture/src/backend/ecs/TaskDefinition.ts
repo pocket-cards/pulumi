@@ -123,7 +123,7 @@ const TASK_DEFINITION = (def: TaskDefinition) =>
       "name": "Backend",
       "portMappings": [
         {
-          "containerPort": 8080,
+          "containerPort": 80,
           "hostPort": 80,
           "protocol": "tcp"
         }
