@@ -6,7 +6,7 @@ import { Consts } from '../../../../consts';
 
 export default (inputs: Frontend.CodePipeline.Inputs): Frontend.CodePipeline.Outputs => {
   // create codebuild backend
-  const codebuild = CodeBuild(inputs.Cognito);
+  const codebuild = CodeBuild(inputs);
   // create codebuild backend
   const pipeline = CodePipeline(inputs.Bucket.Artifact, inputs.Bucket.Frontend, codebuild);
 

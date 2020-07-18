@@ -53,6 +53,7 @@ export namespace Initial {
   interface CognitoOutputs {
     UserPool: cognito.UserPool;
     UserPoolClient: cognito.UserPoolClient;
+    UserPoolDomain: cognito.UserPoolDomain;
     IdentityPool: cognito.IdentityPool;
   }
 

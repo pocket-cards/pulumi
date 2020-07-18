@@ -70,7 +70,7 @@ export default (inputs: Frontend.CodePipeline.Inputs) => {
         },
         {
           name: 'AUTH_DOMAIN',
-          value: `${Consts.AUTH_DOMAIN}.auth.ap-northeast-1.amazoncognito.com`,
+          value: `${inputs.Cognito.UserPoolDomain.domain}.auth.ap-northeast-1.amazoncognito.com`,
         },
         {
           name: 'AUTH_SIGN_IN_URL',

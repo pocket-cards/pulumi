@@ -39,6 +39,9 @@ jobs:
       # install library
       - run: yarn install
 
+      # build
+      - run: tsc --noemit
+
       # install stack
       - uses: docker://pulumi/actions
         with:

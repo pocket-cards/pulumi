@@ -45,6 +45,7 @@ export namespace Frontend {
   interface CognitoInputs {
     UserPool: cognito.UserPool;
     UserPoolClient: cognito.UserPoolClient;
+    UserPoolDomain: cognito.UserPoolDomain;
     IdentityPool: cognito.IdentityPool;
   }
 
@@ -125,6 +126,7 @@ export namespace Frontend {
     interface CognitoInputs {
       UserPool: cognito.UserPool;
       UserPoolClient: cognito.UserPoolClient;
+      UserPoolDomain: cognito.UserPoolDomain;
       IdentityPool: cognito.IdentityPool;
     }
   }

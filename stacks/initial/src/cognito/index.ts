@@ -31,6 +31,7 @@ export default (inputs: Initial.CognitoInputs): Initial.CognitoOutputs => {
   return {
     UserPool: pool,
     UserPoolClient: poolClient,
+    UserPoolDomain: domain,
     IdentityPool: identity,
   };
 };
