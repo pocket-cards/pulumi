@@ -42,7 +42,7 @@ jobs:
       # install stack
       - uses: docker://pulumi/actions
         with:
-          args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-install --config-file ../configs/$ENVIRONMENT/install.yaml
+          args: up -e -y -p 100 --skip-preview --config-file ../configs/$ENVIRONMENT/install.yaml
         env:
           PULUMI_CI: up
           PULUMI_ROOT: stacks/install
@@ -52,7 +52,7 @@ jobs:
       # initial stack
       - uses: docker://pulumi/actions
         with:
-          args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml
+          args: up -e -y -p 100 --skip-preview --config-file ../configs/$ENVIRONMENT/initial.yaml
         env:
           PULUMI_CI: up
           PULUMI_ROOT: stacks/initial
@@ -62,7 +62,7 @@ jobs:
       # architecture stack
       - uses: docker://pulumi/actions
         with:
-          args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-architecture --config-file ../configs/$ENVIRONMENT/main.yaml
+          args: up -e -y -p 100 --skip-preview --config-file ../configs/$ENVIRONMENT/main.yaml
         env:
           PULUMI_CI: up
           PULUMI_ROOT: stacks/architecture
