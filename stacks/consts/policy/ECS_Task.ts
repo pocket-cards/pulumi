@@ -19,7 +19,27 @@ export default JSON.parse(`
         "logs:PutLogEvents"
       ],
       "Resource": "*"
-    }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "dynamodb:Scan",
+          "dynamodb:Query"
+      ],
+      "Resource": "arn:aws:dynamodb:*:*:table/*/index/*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:GetItem",
+          "dynamodb:Scan",
+          "dynamodb:Query",
+          "dynamodb:UpdateItem"
+      ],
+      "Resource": "arn:aws:dynamodb:*:*:table/*"
+     }
   ]
 }
 `);
