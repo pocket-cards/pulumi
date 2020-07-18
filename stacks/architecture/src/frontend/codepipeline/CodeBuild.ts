@@ -1,6 +1,6 @@
 import { codebuild, iam } from '@pulumi/aws';
 import { Principals, Policy, Consts, Envs } from '../../../../consts';
-import { Initial, Frontend } from 'typings';
+import { Frontend } from 'typings';
 
 /** CodePipeline Role */
 const getRole = () => {
@@ -22,7 +22,7 @@ const getRole = () => {
   return role;
 };
 
-export default (cognito: Frontend.CodePipeline.CognitoInputs) => {
+export default (inputs: Frontend.CodePipeline.Inputs) => {
   const resourceName = `${Consts.PROJECT_NAME_UC}-Frontend`;
   // service role
   const serviceRole = getRole();
@@ -45,16 +45,20 @@ export default (cognito: Frontend.CodePipeline.CognitoInputs) => {
           value: Envs.ENVIRONMENT,
         },
         {
+          name: 'BUCKET_WEB',
+          value: inputs.Bucket.Frontend.bucket,
+        },
+        {
           name: 'USER_POOL_ID',
-          value: cognito.UserPool.id,
+          value: inputs.Cognito.UserPool.id,
         },
         {
           name: 'USER_POOL_WEB_CLIENT_ID',
-          value: cognito.UserPoolClient.id,
+          value: inputs.Cognito.UserPoolClient.id,
         },
         {
           name: 'IDENTITY_POOL_ID',
-          value: cognito.IdentityPool.id,
+          value: inputs.Cognito.IdentityPool.id,
         },
         {
           name: 'API_URL',
