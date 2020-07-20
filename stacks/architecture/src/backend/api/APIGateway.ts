@@ -7,13 +7,13 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
   const api = new apigatewayv2.Api('apigateway.api.backend', {
     name: Consts.PROJECT_NAME,
     protocolType: 'HTTP',
-    corsConfiguration: {
-      allowCredentials: true,
-      allowHeaders: ['authorization'],
-      allowMethods: ['*'],
-      allowOrigins: ['http://localhost:3000', `https://card.${Consts.DOMAIN_NAME()}`],
-      maxAge: 300,
-    },
+    // corsConfiguration: {
+    //   allowCredentials: true,
+    //   allowHeaders: ['authorization'],
+    //   allowMethods: ['*'],
+    //   allowOrigins: ['http://localhost:3000', `https://card.${Consts.DOMAIN_NAME()}`],
+    //   maxAge: 300,
+    // },
   });
 
   const integration = new apigatewayv2.Integration(
@@ -48,6 +48,7 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
     authorizerId: authorizer.id,
     target: interpolate`integrations/${integration.id}`,
   });
+
   const proxy_put = new apigatewayv2.Route('apigateway.route.proxy.put', {
     apiId: api.id,
     routeKey: 'PUT /{proxy+}',
@@ -55,6 +56,7 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
     authorizerId: authorizer.id,
     target: interpolate`integrations/${integration.id}`,
   });
+
   const proxy_get = new apigatewayv2.Route('apigateway.route.proxy.get', {
     apiId: api.id,
     routeKey: 'GET /{proxy+}',
@@ -62,6 +64,7 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
     authorizerId: authorizer.id,
     target: interpolate`integrations/${integration.id}`,
   });
+
   const proxy_delete = new apigatewayv2.Route('apigateway.route.proxy.delete', {
     apiId: api.id,
     routeKey: 'DELETE /{proxy+}',
@@ -69,6 +72,7 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
     authorizerId: authorizer.id,
     target: interpolate`integrations/${integration.id}`,
   });
+
   const proxy_options = new apigatewayv2.Route('apigateway.route.proxy.options', {
     apiId: api.id,
     routeKey: 'OPTIONS /{proxy+}',
@@ -92,7 +96,7 @@ export default (cognito: Backend.CognitoInputs, domain: apigatewayv2.DomainName)
       apiId: api.id,
       domainName: domain.domainName,
       stage: stage.id,
-      apiMappingKey: '',
+      apiMappingKey: 'v1',
     },
     { dependsOn: stage, deleteBeforeReplace: true }
   );

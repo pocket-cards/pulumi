@@ -62,11 +62,11 @@ export default (inputs: Frontend.CodePipeline.Inputs) => {
         },
         {
           name: 'API_URL',
-          value: `https://api.${Consts.DOMAIN_NAME()}`,
+          value: `https://api.${Consts.DOMAIN_NAME()}/v1`,
         },
         {
           name: 'API_SERVER_URL',
-          value: `https://api.${Consts.DOMAIN_NAME()}`,
+          value: `https://api.${Consts.DOMAIN_NAME()}/ctrl`,
         },
         {
           name: 'AUTH_DOMAIN',
