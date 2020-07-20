@@ -4,9 +4,9 @@ config:
   pocket-cards:GITHUB_WEBHOOK_SECRET:
     secure: AAABAF9s9UwXV+DYDF9/sbHwiLea+TGKbcZaQtw4qdBDyFuobTzuKAAXnj2KSVzUl28cuzVJIKTg6FA5/s0V2gHoMqNvjN7w
   pocket-cards:GOOGLE_APP_CLIENT_ID:
-    secure: AAABABErd8XW6Roand5BB+z+etOWNuxRavXJ8PaByDGS2LlOzxW2s6gr1xJv5MXjSp+hwp/BAmgkk+duQVGN0hoBYllVQajmoJqTa/j6OL/huWmb+akFtS8UEGNgPt4VvPi6oCfBOg==
+    secure: AAABADlDz7owM5z/0kyEt1uT3GXNV3YT6lmlhlvp6xbAKHKdJ4VItUkcL+gxn/93bQhITKH4XY9XG+7UFfL24maIV9bcmsVjjesM88C9z4BghUp9aio8u4D7FbMvXigyXewo87V29Q==
   pocket-cards:GOOGLE_APP_SECRET:
-    secure: AAABAOAILaOLXoVRnfqPZVu5cYJ+bTbWHlUEKPiNEfhHSPmZAqwyo0FTffct6y2KZlWFKXhUjv8=
+    secure: AAABANaoIhveY5pXDFi49vAOb9g+BIyez5kw8mSDhmFDIGKurnonsOTLVOn3xEB3GGJlV0n/4ZE=
   pocket-cards:IPA_API_KEY:
     secure: AAABAOCym/mMDiMR5BlxAjk03g5Mi5CSAjQOrWvqDVv+ZUwlZOaXeANqB21jnLqLGGV8O/6iebh+DZnH56cHqPMjQf/ARDNE
   pocket-cards:IPA_URL:
