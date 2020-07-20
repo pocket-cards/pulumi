@@ -114,7 +114,7 @@ const TASK_DEFINITION = (def: TaskDefinition) =>
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-create-group": true,
+          "awslogs-create-group": "true",
           "awslogs-group": "/ecs/PocketCards",
           "awslogs-region": "ap-northeast-1",
           "awslogs-stream-prefix": "ecs"
