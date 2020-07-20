@@ -30,7 +30,7 @@ export default (cluster: ecs.Cluster, taskDef: ecs.TaskDefinition, inputs: Backe
     cluster: cluster.arn,
     desiredCount: 0,
     // launchType: 'FARGATE',
-    platformVersion: 'LATEST',
+    platformVersion: '1.4.0',
     taskDefinition: interpolate`${taskDef.id}:${taskDef.revision.apply((item) => item.toString())}`,
     deploymentMaximumPercent: 200,
     deploymentMinimumHealthyPercent: 100,
