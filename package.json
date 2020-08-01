@@ -18,7 +18,7 @@
     "state:export": "pulumi stack export --file state.json"
   },
   "dependencies": {
-    "@pulumi/aws": "^2.13.1",
+    "@pulumi/aws": "^2.13.0",
     "@pulumi/awsx": "^0.20.0",
     "@pulumi/pulumi": "^2.7.1"
   }
