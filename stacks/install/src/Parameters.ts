@@ -62,4 +62,18 @@ export default (): void => {
     value: config.requireSecret(Consts.GOOGLE_APP_SECRET),
     overwrite: true,
   });
+
+  new ssm.Parameter('ssm.parameter.vision_url', {
+    name: Consts.SSM_KEY_VISION_URL,
+    type: 'SecureString',
+    value: config.requireSecret(Consts.VISION_URL),
+    overwrite: true,
+  });
+
+  new ssm.Parameter('ssm.parameter.vision_api_key', {
+    name: Consts.SSM_KEY_VISION_API_KEY,
+    type: 'SecureString',
+    value: config.requireSecret(Consts.VISION_API_KEY),
+    overwrite: true,
+  });
 };

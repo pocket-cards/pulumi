@@ -131,20 +131,28 @@ const TASK_DEFINITION = (def: TaskDefinition) =>
       ],
       "secrets": [
         {
-          "name": "IPA_URL",
-          "valueFrom": "/${Consts.PROJECT_NAME}/ipa-url"
+          "name": "${Consts.IPA_URL}",
+          "valueFrom": "${Consts.SSM_KEY_IPA_URL}"
         },
         {
-          "name": "IPA_API_KEY",
-          "valueFrom": "/${Consts.PROJECT_NAME}/ipa-api-key"
+          "name": "${Consts.IPA_API_KEY}",
+          "valueFrom": "${Consts.SSM_KEY_IPA_API_KEY}"
         },
         {
-          "name": "TRANSLATION_URL",
-          "valueFrom": "/${Consts.PROJECT_NAME}/translation-url"
+          "name": "${Consts.TRANSLATION_URL}",
+          "valueFrom": "${Consts.SSM_KEY_TRANSLATION_URL}"
         },
         {
-          "name": "TRANSLATION_API_KEY",
-          "valueFrom": "/${Consts.PROJECT_NAME}/translation-api-key"
+          "name": "${Consts.TRANSLATION_API_KEY}",
+          "valueFrom": "${Consts.SSM_KEY_TRANSLATION_API_KEY}"
+        },
+        {
+          "name": "${Consts.VISION_URL}",
+          "valueFrom": "${Consts.SSM_KEY_VISION_URL}"
+        },
+        {
+          "name": "${Consts.VISION_API_KEY}",
+          "valueFrom": "${Consts.SSM_KEY_VISION_API_KEY}"
         }
       ],
       "volumesFrom": []

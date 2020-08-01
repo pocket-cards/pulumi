@@ -17,3 +17,7 @@ config:
     secure: AAABAAV75joJmVMPptIvtyXdSYyv4Yi2brhY9IyUEXNyofAZdOBhQMAXeCN3dNcoXXgQJX6U6PahjZCIK9C1tAwxXPKKyhs=
   pocket-cards:TRANSLATION_URL:
     secure: AAABAAQzzyb1fZrDmb0et7bEhL5+kui0gvUIFZ2eySK/t63MA2xlV+lAnyxPkBJ3jLB/Hky3AmNjHHG9lwDRg13aP94PP6t+m3+fcuyjwaGxbelqq6ZEfg==
+  pocket-cards:VISION_API_KEY:
+    secure: AAABAOyGv6G/yvXgskskEf9dVLmmDfA0HoxChOOVmbccxsyDX+qNRDyeUxYvtLX42QVzCzD7Hp21mzVn
+  pocket-cards:VISION_URL:
+    secure: AAABAHYVbdTVzpHTZGt/16rd8bHL/i9Yo7jvmE2mHUcTf2h6Vp7S5bVNStn5vobR1QUkCiQqB5UJwUWln3xnKwOBRNyjZ+fC

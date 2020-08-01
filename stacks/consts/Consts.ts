@@ -9,6 +9,10 @@ export const PULUMI_ACCESS_TOKEN = 'PULUMI_ACCESS_TOKEN';
 export const IPA_URL = 'IPA_URL';
 /** IPA API Key */
 export const IPA_API_KEY = 'IPA_API_KEY';
+/** Vision URL */
+export const VISION_URL = 'VISION_URL';
+/** Vision API Key */
+export const VISION_API_KEY = 'VISION_API_KEY';
 /** Translation Url */
 export const TRANSLATION_URL = 'TRANSLATION_URL';
 /** Translation API Key */
@@ -60,6 +64,9 @@ export const SSM_KEY_TRANSLATION_API_KEY = `/${PROJECT_NAME}/${TRANSLATION_API_K
 
 export const SSM_KEY_GOOGLE_APP_CLIENT_ID = `/${PROJECT_NAME}/${GOOGLE_APP_CLIENT_ID.toLowerCase().replace(/_/g, '-')}`;
 export const SSM_KEY_GOOGLE_APP_SECRET = `/${PROJECT_NAME}/${GOOGLE_APP_SECRET.toLowerCase().replace(/_/g, '-')}`;
+
+export const SSM_KEY_VISION_URL = `/${PROJECT_NAME}/${VISION_URL.toLowerCase().replace(/_/g, '-')}`;
+export const SSM_KEY_VISION_API_KEY = `/${PROJECT_NAME}/${VISION_API_KEY.toLowerCase().replace(/_/g, '-')}`;
 
 /** Tables */
 export const TABLE_HISTORY = `${PROJECT_NAME_UC}_History`;
