@@ -41,15 +41,8 @@ jobs:
       # build
       - run: tsc --noemit
 
-      - uses: docker://pulumi/actions
-        with:
-          args: plugin install resource aws v2.13.1
-        env:
-          PULUMI_CI: plugin
-          PULUMI_ROOT: stacks/install
-
       # install stack
-      - uses: docker://pulumi/actions
+      - uses: docker://pulumi/actions:v2.6.1
         with:
           args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-install --config-file ../configs/$ENVIRONMENT/install.yaml
         env:
@@ -57,7 +50,7 @@ jobs:
           PULUMI_ROOT: stacks/install
 
       # initial stack
-      - uses: docker://pulumi/actions
+      - uses: docker://pulumi/actions:v2.6.1
         with:
           args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml
         env:
@@ -65,7 +58,7 @@ jobs:
           PULUMI_ROOT: stacks/initial
 
       # architecture stack
-      - uses: docker://pulumi/actions
+      - uses: docker://pulumi/actions:v2.6.1
         with:
           args: up -e -y -p 100 --skip-preview -s $ENVIRONMENT-architecture --config-file ../configs/$ENVIRONMENT/main.yaml
         env:
