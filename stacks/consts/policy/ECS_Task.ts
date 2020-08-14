@@ -39,7 +39,14 @@ export default JSON.parse(`
           "dynamodb:UpdateItem"
       ],
       "Resource": "arn:aws:dynamodb:*:*:table/*"
-     }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "polly:SynthesizeSpeech"
+      ],
+      "Resource": "*"
+    }
   ]
 }
 `);

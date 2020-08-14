@@ -20,13 +20,6 @@ export const CodePipeline = JSON.parse(`{
         "codebuild:StartBuild"
       ],
       "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "polly:SynthesizeSpeech"
-      ],
-      "Resource": "*"
     }
   ]
 }
