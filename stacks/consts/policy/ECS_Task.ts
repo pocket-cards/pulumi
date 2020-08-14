@@ -16,7 +16,9 @@ export default JSON.parse(`
         "ecr:CompleteLayerUpload",
         "logs:CreateLogGroup",
         "logs:CreateLogStream",
-        "logs:PutLogEvents"
+        "logs:PutLogEvents",
+        "polly:SynthesizeSpeech",
+        "s3:PutObject"
       ],
       "Resource": "*"
     },
