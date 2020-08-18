@@ -19,6 +19,7 @@ export default (inputs: Backend.ECS.Inputs) => {
         TABLE_WORD_MASTER: inputs.TaskDef.TABLE_WORD_MASTER,
         MP3_BUCKET: inputs.S3.Audio.bucket,
         PATH_PATTERN: 'audio',
+        WORDS_LIMIT: 10,
       }),
       family: `${Consts.PROJECT_NAME_UC}`,
       taskRoleArn: taskRole.arn,
@@ -75,6 +76,7 @@ interface TaskDefinition {
   REPO_URL: Output<string>;
   MP3_BUCKET: Output<string>;
   PATH_PATTERN: string;
+  WORDS_LIMIT: number;
 }
 
 const TASK_DEFINITION = (def: TaskDefinition) =>
@@ -84,7 +86,7 @@ const TASK_DEFINITION = (def: TaskDefinition) =>
       "environment": [
         {
           "name": "WORDS_LIMIT",
-          "value": "10"
+          "value": "${def.WORDS_LIMIT}"
         },
         {
           "name": "TABLE_GROUPS",
