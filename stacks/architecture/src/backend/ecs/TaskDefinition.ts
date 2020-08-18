@@ -18,6 +18,7 @@ export default (inputs: Backend.ECS.Inputs) => {
         TABLE_WORDS: inputs.TaskDef.TABLE_WORDS,
         TABLE_WORD_MASTER: inputs.TaskDef.TABLE_WORD_MASTER,
         MP3_BUCKET: inputs.S3.Audio.bucket,
+        PATH_PATTERN: 'audio',
       }),
       family: `${Consts.PROJECT_NAME_UC}`,
       taskRoleArn: taskRole.arn,
@@ -73,6 +74,7 @@ interface TaskDefinition {
   TABLE_WORDS: Output<string>;
   REPO_URL: Output<string>;
   MP3_BUCKET: Output<string>;
+  PATH_PATTERN: string;
 }
 
 const TASK_DEFINITION = (def: TaskDefinition) =>
@@ -107,6 +109,10 @@ const TASK_DEFINITION = (def: TaskDefinition) =>
         {
           "name": "TABLE_WORDS",
           "value": "${def.TABLE_WORDS}"
+        },
+        {
+          "name": "PATH_PATTERN",
+          "value": "${def.PATH_PATTERN}"
         }
       ],
       "essential": true,
