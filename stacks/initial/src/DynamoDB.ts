@@ -130,7 +130,7 @@ const wordMaster = new dynamodb.Table(
         type: 'S',
       },
     ],
-    readCapacity: 1,
+    readCapacity: 3,
     writeCapacity: 1,
   },
   { protect: false }
