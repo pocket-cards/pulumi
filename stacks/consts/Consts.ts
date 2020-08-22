@@ -69,7 +69,7 @@ export const SSM_KEY_VISION_URL = `/${PROJECT_NAME}/${VISION_URL.toLowerCase().r
 export const SSM_KEY_VISION_API_KEY = `/${PROJECT_NAME}/${VISION_API_KEY.toLowerCase().replace(/_/g, '-')}`;
 
 /** Tables */
-export const TABLE_HISTORY = `${PROJECT_NAME_UC}_History`;
+export const TABLE_HISTORY = `${PROJECT_NAME_UC}_Histories`;
 export const TABLE_GROUPS = `${PROJECT_NAME_UC}_Groups`;
 export const TABLE_USERS = `${PROJECT_NAME_UC}_Users`;
 export const TABLE_WORDS = `${PROJECT_NAME_UC}_Words`;
