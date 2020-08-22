@@ -18,7 +18,7 @@ const history = new dynamodb.Table(
     name: Consts.TABLE_HISTORY,
     attributes: [
       {
-        name: 'userId',
+        name: 'user',
         type: 'S',
       },
       {
@@ -26,7 +26,7 @@ const history = new dynamodb.Table(
         type: 'S',
       },
     ],
-    hashKey: 'userId',
+    hashKey: 'user',
     rangeKey: 'timestamp',
     readCapacity: 1,
     writeCapacity: 1,
